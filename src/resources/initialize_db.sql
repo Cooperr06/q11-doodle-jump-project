@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS account
+(
+    id        INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name      VARCHAR(20) NOT NULL,
+    highscore INT UNSIGNED,
+    coins     INT UNSIGNED
+);
+
+CREATE TABLE IF NOT EXISTS skin
+(
+    id    INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name  VARCHAR(20)  NOT NULL,
+    prize INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS account_skin
+(
+    account_id INT UNSIGNED,
+    skin_id    INT UNSIGNED,
+    FOREIGN KEY (account_id) REFERENCES account (id) ON DELETE SET NULL,
+    FOREIGN KEY (skin_id) REFERENCES skin (id) ON DELETE SET NULL
+);
