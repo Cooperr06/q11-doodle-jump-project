@@ -71,6 +71,22 @@ public class DatabaseManager
         }
     }
 
+    public void deductCoins(int accountId, int coins)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE account SET coins = coins - ? WHERE id = ?"))
+        {
+            statement.setInt(1, coins);
+            statement.setInt(2, accountId);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Executes sql script
      *
