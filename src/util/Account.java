@@ -60,4 +60,45 @@ public class Account
     {
         this.coins -= coins;
     }
+
+    public static class Builder
+    {
+        private String accountName;
+        private int highscore;
+        private Skin[] skins;
+        private int coins;
+
+        public Builder()
+        {
+        }
+
+        public Builder setAccountName(String accountName)
+        {
+            this.accountName = accountName;
+            return this;
+        }
+
+        public Builder setHighscore(int highscore)
+        {
+            this.highscore = highscore;
+            return this;
+        }
+
+        public Builder setSkins(Skin[] skins)
+        {
+            this.skins = skins;
+            return this;
+        }
+
+        public Builder setCoins(int coins)
+        {
+            this.coins = coins;
+            return this;
+        }
+
+        public Account build()
+        {
+            return new Account(accountName, highscore, skins, coins);
+        }
+    }
 }
