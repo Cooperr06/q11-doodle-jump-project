@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS account_skin
 (
     account_id INT UNSIGNED,
     skin_id    INT UNSIGNED,
-    FOREIGN KEY (account_id) REFERENCES account (id) ON DELETE SET NULL,
-    FOREIGN KEY (skin_id) REFERENCES skin (id) ON DELETE SET NULL
+    FOREIGN KEY (account_id) REFERENCES account (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (skin_id) REFERENCES skin (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
