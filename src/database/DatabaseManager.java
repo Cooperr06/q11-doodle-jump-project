@@ -40,7 +40,8 @@ public class DatabaseManager
     {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement accountStatement = connection.prepareStatement("SELECT * FROM account WHERE id = ?");
-             PreparedStatement skinsStatement = connection.prepareStatement("SELECT skin_id FROM account JOIN account_skin ON account.id = account_skin.account_id WHERE account.id = ?"))
+             PreparedStatement skinsStatement = connection.prepareStatement("SELECT skin_id FROM account " +
+                     "JOIN account_skin ON account.id = account_skin.account_id WHERE account.id = ?"))
         {
             // sets the parameter for the query
             accountStatement.setInt(1, accountId);
