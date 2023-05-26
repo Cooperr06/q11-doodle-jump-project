@@ -150,10 +150,10 @@ public class DatabaseManager
         }
     }
 
-    public void addHighscore(int accountId, int highscore)
+    public void setHighscore(int accountId, int highscore)
     {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE account SET coins = ? WHERE id = ?"))
+             PreparedStatement statement = connection.prepareStatement("UPDATE account SET highscore = ? WHERE id = ?"))
         {
             // sets the parameters for the update
             statement.setInt(1, highscore);
