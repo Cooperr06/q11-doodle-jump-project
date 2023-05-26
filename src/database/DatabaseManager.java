@@ -1,6 +1,8 @@
 package database;
 
 import org.mariadb.jdbc.MariaDbPoolDataSource;
+import util.Account;
+import util.Skin;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +34,67 @@ public class DatabaseManager
         executeSql(new File("./src/resources/initialize_db.sql")); // executes the initialization script for first setup
 
         System.out.println("Successfully connected to database");
+    }
+
+    public Account getAccount(int accountId)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement accountStatement = connection.prepareStatement("SELECT * FROM account WHERE id = ?");
+             PreparedStatement skinsStatement = connection.prepareStatement("SELECT skin_id FROM account JOIN account_skin ON account.id = account_skin.account_id WHERE account.id = ?"))
+        {
+            // sets the parameter for the query
+            accountStatement.setInt(1, accountId);
+            skinsStatement.setInt(1, accountId);
+
+            // retrieves all the skin ids the account possesses
+            ResultSet skinsResultSet = skinsStatement.executeQuery();
+            List<Integer> skinIds = new ArrayList<>(); // TODO: Replace with our list
+            while (skinsResultSet.next())
+            {
+                skinIds.add(skinsResultSet.getInt("skin_id"));
+            }
+
+            // goes through every skin id and stores the skins which belong to their skin ids
+            List<Skin> skins = new ArrayList<>(); // TODO: Replace with our list
+            for (Integer skinId : skinIds)
+            {
+                skins.add(Skin.ofId(skinId));
+            }
+
+            ResultSet accountResultSet = accountStatement.executeQuery(); // executes the query and retrieves a result set
+            accountResultSet.next(); // go to first row
+
+            // retrieves all attributes from the database and returns the data
+            return new Account.Builder()
+                    .setAccountName(accountResultSet.getString("accountName"))
+                    .setHighscore(accountResultSet.getInt("highscore"))
+                    .setSkins(skins.toArray(Skin[]::new))
+                    .setCoins(accountResultSet.getInt("coins"))
+                    .build();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null; // return null if an error occurred
+        }
+    }
+
+    public void addAccount(Account account)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO account (name, highscore, coins) VALUES (?, ?, ?)"))
+        {
+            // sets the parameters for the update
+            statement.setString(1, account.getAccountName());
+            statement.setInt(2, account.getHighscore());
+            statement.setInt(3, account.getCoins());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public int getCoins(int accountId)
