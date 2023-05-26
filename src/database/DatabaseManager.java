@@ -87,6 +87,43 @@ public class DatabaseManager
         }
     }
 
+    public void addHighscore(int accountId, int highscore)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE account SET coins = ? WHERE id = ?"))
+        {
+            // sets the parameters for the update
+            statement.setInt(1, highscore);
+            statement.setInt(2, accountId);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public int getHighscore(int accountId)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT highscore FROM account WHERE id = ?"))
+        {
+            // sets the parameter for the query
+            statement.setInt(1, accountId);
+
+            ResultSet resultSet = statement.executeQuery(); // executes the query and retrieves a result set
+            resultSet.next(); // go to first row
+
+            return resultSet.getInt("highscore"); // return the coins of the first row
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return 0; // return zero if an error occurred
+        }
+    }
+
     /**
      * Executes sql script
      *
