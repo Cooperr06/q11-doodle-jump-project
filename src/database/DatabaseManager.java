@@ -150,7 +150,6 @@ public class DatabaseManager
      */
     public void executeSql(File file)
     {
-
         List<String> sqlCommands = new ArrayList<>(); // TODO: Replace with our list
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file)))
