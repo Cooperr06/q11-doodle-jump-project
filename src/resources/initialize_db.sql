@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS account
 (
     id        INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name      VARCHAR(20) NOT NULL,
+    username  VARCHAR(20),
+    password  CHAR(64),
     highscore INT UNSIGNED,
     coins     INT UNSIGNED
 );

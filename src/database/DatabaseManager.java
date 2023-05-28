@@ -68,6 +68,7 @@ public class DatabaseManager
             // retrieves all attributes from the database and returns the data
             return new Account.Builder()
                     .setAccountName(accountResultSet.getString("accountName"))
+                    .setPasswordHash(accountResultSet.getString("password"))
                     .setHighscore(accountResultSet.getInt("highscore"))
                     .setSkins(skins.toArray(Skin[]::new))
                     .setCoins(accountResultSet.getInt("coins"))
@@ -83,12 +84,13 @@ public class DatabaseManager
     public void addAccount(Account account)
     {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO account (name, highscore, coins) VALUES (?, ?, ?)"))
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO account (username, password, highscore, coins) VALUES (?, ?, ?, ?)"))
         {
             // sets the parameters for the update
             statement.setString(1, account.getAccountName());
-            statement.setInt(2, account.getHighscore());
-            statement.setInt(3, account.getCoins());
+            statement.setString(2, account.getPasswordHash());
+            statement.setInt(3, account.getHighscore());
+            statement.setInt(4, account.getCoins());
 
             statement.executeUpdate();
         }

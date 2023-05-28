@@ -3,14 +3,16 @@ package util;
 public class Account
 {
     private final String accountName;
+    private final String passwordHash;
 
     private int highscore;
     private Skin[] skins;
     private int coins;
 
-    public Account(String accountName, int highscore, Skin[] skins, int coins)
+    public Account(String accountName, String passwordHash, int highscore, Skin[] skins, int coins)
     {
         this.accountName = accountName;
+        this.passwordHash = passwordHash;
         this.highscore = highscore;
         this.skins = skins;
         this.coins = coins;
@@ -19,6 +21,11 @@ public class Account
     public String getAccountName()
     {
         return accountName;
+    }
+
+    public String getPasswordHash()
+    {
+        return passwordHash;
     }
 
     public int getHighscore()
@@ -64,6 +71,7 @@ public class Account
     public static class Builder
     {
         private String accountName;
+        private String passwordHash;
         private int highscore;
         private Skin[] skins;
         private int coins;
@@ -75,6 +83,12 @@ public class Account
         public Builder setAccountName(String accountName)
         {
             this.accountName = accountName;
+            return this;
+        }
+
+        public Builder setPasswordHash(String passwordHash)
+        {
+            this.passwordHash = passwordHash;
             return this;
         }
 
@@ -98,7 +112,7 @@ public class Account
 
         public Account build()
         {
-            return new Account(accountName, highscore, skins, coins);
+            return new Account(accountName, passwordHash, highscore, skins, coins);
         }
     }
 }
