@@ -47,20 +47,7 @@ public class DatabaseManager
             accountStatement.setInt(1, accountId);
             skinsStatement.setInt(1, accountId);
 
-            // retrieves all the skin ids the account possesses
-            ResultSet skinsResultSet = skinsStatement.executeQuery();
-            List<Integer> skinIds = new ArrayList<>(); // TODO: Replace with our list
-            while (skinsResultSet.next())
-            {
-                skinIds.add(skinsResultSet.getInt("skin_id"));
-            }
-
-            // goes through every skin id and stores the skins which belong to their skin ids
-            List<Skin> skins = new ArrayList<>(); // TODO: Replace with our list
-            for (Integer skinId : skinIds)
-            {
-                skins.add(Skin.ofId(skinId));
-            }
+            Skin[] skins = getSkinsOfIds(skinsStatement.executeQuery());
 
             ResultSet accountResultSet = accountStatement.executeQuery(); // executes the query and retrieves a result set
             accountResultSet.next(); // go to first row
@@ -70,7 +57,39 @@ public class DatabaseManager
                     .setAccountName(accountResultSet.getString("accountName"))
                     .setPasswordHash(accountResultSet.getString("password"))
                     .setHighscore(accountResultSet.getInt("highscore"))
-                    .setSkins(skins.toArray(Skin[]::new))
+                    .setSkins(skins)
+                    .setCoins(accountResultSet.getInt("coins"))
+                    .build();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null; // return null if an error occurred
+        }
+    }
+
+    public Account getAccount(String username, String passwordHash)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement accountStatement = connection.prepareStatement("SELECT * FROM account WHERE username = ? AND password = ?");
+             PreparedStatement skinsStatement = connection.prepareStatement("SELECT skin_id FROM account " +
+                     "JOIN account_skin ON account.id = account_skin.account_id WHERE account.id = ?"))
+        {
+            // sets the parameters for the update
+            accountStatement.setString(1, username);
+            accountStatement.setString(2, passwordHash);
+
+            Skin[] skins = getSkinsOfIds(skinsStatement.executeQuery());
+
+            ResultSet accountResultSet = accountStatement.executeQuery(); // executes the query and retrieves a result set
+            accountResultSet.next(); // go to first row
+
+            // retrieves all attributes from the database and returns the data
+            return new Account.Builder()
+                    .setAccountName(accountResultSet.getString("accountName"))
+                    .setPasswordHash(accountResultSet.getString("password"))
+                    .setHighscore(accountResultSet.getInt("highscore"))
+                    .setSkins(skins)
                     .setCoins(accountResultSet.getInt("coins"))
                     .build();
         }
@@ -187,6 +206,38 @@ public class DatabaseManager
         {
             e.printStackTrace();
             return 0; // return zero if an error occurred
+        }
+    }
+
+    /**
+     * Collects all skins with the ids of the result set
+     *
+     * @param resultSet result set with skin ids
+     * @return skin array
+     */
+    public Skin[] getSkinsOfIds(ResultSet resultSet)
+    {
+        try
+        {
+            // stores all skin ids of the result set in a list
+            List<Integer> skinIds = new ArrayList<>(); // TODO: Replace with our list
+            while (resultSet.next())
+            {
+                skinIds.add(resultSet.getInt("skin_id"));
+            }
+
+            // goes through every skin id and stores the skins which belong to their skin ids
+            List<Skin> skins = new ArrayList<>(); // TODO: Replace with our list
+            for (Integer skinId : skinIds)
+            {
+                skins.add(Skin.ofId(skinId));
+            }
+            return skins.toArray(Skin[]::new);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null; // return null if an error occurred
         }
     }
 
