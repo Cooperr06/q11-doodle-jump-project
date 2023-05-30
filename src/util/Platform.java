@@ -11,8 +11,8 @@ public class Platform implements Moveable
     }
     public void moveTo(int xCoordinate,int yCoordinate)
     {
-        position.setX(xKoordinate);
-        position.setY(yKoordinate);
+        position.setX(xCoordinate);
+        position.setY(yCoordinate);
     }
     Position getPosition()
     {
