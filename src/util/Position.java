@@ -2,7 +2,7 @@ package util;
 
 public class Position
 {
-    // Declaring of attributes
+    // Getting and setting of attributes
     private int x;
     private int y;
 
@@ -11,7 +11,7 @@ public class Position
         this.x = x;
         this.y = y;
     }
-    // Returning and Adjusting the value of those attributes
+
     public int getX()
     {
         return x;

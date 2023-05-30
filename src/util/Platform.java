@@ -1,16 +1,29 @@
 package util;
-// upper class Platform gets created with two variables which gain values from the constructor
-public abstract class Platform
+// class Platform gets created with two variables which gain values from the constructor
+public class Platform implements Moveable
 {
     private Skin skin;
     private Position position;
-    Platform(Skin newSkin, Position newPosition)
+    public Platform(Skin newSkin, Position newPosition)
     {
         skin = newSkin;
         position = newPosition;
     }
+    public void moveTo(int xKoordinate,int yKoordinate)
+    {
+        position.setX(xKoordinate);
+        position.setY(yKoordinate);
+    }
+    Position getPosition()
+    {
+        return position;
+    }
+    void setPosition(Position newPosition)
+    {
+        position = newPosition;
+    }
 }
-
+/*
 public class MovingPlatform extends Platform
 {
     // does the same things the upper class does
@@ -62,3 +75,4 @@ public class BreakingPlatform extends Platform
         super();
     }
 }
+*/
