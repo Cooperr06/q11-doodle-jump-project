@@ -9,7 +9,7 @@ public class Platform implements Moveable
         skin = newSkin;
         position = newPosition;
     }
-    public void moveTo(int xKoordinate,int yKoordinate)
+    public void moveTo(int xCoordinate,int yCoordinate)
     {
         position.setX(xKoordinate);
         position.setY(yKoordinate);
