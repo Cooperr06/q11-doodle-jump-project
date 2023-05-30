@@ -2,7 +2,7 @@ package util;
 
 public class Position
 {
-    // Getting and setting of attributes
+
     private int x;
     private int y;
 
