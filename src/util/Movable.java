@@ -2,20 +2,14 @@ package util;
 
 public interface Movable
 {
-    void moveTo(int int);
-    {
+    void moveTo(int x, int y);
 
-    }
 
-    Position getPosition()
-    {
+    Position getPosition();
 
-    }
 
-    void setPosition(Position)
-    {
+    void setPosition(Position position);
 
-    }
 
 }
 
