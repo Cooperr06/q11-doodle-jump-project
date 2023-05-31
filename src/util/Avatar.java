@@ -10,38 +10,37 @@ public class Avatar implements Movable
     private int score;
 
     public Avatar(Skin skin, Position position)
-        {
-            this.skin = skin;
-            this.position = position;
-        }
+    {
+        this.skin = skin;
+        this.position = position;
+    }
+
+    @Override
     public void moveTo(int x, int y)
-        {
-            position.setX(x);
-            position.setY(y);
-        }
+    {
+        position.setX(x);
+        position.setY(y);
+    }
 
     public Skin getSkin()
-        {
-            return skin;
-        }
+    {
+        return skin;
+    }
 
     @Override
     public Position getPosition()
-        {
-            return position;
-        }
-
-    public int Score getScore()
     {
-        return score;
+        return position;
     }
 
     @Override
     public void setPosition(Position position)
-        {
-            this.position = position;
-        }
+    {
+        this.position = position;
+    }
 
-
+    public int getScore()
+    {
+        return score;
+    }
 }
-
