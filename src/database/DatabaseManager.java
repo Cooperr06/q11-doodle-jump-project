@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseManager
 {
@@ -31,9 +29,9 @@ public class DatabaseManager
         dataSource.setUser(user);
         dataSource.setUrl(url);
 
-        executeSql(new File("./src/resources/initialize_db.sql")); // executes the initialization script for first setup
-
         System.out.println("Successfully connected to database");
+
+        executeSql(new File("./src/resources/initialize_db.sql")); // executes the initialization script for first setup
     }
 
     public Account getAccount(int accountId)
@@ -219,20 +217,23 @@ public class DatabaseManager
     {
         try
         {
-            // stores all skin ids of the result set in a list
-            List<Integer> skinIds = new ArrayList<>(); // TODO: Replace with our list
+            // stores all skin ids of the result set in an array
+            resultSet.last(); // moves the cursor to the last row to get the row number of it which equals as well the amount of rows in the result set
+            int[] skinIds = new int[resultSet.getRow()];
+            resultSet.beforeFirst(); // moves the cursor to the row it has been before
+            // while the result set has another data set, its skin id is being stored in the array
             while (resultSet.next())
             {
-                skinIds.add(resultSet.getInt("skin_id"));
+                skinIds[resultSet.getRow() - 1] = resultSet.getInt("skin_id"); // stores the skin_id in the array
             }
 
             // goes through every skin id and stores the skins which belong to their skin ids
-            List<Skin> skins = new ArrayList<>(); // TODO: Replace with our list
-            for (Integer skinId : skinIds)
+            Skin[] skins = new Skin[skinIds.length];
+            for (int i = 0; i < skinIds.length; i++)
             {
-                skins.add(Skin.ofId(skinId));
+                skins[i] = Skin.ofId(skinIds[i]);
             }
-            return skins.toArray(Skin[]::new);
+            return skins;
         }
         catch (SQLException e)
         {
@@ -267,33 +268,19 @@ public class DatabaseManager
      */
     public void executeSql(File file)
     {
-        List<String> sqlCommands = new ArrayList<>(); // TODO: Replace with our list
-
+        StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file)))
         {
-            StringBuilder builder = new StringBuilder();
-            // sums the whole content of the file up
-            reader.lines().forEach(line ->
-            {
-                // if a command is finished with this line, add the command to the list and clear the builder for further commands in the file
-                if (line.endsWith(";"))
-                {
-                    builder.append(line);
-                    sqlCommands.add(builder.toString());
-
-                    builder.replace(0, builder.length(), "");
-                }
-                else
-                {
-                    builder.append(line + "\n"); // if the command is not finished yet, add the line to the current command
-                }
-            });
+            reader.lines().forEach(builder::append); // sums the whole content of the file up
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
 
-        sqlCommands.forEach(this::executeSql); // executes every command of the file
+        for (String sqlCommand : builder.toString().split(";"))
+        {
+            executeSql(sqlCommand);
+        }
     }
 }
