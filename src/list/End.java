@@ -1,24 +1,29 @@
 package list;
 
-public class End extends Listenelement
+public class End extends Listelement
 {
     public End()
     {
 
     }
 
-    public Listenelement insertAtEnd(Datenelement dNeu)
+    @Override
+    public Listelement insertAtEnd(Dataelement dNeu)
     {
-        return new node(dNeu, this);
+        return new Node(dNeu, this);
     }
 
+    @Override
     public Dataelement getDataelement()
     {
         return null;
     }
 
+    @Override
     public Listelement getSuccessor()
     {
         return this;
     }
+
+
 }

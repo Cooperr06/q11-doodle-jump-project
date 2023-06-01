@@ -1,3 +1,5 @@
+package list;
+
 import list.Dataelement;
 
 public abstract class Listelement {
@@ -9,7 +11,7 @@ public abstract class Listelement {
 
     public abstract Listelement insertAtEnd(Dataelement dNeu);
 
-    public abstract Dataelement getDataelmenet();
+    public abstract Dataelement getDataelement();
 
     public abstract Listelement getSuccessor();
 }

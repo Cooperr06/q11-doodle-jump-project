@@ -1,20 +1,21 @@
 package list;
 
 public class List {
-    private Listelement beginning;
+    private Listelement beginning = new End();
 
     public List()
     {
-        beginning = new End();
+
     }
 
     public void insertAtEnd(Dataelement dNeu) {
        beginning = beginning.insertAtEnd(dNeu);
     }
 
-    public Datenelement removeBeginning()
+    public Dataelement removeBeginning()
     {
-        Dataelement temp = beginning.getDataelement();
+        Dataelement temp = null;
+        temp = beginning.getDataelement();
         beginning = beginning.getSuccessor();
         return temp;
     }
