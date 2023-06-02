@@ -9,9 +9,11 @@ public abstract class Listelement {
 
     }
 
-    public abstract Listelement insertAtEnd(Dataelement dNeu);
-
-    public abstract Dataelement getDataelement();
+    public abstract Listelement insertAtEnd(Dataelement dNew);
 
     public abstract Listelement getSuccessor();
+
+    public abstract int getLength();
+
+    public abstract Dataelement getDataelement();
 }

@@ -1,10 +1,8 @@
 package list;
 
-import list.Dataelement;
-
 public class Node extends Listelement
 {
-    private Dataelement data;
+    private final Dataelement data;
     private Listelement successor;
 
     public Node(Dataelement dNew, Listelement nNew)
@@ -21,15 +19,21 @@ public class Node extends Listelement
     }
 
     @Override
-    public Dataelement getDataelement()
-    {
-        return data;
-    }
-
-    @Override
     public Listelement getSuccessor()
     {
         return successor;
+    }
+
+    @Override
+    public int getLength()
+    {
+        return successor.getLength() + 1;
+    }
+
+    @Override
+    public Dataelement getDataelement()
+    {
+        return data;
     }
 }
 

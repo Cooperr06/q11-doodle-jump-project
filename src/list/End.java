@@ -14,16 +14,20 @@ public class End extends Listelement
     }
 
     @Override
-    public Dataelement getDataelement()
-    {
-        return null;
-    }
-
-    @Override
     public Listelement getSuccessor()
     {
         return this;
     }
 
+    @Override
+    public int getLength()
+    {
+        return 0;
+    }
 
+    @Override
+    public Dataelement getDataelement()
+    {
+        return null;
+    }
 }
