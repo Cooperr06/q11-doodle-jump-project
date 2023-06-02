@@ -65,7 +65,7 @@ public class Node extends ListElement
     @Override
     public DataElement findDataElement(String key)
     {
-        if(data.compareKey())
+        if(data.compareKey(key))
         {
             return data;
         }else{

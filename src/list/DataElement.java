@@ -2,5 +2,5 @@ package list;
 
 public interface DataElement
 {
-    public abstract boolean compareKey();
+    public abstract boolean compareKey(String key);
 }

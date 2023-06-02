@@ -10,7 +10,7 @@ public class List
 
     public void insertFirst(DataElement data)
     {
-        first = first.insertLast(data);
+        first = new Node(data, first);
     }
 
     public DataElement removeFirst()
