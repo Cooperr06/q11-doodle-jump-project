@@ -42,4 +42,10 @@ public class Leaf extends ListElement
     {
         return this;
     }
+
+    @Override
+    public DataElement findDataElement(String key)
+    {
+        return null;
+    }
 }

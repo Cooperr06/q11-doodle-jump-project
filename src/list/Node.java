@@ -61,5 +61,16 @@ public class Node extends ListElement
             return this;
         }
     }
+
+    @Override
+    public DataElement findDataElement(String key)
+    {
+        if(data.compareKey())
+        {
+            return data;
+        }else{
+            return successor.findDataElement(key);
+        }
+    }
 }
 

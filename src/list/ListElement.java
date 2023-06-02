@@ -23,4 +23,6 @@ public abstract class ListElement
     public abstract DataElement getEnd(DataElement temp);
 
     public abstract ListElement removeEnd(DataElement temp);
+
+    public abstract DataElement findDataElement(String key);
 }

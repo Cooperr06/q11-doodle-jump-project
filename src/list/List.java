@@ -36,4 +36,9 @@ public class List
         first.removeEnd(temp);
         return temp;
     }
+
+    public DataElement findDataElement(String key)
+    {
+        return first.findDataElement(key);
+    }
 }
