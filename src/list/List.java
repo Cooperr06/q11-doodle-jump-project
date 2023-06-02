@@ -8,15 +8,32 @@ public class List
     {
     }
 
-    public void insertAtEnd(DataElement data)
+    public void insertFirst(DataElement data)
     {
-        first = first.insertAtEnd(data);
+        first = first.insertLast(data);
     }
 
-    public DataElement removeBeginning()
+    public DataElement removeFirst()
     {
         DataElement temp = first.getDataElement();
         first = first.getSuccessor();
+        return temp;
+    }
+
+    public int size()
+    {
+        return first.size();
+    }
+
+    public void insertLast(DataElement dNew)
+    {
+        first.insertLast(dNew);
+    }
+
+    public DataElement removeLast()
+    {
+        DataElement temp = first.getEnd(null);
+        first.removeEnd(temp);
         return temp;
     }
 }

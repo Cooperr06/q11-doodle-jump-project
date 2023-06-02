@@ -20,9 +20,9 @@ public class Node extends ListElement
     }
 
     @Override
-    public ListElement insertAtEnd(DataElement data)
+    public ListElement insertLast(DataElement data)
     {
-        successor = successor.insertAtEnd(data);
+        successor = successor.insertLast(data);
         return this;
     }
 
@@ -36,6 +36,30 @@ public class Node extends ListElement
     public ListElement getSuccessor()
     {
         return successor;
+    }
+
+    @Override
+    public int size()
+    {
+        return successor.size() + 1;
+    }
+
+    @Override
+    public DataElement getEnd(DataElement temp)
+    {
+        return successor.getEnd(temp);
+    }
+
+    @Override
+    public ListElement removeEnd(DataElement temp)
+    {
+        if(data == temp)
+        {
+            return successor;
+        }else{
+            successor = successor.removeEnd(temp);
+            return this;
+        }
     }
 }
 

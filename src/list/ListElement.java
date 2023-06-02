@@ -12,9 +12,15 @@ public abstract class ListElement
      * @param data data to insert
      * @return node or leaf as new successor or new first element in list
      */
-    public abstract ListElement insertAtEnd(DataElement data);
+    public abstract ListElement insertLast(DataElement data);
 
     public abstract DataElement getDataElement();
 
     public abstract ListElement getSuccessor();
+
+    public abstract int size();
+
+    public abstract DataElement getEnd(DataElement temp);
+
+    public abstract ListElement removeEnd(DataElement temp);
 }
