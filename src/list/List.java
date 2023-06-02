@@ -2,31 +2,21 @@ package list;
 
 public class List
 {
-    private Listelement beginning;
+    private ListElement first = new Leaf();
+
+    public List()
     {
-        beginning = new End();
     }
 
-    public void insertAtEnd(Dataelement dNeu)
+    public void insertAtEnd(DataElement data)
     {
-        beginning = beginning.insertAtEnd(dNeu);
+        first = first.insertAtEnd(data);
     }
 
-    public Dataelement removeBeginning()
+    public DataElement removeBeginning()
     {
-        Dataelement temp = null;
-        temp = beginning.getDataelement();
-        beginning = beginning.getSuccessor();
+        DataElement temp = first.getDataElement();
+        first = first.getSuccessor();
         return temp;
-    }
-
-    public void insertAtBeginning(Dataelement dNew)
-    {
-        beginning = new Node(dNew, beginning);
-    }
-
-    public int getLength()
-    {
-        return beginning.getLength();
     }
 }

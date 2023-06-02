@@ -1,39 +1,41 @@
 package list;
 
-public class Node extends Listelement
+public class Node extends ListElement
 {
-    private final Dataelement data;
-    private Listelement successor;
+    private final DataElement data;
 
-    public Node(Dataelement dNew, Listelement nNew)
+    private ListElement successor;
+
+    public Node(DataElement data, ListElement successor)
     {
-        data = dNew;
+        super();
+        this.data = data;
+        this.successor = successor;
     }
 
+    public Node(DataElement data)
+    {
+        super();
+        this.data = data;
+    }
 
     @Override
-    public Listelement insertAtEnd(Dataelement dNeu)
+    public ListElement insertAtEnd(DataElement data)
     {
-        successor = successor.insertAtEnd(dNeu);
+        successor = successor.insertAtEnd(data);
         return this;
     }
 
     @Override
-    public Listelement getSuccessor()
-    {
-        return successor;
-    }
-
-    @Override
-    public int getLength()
-    {
-        return successor.getLength() + 1;
-    }
-
-    @Override
-    public Dataelement getDataelement()
+    public DataElement getDataElement()
     {
         return data;
+    }
+
+    @Override
+    public ListElement getSuccessor()
+    {
+        return successor;
     }
 }
 
