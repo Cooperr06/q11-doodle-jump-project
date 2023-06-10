@@ -2,11 +2,9 @@ package util;
 
 public class Avatar implements Movable
 {
-
-    private Position position;
-
     private final Skin skin;
 
+    private Position position;
     private int score;
 
     public Avatar(Skin skin, Position position)
@@ -42,5 +40,10 @@ public class Avatar implements Movable
     public int getScore()
     {
         return score;
+    }
+
+    public void setScore(int score)
+    {
+        this.score = score;
     }
 }
