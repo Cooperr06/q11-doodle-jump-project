@@ -7,6 +7,9 @@ public class Avatar implements Movable
     private Position position;
     private int score;
 
+    private int xVelocity;
+    private int yVelocity;
+
     public Avatar(Skin skin, Position position)
     {
         this.skin = skin;
@@ -45,5 +48,25 @@ public class Avatar implements Movable
     public void setScore(int score)
     {
         this.score = score;
+    }
+
+    public int getXVelocity()
+    {
+        return xVelocity;
+    }
+
+    public void setXVelocity(int xVelocity)
+    {
+        this.xVelocity = xVelocity;
+    }
+
+    public int getYVelocity()
+    {
+        return yVelocity;
+    }
+
+    public void setYVelocity(int yVelocity)
+    {
+        this.yVelocity = yVelocity;
     }
 }
