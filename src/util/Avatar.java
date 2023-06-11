@@ -1,3 +1,5 @@
+package util;
+
 public class Avatar implements Movable
 {
     private final Skin skin;
