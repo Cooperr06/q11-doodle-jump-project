@@ -3,17 +3,17 @@ import util.Position;
 
 public class DinoJump
 {
-    private DinoJump instance;
-    private InputManager inputManager;
-    private PlatformManger platformManger;
-    private Stage stage;
-    private Avatar avatar;
+    private static DinoJump instance;
+    private static InputManager inputManager;
+    private static PlatformManger platformManger;
+    private static Stage stage;
+    private static Avatar avatar;
     private DinoJump()
     {
 
     }
 
-    public void getInstance(Skin skin, Position position)
+    public static void getInstance(Skin skin, Position position)
     {
         if(instance == null)
         {
