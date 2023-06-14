@@ -1,6 +1,8 @@
 import util.Avatar;
 import util.Position;
 
+import java.sql.ResultSet;
+
 public class DinoJump
 {
     private static DinoJump instance;
@@ -13,7 +15,7 @@ public class DinoJump
 
     }
 
-    public static void getInstance(Skin skin, Position position)
+    public static void getInstance()
     {
         if(instance == null)
         {
@@ -29,7 +31,7 @@ public class DinoJump
         }
         if(avatar == null)
         {
-            avatar = new Avatar(skin, position);
+            avatar = new Avatar(getSkinsOfIds(0), new Position(0,0));
         }
     }
     public void start()
