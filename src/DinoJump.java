@@ -1,5 +1,9 @@
+import manager.InputManager;
+import manager.PlatformManager;
 import util.Avatar;
 import util.Position;
+import util.Skin;
+import util.Stage;
 
 public class DinoJump {
     private static DinoJump instance;
