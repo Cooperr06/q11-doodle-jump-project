@@ -1,37 +1,24 @@
 import util.Avatar;
 import util.Position;
 
-import java.sql.ResultSet;
-
-public class DinoJump
-{
+public class DinoJump {
     private static DinoJump instance;
-    private static InputManager inputManager;
-    private static PlatformManger platformManger;
-    private static Stage stage;
-    private static Avatar avatar;
-    private DinoJump()
-    {
+    private InputManager inputManager;
+    private PlatformManger platformManger;
+    private Stage stage;
+    private Avatar avatar;
 
+    private DinoJump() {
+        instance = new DinoJump();
+        inputManager = new PlatformManager();
+        stage = new Stage();
+        avatar = new Avatar(Skin.of(0), new Position(0, 0));
     }
 
-    public static void getInstance()
-    {
+    public static void getInstance() {
         if(instance == null)
         {
-            instance = new DinoJump();
-        }
-        if(inputManager == null)
-        {
-            inputManager = new InputManager();
-        }
-        if(stage == null)
-        {
-            stage = new Stage();
-        }
-        if(avatar == null)
-        {
-            avatar = new Avatar(getSkinsOfIds(0), new Position(0,0));
+            new DinoJump();
         }
     }
     public void start()
