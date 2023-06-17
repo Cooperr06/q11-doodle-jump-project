@@ -13,7 +13,6 @@ public class DinoJump {
     private Avatar avatar;
 
     private DinoJump() {
-        instance = new DinoJump();
         inputManager = new PlatformManager();
         stage = new Stage();
         avatar = new Avatar(Skin.of(0), new Position(0, 0));
@@ -28,9 +27,5 @@ public class DinoJump {
     public void start()
     {
         stage.showMainScreen();
-    }
-    public void startGameLoop()
-    {
-
     }
 }
