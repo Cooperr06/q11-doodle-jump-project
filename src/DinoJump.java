@@ -19,13 +19,12 @@ public class DinoJump {
     }
 
     public static void getInstance() {
-        if(instance == null)
-        {
+        if (instance == null) {
             new DinoJump();
         }
     }
-    public void start()
-    {
+
+    public void start() {
         stage.showMainScreen();
     }
 }
