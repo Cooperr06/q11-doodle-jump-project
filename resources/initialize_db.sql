@@ -1,11 +1,23 @@
 CREATE TABLE IF NOT EXISTS account
 (
-    mac_address CHAR(17) PRIMARY KEY,
-    highscore   INT UNSIGNED
+    id        INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    username  VARCHAR(20),
+    password  CHAR(64),
+    highscore INT UNSIGNED,
+    coins     INT UNSIGNED
 );
 
 CREATE TABLE IF NOT EXISTS skin
 (
-    id    INT UNSIGNED PRIMARY KEY,
+    id    INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name  VARCHAR(20)  NOT NULL,
     prize INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS account_skin
+(
+    account_id INT UNSIGNED,
+    skin_id    INT UNSIGNED,
+    FOREIGN KEY (account_id) REFERENCES account (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (skin_id) REFERENCES skin (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
