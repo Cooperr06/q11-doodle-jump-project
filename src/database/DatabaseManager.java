@@ -31,7 +31,7 @@ public class DatabaseManager
 
         System.out.println("Successfully connected to database");
 
-        executeSql(new File("./src/resources/initialize_db.sql")); // executes the initialization script for first setup
+        executeSql(new File("./resources/initialize_db.sql")); // executes the initialization script for first setup
     }
 
     public Account getAccount(int accountId)
