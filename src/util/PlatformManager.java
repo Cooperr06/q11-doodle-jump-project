@@ -29,8 +29,7 @@ public class PlatformManager
     {
         Platform pnew;
         // If there is a platform which is outside of the playable area it gets deleted
-        if(platforms.get(0).getPosition().getY()> 1280)
-        {
+        if (platforms.get(0).getPosition().getY() > windowY) {
             platforms.remove(0);
             pnew = platforms.get(0);
         }
