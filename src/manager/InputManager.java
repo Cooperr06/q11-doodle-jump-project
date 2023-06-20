@@ -39,7 +39,7 @@ public class InputManager implements KeyListener
     @Override
     public void keyReleased(KeyEvent e)
     {
-        // check which button is pressed
+        // check which button is released
         switch (e.getKeyCode())
         {
             case 37, 39 -> DinoJump.getInstance().getAvatar().setAcceleration(0); // A or D is released
