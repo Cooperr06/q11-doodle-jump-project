@@ -3,10 +3,21 @@ import java.awt.event.KeyListener;
 
 public class InputManager implements KeyListener
 {
+    private static InputManager instance;
 
-    public InputManager()
+    private InputManager()
     {
 
+    }
+
+    public static InputManager getInstance()
+    {
+        if (InputManager.instance == null)
+        {
+            InputManager.instance = new InputManager();
+        }
+
+        return InputManager.instance;
     }
 
     @Override
@@ -21,14 +32,10 @@ public class InputManager implements KeyListener
         // check which button is pressed
         switch (e.getKeyCode())
         {
-            case 37:
-                DinoJump.getInstance().getAvatar().setAcceleration(-1);
-                break;
+            case 37 -> DinoJump.getInstance().getAvatar().setAcceleration(-1);
             // A is pressed
 
-            case 39:
-                DinoJump.getInstance().getAvatar().setAcceleration(1);
-                break;
+            case 39 -> DinoJump.getInstance().getAvatar().setAcceleration(1);
             // D is pressed
         }
     }
@@ -39,15 +46,11 @@ public class InputManager implements KeyListener
         // check which button is pressed
         switch (e.getKeyCode())
         {
-            case 37:
-                DinoJump.getInstance().getAvatar().setAcceleration(0);
-                break;
-            // A is pressed
+            case 37 -> DinoJump.getInstance().getAvatar().setAcceleration(0);
+            // A is released
 
-            case 39:
-                DinoJump.getInstance().getAvatar().setAcceleration(0);
-                break;
-            // D is pressed
+            case 39 -> DinoJump.getInstance().getAvatar().setAcceleration(0);
+            // D is released
         }
     }
 
@@ -55,14 +58,11 @@ public class InputManager implements KeyListener
     {
         switch (type)
         {
-            case "start":
-                DinoJump.getInstance().startGameLoop();
-                break;
+            // "start" is pressed
+            case "start" -> DinoJump.getInstance().startGameLoop();
 
-            case "settings":
-                // Open Settings
-                //DinoJump.getInstance().getStage().showSettingsScreen();
-                break;
+            // "settings" is pressed
+            case "settings" -> DinoJump.getInstance().getStage().showSettingsScreen();
         }
     }
 
