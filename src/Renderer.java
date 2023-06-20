@@ -79,7 +79,7 @@ public class Renderer extends Canvas
 
         graphics.setColor(Color.white);
         graphics.setFont(font);
-        graphics.drawString("Hallo", x, y);
+        graphics.drawString(text, x, y);
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -98,7 +98,7 @@ public class Renderer extends Canvas
 
         graphics.setColor(Color.white);
         graphics.setFont(new Font("Arial", Font.PLAIN, size));
-        graphics.drawString("Hallo", x, y);
+        graphics.drawString(text, x, y);
         graphics.dispose();
         bufferStrategy.show();
 
@@ -142,4 +142,5 @@ public class Renderer extends Canvas
     {
         return finTileSize;
     }
+    
 }
