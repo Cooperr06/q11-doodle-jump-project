@@ -30,6 +30,11 @@ public class PlatformManager
 
     public void iterateLoop()
     {
+        for (Platform platform : platforms)
+        {
+            platform.iterateLoop();
+        }
+
         Platform firstPlatform = platforms.get(0);
         // If there is a platform which is outside the playable area it gets deleted
         if (firstPlatform.getPosition().getY() < 0)
