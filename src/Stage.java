@@ -22,6 +22,7 @@ public class Stage
 
     public void showMainScreen()
     {
+        Start = new JButton();
         Start.addActionListener(new ActionListener()
         {
             @Override
@@ -31,5 +32,15 @@ public class Stage
                 Renderer.resetScreen();
             }
         });
+    }
+
+    public void showSettingsScreen()
+    {
+
+    }
+
+    public void showGameOverScreen()
+    {
+
     }
 }
