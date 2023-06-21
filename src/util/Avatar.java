@@ -76,19 +76,20 @@ public class Avatar implements Movable
             yVelocity = maxYVelocity;
             yAcceleration = 0;
         }
-        else if ()
-        {
-
-        }
-        else if (yAcceleration == 0 && yVelocity > 0)
+        else if (yVelocity > 0)       //traveling upwards
         {
             yVelocity = (int) floor((double) yVelocity / 1.2);
         }
-        else if (yVelocity == 0)
+        else if (yVelocity == 0)        //stalling
         {
-            yVelocity
+            yVelocity = -1;
         }
-        else                      //acceleration
+        else     //traveling downwards
+        {
+            yVelocity = (int) floor((double) yVelocity * 1.2);
+        }
+        /*
+        else
         {
             yVelocity += yAcceleration;
 
@@ -101,6 +102,8 @@ public class Avatar implements Movable
                 yVelocity = maxYVelocity * -1;
             }
         }
+
+         */
     }
 
 
