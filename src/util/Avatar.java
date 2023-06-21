@@ -91,22 +91,6 @@ public class Avatar implements Movable
                 yVelocity = maxYVelocity * -1;
             }
         }
-        /*
-        else
-        {
-            yVelocity += yAcceleration;
-
-            if (yVelocity > maxYVelocity)
-            {
-                yVelocity = maxYVelocity;
-            }
-            else if (yVelocity < maxYVelocity * -1)
-            {
-                yVelocity = maxYVelocity * -1;
-            }
-        }
-
-         */
     }
 
 
