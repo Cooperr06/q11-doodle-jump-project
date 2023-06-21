@@ -1,7 +1,6 @@
 package util;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.floor;
+import static java.lang.Math.*;
 
 public class Avatar implements Movable
 {
@@ -69,7 +68,7 @@ public class Avatar implements Movable
 
         /*
         since there is no accelerating process in jumping, it goes maxVel -slowly-> Vel = 0 -slowly-> -1 * maxVel
-        until collisionManager "accelerates" again, witch is considered as a starting signal, therefor repeats the cycle
+        until collisionManager "accelerates" again, witch is considered as a starting signal to jump, therefor repeats the cycle
          */
         if (yAcceleration > 0)       //got accelerated by collisionManager
         {
@@ -86,7 +85,11 @@ public class Avatar implements Movable
         }
         else     //traveling downwards
         {
-            yVelocity = (int) floor((double) yVelocity * 1.2);
+            yVelocity = (int) ceil((double) yVelocity * 1.2);
+            if (yVelocity < maxYVelocity * -1)
+            {
+                yVelocity = maxYVelocity * -1;
+            }
         }
         /*
         else
