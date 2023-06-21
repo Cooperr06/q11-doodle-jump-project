@@ -6,12 +6,11 @@ import util.Stage;
 public class DinoJump
 {
     private static DinoJump instance;
-    private Stage stage;
+
     private Avatar avatar;
 
     private DinoJump()
     {
-        stage = new Stage();
         avatar = new Avatar(Skin.of(0), new Position(0, 0));
     }
 
@@ -25,6 +24,6 @@ public class DinoJump
 
     public void start()
     {
-        stage.showMainScreen();
+        Stage.getInstance().showMainScreen();
     }
 }

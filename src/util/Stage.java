@@ -1,38 +1,32 @@
 package util;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Stage
 {
-    private Stage instance;
-    private JButton Start;
+    private static Stage instance;
 
-    private void Stage()
+    private JButton startButton;
+
+    private Stage()
     {
-
     }
 
-    public void getInstance()
+    public static Stage getInstance()
     {
         if (instance == null)
         {
-            new Stage();
+            instance = new Stage();
         }
+        return instance;
     }
 
     public void showMainScreen()
     {
-        Start = new JButton();
-        Start.addActionListener(new ActionListener()
+        startButton.addActionListener(e ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                DinoJump.getInstance().startGameLoop();
-                Renderer.resetScreen();
-            }
+            DinoJump.getInstance().startGameLoop();
+            Renderer.resetScreen();
         });
     }
 
