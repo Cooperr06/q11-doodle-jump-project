@@ -66,16 +66,27 @@ public class Avatar implements Movable
         }
 
         //yVelocity
-        if (yAcceleration == 0)       //deceleration
+
+        /*
+        since there is no accelerating process in jumping, it goes maxVel -slowly-> Vel = 0 -slowly-> -1 * maxVel
+        until collisionManager "accelerates" again, witch is considered as a starting signal, therefor repeats the cycle
+         */
+        if (yAcceleration > 0)       //got accelerated by collisionManager
         {
-            if (abs(yVelocity) < floor((double) abs(maxYVelocity) / 4))
-            {
-                yVelocity = 0;
-            }
-            else
-            {
-                yVelocity = (int) floor((double) yVelocity / 2);
-            }
+            yVelocity = maxYVelocity;
+            yAcceleration = 0;
+        }
+        else if ()
+        {
+
+        }
+        else if (yAcceleration == 0 && yVelocity > 0)
+        {
+            yVelocity = (int) floor((double) yVelocity / 1.2);
+        }
+        else if (yVelocity == 0)
+        {
+            yVelocity
         }
         else                      //acceleration
         {
