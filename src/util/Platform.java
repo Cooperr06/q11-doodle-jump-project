@@ -3,7 +3,7 @@ package util;
 public class Platform implements Movable
 {
     private final Skin skin;
-    
+
     private Position position;
 
     public Platform(Skin skin, Position position)
