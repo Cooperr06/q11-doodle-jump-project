@@ -28,6 +28,7 @@ public class Stage
             public void actionPerformed(ActionEvent e)
             {
                 DinoJump.getInstance().startGameLoop();
+                Renderer.resetScreen();
             }
         });
     }
