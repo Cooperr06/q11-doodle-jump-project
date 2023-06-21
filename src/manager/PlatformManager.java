@@ -8,7 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class PlatformManager {
+public class PlatformManager
+{
     public static PlatformManager instance;
 
     private final List<Platform> platforms = new LinkedList<>();
@@ -17,13 +18,16 @@ public class PlatformManager {
     private int rows;
     private int columns;
 
-    private PlatformManager() {
+    private PlatformManager()
+    {
         rows = Renderer.getInstance().getRows();
         columns = Renderer.getInstance().getColumns();
     }
 
-    public static PlatformManager getInstance() {
-        if (instance == null) {
+    public static PlatformManager getInstance()
+    {
+        if (instance == null)
+        {
             instance = new PlatformManager();
         }
         return instance;
