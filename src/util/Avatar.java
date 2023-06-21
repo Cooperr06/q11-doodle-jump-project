@@ -40,7 +40,7 @@ public class Avatar implements Movable
         //update xVelocity
 
         //xVelocity
-        if (xAcceleration == 0)       //Deacceleration
+        if (xAcceleration == 0)       //deceleration
         {
             if (abs(xVelocity) < floor((double) abs(maxXVelocity) / 4))
             {
@@ -51,7 +51,7 @@ public class Avatar implements Movable
                 xVelocity = (int) floor((double) xVelocity / 2);
             }
         }
-        else                      //Acceleration
+        else                      //acceleration
         {
             xVelocity += xAcceleration;
 
@@ -62,6 +62,32 @@ public class Avatar implements Movable
             else if (xVelocity < maxXVelocity * -1)
             {
                 xVelocity = maxXVelocity * -1;
+            }
+        }
+
+        //yVelocity
+        if (yAcceleration == 0)       //deceleration
+        {
+            if (abs(yVelocity) < floor((double) abs(maxYVelocity) / 4))
+            {
+                yVelocity = 0;
+            }
+            else
+            {
+                yVelocity = (int) floor((double) yVelocity / 2);
+            }
+        }
+        else                      //acceleration
+        {
+            yVelocity += yAcceleration;
+
+            if (yVelocity > maxYVelocity)
+            {
+                yVelocity = maxYVelocity;
+            }
+            else if (yVelocity < maxYVelocity * -1)
+            {
+                yVelocity = maxYVelocity * -1;
             }
         }
     }
