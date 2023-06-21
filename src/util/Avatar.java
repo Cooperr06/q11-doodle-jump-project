@@ -66,6 +66,7 @@ public class Avatar implements Movable
         }
     }
 
+
     public void updatePosition()
     {
         moveTo(position.getX() + xVelocity, position.getY() + yVelocity);
