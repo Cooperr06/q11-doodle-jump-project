@@ -6,7 +6,7 @@ public class Stage
 {
     private static Stage instance;
 
-    private JButton startButton;
+    
 
     private Stage()
     {
@@ -23,6 +23,7 @@ public class Stage
 
     public void showMainScreen()
     {
+        JButton startButton = new JButton;
         startButton.addActionListener(e ->
         {
             DinoJump.getInstance().startGameLoop();
