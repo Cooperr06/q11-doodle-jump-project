@@ -6,8 +6,6 @@ public class Avatar implements Movable
 {
     private final Skin skin;
 
-    private final Renderer renderer;
-
     private Position position;
     private int score;
 
@@ -27,8 +25,6 @@ public class Avatar implements Movable
 
         maxXVelocity = 10;
         maxYVelocity = 10;
-
-        renderer = Renderer.getInstance();
     }
 
     @Override
