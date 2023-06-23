@@ -36,9 +36,10 @@ public class Avatar implements Movable
 
     public void updateVelocity()
     {
-        //update xVelocity
+        //update Velocity
 
         //xVelocity
+
         if (xAcceleration == 0)       //deceleration
         {
             if (abs(xVelocity) < floor((double) abs(maxXVelocity) / 4))
@@ -63,6 +64,7 @@ public class Avatar implements Movable
                 xVelocity = maxXVelocity * -1;
             }
         }
+
 
         //yVelocity
 
