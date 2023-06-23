@@ -3,7 +3,7 @@ package util;
 public class Platform implements Movable
 {
     private final Skin skin;
-    
+
     private Position position;
 
     public Platform(Skin skin, Position position)
@@ -34,5 +34,10 @@ public class Platform implements Movable
     public void setPosition(Position position)
     {
         this.position = position;
+    }
+
+    public void iterateLoop()
+    {
+        position.setX(position.getX() - DinoJump.getInstance().getAvatar().getXVelocity());
     }
 }

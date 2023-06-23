@@ -1,9 +1,15 @@
+import util.Skin;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 public class Renderer extends Canvas
 {
+
+    private static Renderer instance;
     private final JFrame window; // frame in OS
     private final BufferStrategy bufferStrategy; // required to make custom render methods
 
@@ -47,6 +53,15 @@ public class Renderer extends Canvas
         createBufferStrategy(2);
         bufferStrategy = getBufferStrategy();
 
+    }
+
+    public static Renderer getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Renderer(720, 1280);
+        }
+        return instance;
     }
 
     /**
@@ -105,6 +120,55 @@ public class Renderer extends Canvas
     }
 
     /**
+     * renders Avatar
+     *
+     * @param skin Skinobject to be passed
+     * @param x    position x
+     * @param y    position y
+     */
+    public void renderAvatar(Skin skin, int x, int y)
+    {
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+        Image image;
+        try
+        {
+            image = ImageIO.read(skin.getImages()[0]);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        graphics.drawImage(image, x, y, finTileSize, finTileSize, null);
+        graphics.dispose();
+        bufferStrategy.show();
+    }
+
+    /**
+     * renders Platform with twice the width of the player and half the height
+     *
+     * @param skin
+     * @param x
+     * @param y
+     */
+    public void renderPlatform(Skin skin, int x, int y)
+    {
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+
+        Image image;
+        try
+        {
+            image = ImageIO.read(skin.getImages()[0]);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        graphics.drawImage(image, x, y, finTileSize / 2, finTileSize * 2, null);
+        graphics.dispose();
+        bufferStrategy.show();
+    }
+
+    /**
      * draws an image that is spanned across the whole window without giving a fuck about resolution or stretching
      * <pre></pre>has to be rendered first, as it simultaneously deletes the previous frame
      *
@@ -114,6 +178,16 @@ public class Renderer extends Canvas
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.drawImage(image, 0, 0, window.getWidth(), window.getHeight(), null);
+        graphics.dispose();
+        bufferStrategy.show();
+    }
+
+    public void renderButton(JButton button, int x, int y)
+    {
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+        button.setAlignmentX(window.getWidth() / x);
+        button.setAlignmentY(window.getHeight() / y);
+        window.add(button);
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -138,9 +212,19 @@ public class Renderer extends Canvas
         return screenWidth;
     }
 
-    public int getFinTileSize()
+    public int getAvatarDimensions()
     {
         return finTileSize;
     }
-    
+
+    public int getPlatformWidth()
+    {
+        return finTileSize * 2;
+    }
+
+    public int getPlatformHeight()
+    {
+        return finTileSize / 2;
+    }
+
 }
