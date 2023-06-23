@@ -14,12 +14,13 @@ public class DinoJump
         avatar = new Avatar(Skin.of(0), new Position(0, 0));
     }
 
-    public static void getInstance()
+    public static DinoJump getInstance()
     {
         if (instance == null)
         {
-            new DinoJump();
+            instance = new DinoJump();
         }
+        return instance;
     }
 
     public void start()
