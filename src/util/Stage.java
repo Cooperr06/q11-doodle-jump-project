@@ -8,22 +8,28 @@ public class Stage
 {
     private static Stage instance;
 
-    public static void getInstance() {
-        if (instance == null) {
+    public static void getInstance()
+    {
+        if (instance == null)
+        {
             new Stage();
         }
     }
 
-    private void Stage() {
+    private void Stage()
+    {
 
     }
 
-    public void showMainScreen() {
+    public void showMainScreen()
+    {
         JButton start = new JButton();
         Renderer.renderButton(start, 0.5, 0.2);
-        start.addActionListener(new ActionListener() {
+        start.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 DinoJump.getInstance();
                 InputManager.getInstance().buttonPressed("start");
             }
