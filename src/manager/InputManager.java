@@ -1,5 +1,7 @@
 package manager;
 
+import util.Stage;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -51,7 +53,7 @@ public class InputManager implements KeyListener
         switch (type)
         {
             case "start" -> DinoJump.getInstance().startGameLoop(); // "start" is pressed
-            case "settings" -> DinoJump.getInstance().getStage().showSettingsScreen(); // "settings" is pressed
+            case "settings" -> Stage.getInstance().showSettingsScreen(); // "settings" is pressed
         }
     }
 }
