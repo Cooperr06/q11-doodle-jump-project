@@ -103,11 +103,6 @@ public class Avatar implements Movable
         moveTo(position.getX() + xVelocity, position.getY() + yVelocity);
     }
 
-    public void redraw()
-    {
-        renderer.renderAvatar(skin, position);
-    }
-
     public void iterateLoop()
     {
         updateVelocity();
