@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+import java.util.List;
 
 public class Renderer extends Canvas
 {
@@ -23,7 +24,9 @@ public class Renderer extends Canvas
     public int scale;
     public int finTileSize;
 
-    public Renderer(int width, int height)
+    public List<JButton> buttons;
+
+    private Renderer(int width, int height)
     {
         super(); // call parent constructor
         this.setPreferredSize(new Dimension(width, height)); // set size of canvas to draw on
@@ -182,12 +185,32 @@ public class Renderer extends Canvas
         bufferStrategy.show();
     }
 
-    public void renderButton(JButton button, int x, int y)
+    /**
+     * @param button button to be rendered
+     * @param x      relative position from left (float 0-1)
+     * @param y      relative position from top (float 0-1)
+     */
+    public void renderButton(JButton button, float x, float y)
     {
+        buttons.add(button);
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-        button.setAlignmentX(window.getWidth() / x);
-        button.setAlignmentY(window.getHeight() / y);
+        button.setAlignmentX(window.getWidth() * x - button.getHeight() / 2);
+        button.setAlignmentY(window.getHeight() * y - button.getWidth() / 2);
         window.add(button);
+        graphics.dispose();
+        bufferStrategy.show();
+    }
+
+    public void clearScreen()
+    {
+        while (!buttons.isEmpty())
+        {
+            window.getContentPane().remove(buttons.size() - 1);
+            buttons.remove(buttons.size() - 1);
+        }
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+        graphics.setColor(Color.black);
+        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
         graphics.dispose();
         bufferStrategy.show();
     }
