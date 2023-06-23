@@ -8,17 +8,17 @@ public class Stage
 {
     private static Stage instance;
 
-    public static void getInstance()
+    private Stage()
+    {
+    }
+
+    public static Stage getInstance()
     {
         if (instance == null)
         {
-            new Stage();
+            instance = new Stage();
         }
-    }
-
-    private void Stage()
-    {
-
+        return instance;
     }
 
     public void showMainScreen()
