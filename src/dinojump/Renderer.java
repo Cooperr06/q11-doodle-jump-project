@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Renderer extends Canvas
 {
-
     private static Renderer instance;
     private final JFrame window; // frame in OS
     private final BufferStrategy bufferStrategy; // required to make custom render methods
@@ -187,8 +186,8 @@ public class Renderer extends Canvas
     {
         buttons.add(button);
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-        button.setAlignmentX(window.getWidth() * x - button.getHeight() / 2);
-        button.setAlignmentY(window.getHeight() * y - button.getWidth() / 2);
+        button.setAlignmentX(window.getWidth() * x - (float) button.getHeight() / 2);
+        button.setAlignmentY(window.getHeight() * y - (float) button.getWidth() / 2);
         window.add(button);
         graphics.dispose();
         bufferStrategy.show();
@@ -242,5 +241,4 @@ public class Renderer extends Canvas
     {
         return finTileSize / 2;
     }
-
 }
