@@ -4,6 +4,8 @@ import static java.lang.Math.*;
 
 public class Avatar implements Movable
 {
+    private static Avatar instance;
+
     private final Skin skin;
 
     private Position position;
@@ -18,13 +20,19 @@ public class Avatar implements Movable
     private int xAcceleration;
     private int yAcceleration;
 
-    public Avatar(Skin skin, Position position)
+    private Avatar()
     {
-        this.skin = skin;
-        this.position = position;
-
         maxXVelocity = 10;
         maxYVelocity = 10;
+    }
+
+    public static Avatar getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Avatar();
+        }
+        return instance;
     }
 
     @Override
@@ -101,10 +109,16 @@ public class Avatar implements Movable
         moveTo(position.getX() + xVelocity, position.getY() + yVelocity);
     }
 
+    public void redraw()
+    {
+        Renderer.getInstance().renderAvatar(skin, position);
+    }
+
     public void iterateLoop()
     {
         updateVelocity();
         updatePosition();
+        redraw();
     }
 
     public Skin getSkin()
