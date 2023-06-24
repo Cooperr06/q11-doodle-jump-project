@@ -9,7 +9,6 @@ import java.util.List;
 public class CollisionManager
 {
     private static CollisionManager instance;
-    private Avatar avatar;
     private List<Platform> platforms;
 
     private CollisionManager()
@@ -21,13 +20,9 @@ public class CollisionManager
     {
         if (instance == null)
         {
-            return new CollisionManager();
+            instance = new CollisionManager();
         }
-        else
-        {
             return instance;
-        }
-
     }
 
     public void setPlatforms(List<Platform> newPlatforms)
@@ -35,28 +30,23 @@ public class CollisionManager
         platforms = newPlatforms;
     }
 
-    public void setAvatar(Avatar newAvatar)
-    {
-        Avatar = newAvatar;
-    }
-
     public void checkForCollision()
     {
-        Position avtPos = avatar.getPosition();
-        List<Position> platformPos = new List<Position>();
-        int avtVel = avatar.getYVelocity();
+        Position avtPos = Avatar.getInstance().getPosition();
+        List<Position> platformPos = new ArrayList<Position>();
+        Position avtPos = Avatar.getInstance().getPosition();
 
-        if (avtVel < 0)
+        if (Avatar.getInstance().getY < 0)
         {
             for (int i = 0; i < platformPos.size(); i++)
             {
                 //First Variable is the width of the Platform, the second Variable is the width of the player
-                if (avtPos.getX() + 50 < platformPos.get(i).getX() && avtPos.getX() + 12 > platformPos.get(i).getX())
+                if (avtPos.getX() + Renderer.getInstance().getPlatformWidth() < platformPos.get(i).getX() && avtPos.getX() + Renderer.getInstance().getAvatarDimensions() > platformPos.get(i).getX())
                 {
                     //Variable is the hight of the Platform
-                    if (avtPos.getY() > platformPos.get(i).getY() && avtPos.getY() + 5 < platformPos.get(i).getY()))
+                    if (avtPos.getY() > platformPos.get(i).getY() && avtPos.getY() + 5 < platformPos.get(i).getY())
                     {
-                        DinoJump.get
+                        Avatar.getInstance().setYAcceleration(10);
                     }
                 }
 
