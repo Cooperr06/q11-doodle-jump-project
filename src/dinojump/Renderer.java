@@ -8,10 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Renderer extends Canvas
 {
+    private final List<JButton> buttons = new ArrayList<>();
+
     private static Renderer instance;
     private final JFrame window; // frame in OS
     private final BufferStrategy bufferStrategy; // required to make custom render methods
@@ -20,13 +23,11 @@ public class Renderer extends Canvas
     private final int columns = 6;
     private final int tileSize = 32; // sprite resolution is fixed
 
-    public int screenHeight;
-    public int screenWidth;
+    private int screenHeight;
+    private int screenWidth;
 
-    public int scale;
-    public int finTileSize;
-
-    public List<JButton> buttons;
+    private int scale;
+    private int finTileSize;
 
     private Renderer(int width, int height)
     {
@@ -57,14 +58,13 @@ public class Renderer extends Canvas
         // creating custom buffer strategy (required to make custom render methods)
         createBufferStrategy(2);
         bufferStrategy = getBufferStrategy();
-
     }
 
     public static Renderer getInstance()
     {
         if (instance == null)
         {
-            instance = new Renderer(720, 1280);
+            instance = new Renderer(720, 1000);
         }
         return instance;
     }
@@ -115,7 +115,6 @@ public class Renderer extends Canvas
         graphics.drawString(text, position.getX(), position.getY());
         graphics.dispose();
         bufferStrategy.show();
-
     }
 
     /**
@@ -185,7 +184,8 @@ public class Renderer extends Canvas
     public void renderButton(JButton button, float x, float y)
     {
         buttons.add(button);
-        Graphics graphics = getBufferStrategy().getDrawGraphics();
+
+        Graphics graphics = bufferStrategy.getDrawGraphics();
         button.setAlignmentX(window.getWidth() * x - (float) button.getHeight() / 2);
         button.setAlignmentY(window.getHeight() * y - (float) button.getWidth() / 2);
         window.add(button);

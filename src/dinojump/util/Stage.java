@@ -1,12 +1,9 @@
 package dinojump.util;
 
-import dinojump.DinoJump;
 import dinojump.Renderer;
 import dinojump.manager.InputManager;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Stage
 {
@@ -29,14 +26,9 @@ public class Stage
     {
         JButton start = new JButton();
         Renderer.getInstance().renderButton(start, 0.5F, 0.2F);
-        start.addActionListener(new ActionListener()
+        start.addActionListener(e ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                DinoJump.getInstance();
-                InputManager.getInstance().buttonPressed("start");
-            }
+            InputManager.getInstance().buttonPressed("start");
         });
     }
 
