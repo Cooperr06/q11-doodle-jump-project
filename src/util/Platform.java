@@ -35,4 +35,9 @@ public class Platform implements Movable
     {
         this.position = position;
     }
+
+    public void iterateLoop()
+    {
+        position.setX(position.getX() - DinoJump.getInstance().getAvatar().getXVelocity());
+    }
 }
