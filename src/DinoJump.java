@@ -20,7 +20,7 @@ public class DinoJump
 
     public void start()
     {
-        stage.showMainScreen();
+        Stage.getInstance().showMainScreen();
     }
 
     public void startGameLoop(long fps)
@@ -35,7 +35,6 @@ public class DinoJump
                 loop();
             }
         }, 0L, fps / 1000);
-
     }
 
     private void loop()
