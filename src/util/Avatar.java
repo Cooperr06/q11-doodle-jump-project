@@ -22,6 +22,9 @@ public class Avatar implements Movable
 
     private Avatar()
     {
+        position = new Position(0, 0);
+        skin = Skin.of(0);
+
         maxXVelocity = 10;
         maxYVelocity = 10;
     }
