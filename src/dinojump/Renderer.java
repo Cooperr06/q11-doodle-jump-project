@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Renderer extends Canvas
 {
-
     private static Renderer instance;
     private final JFrame window; // frame in OS
     private final BufferStrategy bufferStrategy; // required to make custom render methods
