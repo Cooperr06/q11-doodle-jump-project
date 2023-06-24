@@ -1,4 +1,4 @@
-package util;
+package dinojump.util;
 
 public class Platform implements Movable
 {
@@ -38,6 +38,6 @@ public class Platform implements Movable
 
     public void iterateLoop()
     {
-        position.setX(position.getX() - DinoJump.getInstance().getAvatar().getXVelocity());
+        position.setX(position.getX() - Avatar.getInstance().getXVelocity());
     }
 }

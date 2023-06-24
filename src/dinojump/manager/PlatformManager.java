@@ -1,8 +1,9 @@
-package manager;
+package dinojump.manager;
 
-import util.Platform;
-import util.Position;
-import util.Skin;
+import dinojump.Renderer;
+import dinojump.util.Platform;
+import dinojump.util.Position;
+import dinojump.util.Skin;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +16,8 @@ public class PlatformManager
     private final List<Platform> platforms = new LinkedList<>();
     private final Skin platformSkin = Skin.of(1);
 
-    private int rows;
-    private int columns;
+    private final int rows;
+    private final int columns;
 
     private PlatformManager()
     {

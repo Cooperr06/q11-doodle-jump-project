@@ -1,4 +1,6 @@
-package util;
+package dinojump.util;
+
+import dinojump.Renderer;
 
 import static java.lang.Math.*;
 

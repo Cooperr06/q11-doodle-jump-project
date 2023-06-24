@@ -1,6 +1,8 @@
-package manager;
+package dinojump.manager;
 
-import util.Stage;
+import dinojump.DinoJump;
+import dinojump.util.Avatar;
+import dinojump.util.Stage;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,8 +35,8 @@ public class InputManager implements KeyListener
         // check which button is pressed
         switch (e.getKeyCode())
         {
-            case 37 -> DinoJump.getInstance().getAvatar().setAcceleration(-1); // A is pressed
-            case 39 -> DinoJump.getInstance().getAvatar().setAcceleration(1); // D is pressed
+            case 37 -> Avatar.getInstance().setXAcceleration(-1); // A is pressed
+            case 39 -> Avatar.getInstance().setXAcceleration(1); // D is pressed
         }
     }
 
@@ -44,7 +46,7 @@ public class InputManager implements KeyListener
         // check which button is released
         switch (e.getKeyCode())
         {
-            case 37, 39 -> DinoJump.getInstance().getAvatar().setAcceleration(0); // A or D is released
+            case 37, 39 -> Avatar.getInstance().setXAcceleration(0); // A or D is released
         }
     }
 
@@ -52,7 +54,7 @@ public class InputManager implements KeyListener
     {
         switch (type)
         {
-            case "start" -> DinoJump.getInstance().startGameLoop(); // "start" is pressed
+            case "start" -> DinoJump.getInstance().startGameLoop(60); // "start" is pressed
             case "settings" -> Stage.getInstance().showSettingsScreen(); // "settings" is pressed
         }
     }

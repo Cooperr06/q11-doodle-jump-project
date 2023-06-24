@@ -1,4 +1,8 @@
-package util;
+package dinojump.util;
+
+import dinojump.DinoJump;
+import dinojump.Renderer;
+import dinojump.manager.InputManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +28,7 @@ public class Stage
     public void showMainScreen()
     {
         JButton start = new JButton();
-        Renderer.renderButton(start, 0.5, 0.2);
+        Renderer.getInstance().renderButton(start, 0.5F, 0.2F);
         start.addActionListener(new ActionListener()
         {
             @Override

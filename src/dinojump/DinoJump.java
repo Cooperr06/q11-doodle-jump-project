@@ -1,3 +1,9 @@
+package dinojump;
+
+import dinojump.manager.PlatformManager;
+import dinojump.util.Avatar;
+import dinojump.util.Stage;
+
 import java.util.Timer;
 import java.util.TimerTask;
 

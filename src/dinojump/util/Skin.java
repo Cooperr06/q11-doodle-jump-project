@@ -1,4 +1,4 @@
-package util;
+package dinojump.util;
 
 import java.io.File;
 
