@@ -40,7 +40,7 @@ public class DinoJump
 
     private void loop()
     {
-        avatar.getInstance().iterateLoop();
+        Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
     }
 }
