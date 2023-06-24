@@ -1,3 +1,4 @@
+import util.Position;
 import util.Skin;
 
 import javax.imageio.ImageIO;
@@ -71,13 +72,11 @@ public class Renderer extends Canvas
      * renders image on Predetermined tileSize
      *
      * @param image image to be rendered
-     * @param x     x position
-     * @param y     y position
      */
-    public void renderImage(Image image, int x, int y)
+    public void renderImage(Image image, Position position)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-        graphics.drawImage(image, x, y, finTileSize, finTileSize, null);
+        graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -86,18 +85,16 @@ public class Renderer extends Canvas
      * renders text
      *
      * @param text text to be shown
-     * @param x    position x (left border of the text)
-     * @param y    position y (bottom of the text)
      * @param font text font
      * @see Font#Font(String, int, int)
      */
-    public void renderText(String text, int x, int y, Font font)
+    public void renderText(String text, Position position, Font font)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
         graphics.setColor(Color.white);
         graphics.setFont(font);
-        graphics.drawString(text, x, y);
+        graphics.drawString(text, position.getX(), position.getY());
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -106,17 +103,15 @@ public class Renderer extends Canvas
      * renders text
      *
      * @param text text to be shown
-     * @param x    position x (left border of the text)
-     * @param y    position y (bottom of the text)
      * @param size font size
      */
-    public void renderText(String text, int x, int y, int size)
+    public void renderText(String text, Position position, int size)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
         graphics.setColor(Color.white);
         graphics.setFont(new Font("Arial", Font.PLAIN, size));
-        graphics.drawString(text, x, y);
+        graphics.drawString(text, position.getX(), position.getY());
         graphics.dispose();
         bufferStrategy.show();
 
@@ -126,10 +121,8 @@ public class Renderer extends Canvas
      * renders Avatar
      *
      * @param skin Skinobject to be passed
-     * @param x    position x
-     * @param y    position y
      */
-    public void renderAvatar(Skin skin, int x, int y)
+    public void renderAvatar(Skin skin, Position position)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         Image image;
@@ -141,7 +134,7 @@ public class Renderer extends Canvas
         {
             throw new RuntimeException(e);
         }
-        graphics.drawImage(image, x, y, finTileSize, finTileSize, null);
+        graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -149,11 +142,9 @@ public class Renderer extends Canvas
     /**
      * renders Platform with twice the width of the player and half the height
      *
-     * @param skin
-     * @param x
-     * @param y
+     * @param skin skin to render
      */
-    public void renderPlatform(Skin skin, int x, int y)
+    public void renderPlatform(Skin skin, Position position)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
@@ -166,7 +157,7 @@ public class Renderer extends Canvas
         {
             throw new RuntimeException(e);
         }
-        graphics.drawImage(image, x, y, finTileSize / 2, finTileSize * 2, null);
+        graphics.drawImage(image, position.getX(), position.getY(), finTileSize / 2, finTileSize * 2, null);
         graphics.dispose();
         bufferStrategy.show();
     }
