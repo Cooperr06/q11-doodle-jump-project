@@ -1,5 +1,7 @@
 package list;
 
+import java.util.function.Consumer;
+
 public class Leaf extends ListElement
 {
     public Leaf()
@@ -20,9 +22,8 @@ public class Leaf extends ListElement
     }
 
     @Override
-    public DataElement findDataElement(String key)
+    public void forEach(Consumer<DataElement> action)
     {
-        return null;
     }
 
     @Override

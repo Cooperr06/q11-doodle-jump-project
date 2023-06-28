@@ -1,5 +1,7 @@
 package list;
 
+import java.util.function.Consumer;
+
 public class List
 {
     private ListElement first = new Leaf();
@@ -31,6 +33,11 @@ public class List
         first = first.insertLast(data);
     }
 
+    public void forEach(Consumer<DataElement> action)
+    {
+        first.forEach(action);
+    }
+
     public int size()
     {
         return first.size();
@@ -41,10 +48,5 @@ public class List
         DataElement temp = first.getLast(null);
         first = first.removeLast(temp);
         return temp;
-    }
-
-    public DataElement findDataElement(String key)
-    {
-        return first.findDataElement(key);
     }
 }

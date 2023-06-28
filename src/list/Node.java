@@ -1,5 +1,7 @@
 package list;
 
+import java.util.function.Consumer;
+
 public class Node extends ListElement
 {
     private final DataElement data;
@@ -41,16 +43,10 @@ public class Node extends ListElement
     }
 
     @Override
-    public DataElement findDataElement(String key)
+    public void forEach(Consumer<DataElement> action)
     {
-        if (data.compareKey(key))
-        {
-            return data;
-        }
-        else
-        {
-            return successor.findDataElement(key);
-        }
+        action.accept(data);
+        successor.forEach(action);
     }
 
     @Override

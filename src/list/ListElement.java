@@ -1,5 +1,7 @@
 package list;
 
+import java.util.function.Consumer;
+
 public abstract class ListElement
 {
     public ListElement()
@@ -23,12 +25,11 @@ public abstract class ListElement
     public abstract ListElement removeLast(DataElement temp);
 
     /**
-     * Finds a data element by its key
+     * Performs an action on all list elements of a list
      *
-     * @param key key of the data element
-     * @return data element with the specific key or null if none was found
+     * @param action action to perform
      */
-    public abstract DataElement findDataElement(String key);
+    public abstract void forEach(Consumer<DataElement> action);
 
     /**
      * Returns the size of the list

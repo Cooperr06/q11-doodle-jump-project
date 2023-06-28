@@ -1,6 +1,8 @@
 package dinojump.util;
 
-public class Platform implements Movable
+import list.DataElement;
+
+public class Platform implements Movable, DataElement
 {
     private final Skin skin;
 
@@ -19,6 +21,7 @@ public class Platform implements Movable
         position.setY(y);
     }
 
+    @Override
     public Skin getSkin()
     {
         return skin;
