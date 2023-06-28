@@ -14,15 +14,15 @@ public class Leaf extends ListElement
     }
 
     @Override
-    public DataElement getDataElement()
+    public ListElement removeLast(DataElement temp)
     {
-        return null;
+        return this;
     }
 
     @Override
-    public ListElement getSuccessor()
+    public DataElement findDataElement(String key)
     {
-        return this;
+        return null;
     }
 
     @Override
@@ -32,20 +32,20 @@ public class Leaf extends ListElement
     }
 
     @Override
-    public DataElement getEnd(DataElement temp)
+    public DataElement getLast(DataElement temp)
     {
         return temp;
     }
 
     @Override
-    public ListElement removeEnd(DataElement temp)
+    public DataElement getDataElement()
     {
-        return this;
+        return null;
     }
 
     @Override
-    public DataElement findDataElement(String key)
+    public ListElement getSuccessor()
     {
-        return null;
+        return this;
     }
 }

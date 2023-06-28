@@ -27,6 +27,45 @@ public class Node extends ListElement
     }
 
     @Override
+    public ListElement removeLast(DataElement temp)
+    {
+        if (data == temp)
+        {
+            return successor;
+        }
+        else
+        {
+            successor = successor.removeLast(temp);
+            return this;
+        }
+    }
+
+    @Override
+    public DataElement findDataElement(String key)
+    {
+        if (data.compareKey(key))
+        {
+            return data;
+        }
+        else
+        {
+            return successor.findDataElement(key);
+        }
+    }
+
+    @Override
+    public int size()
+    {
+        return successor.size() + 1;
+    }
+
+    @Override
+    public DataElement getLast(DataElement temp)
+    {
+        return successor.getLast(data);
+    }
+
+    @Override
     public DataElement getDataElement()
     {
         return data;
@@ -37,42 +76,4 @@ public class Node extends ListElement
     {
         return successor;
     }
-
-    @Override
-    public int size()
-    {
-        return successor.size() + 1;
-    }
-
-    @Override
-    public DataElement getEnd(DataElement temp)
-    {
-        return successor.getEnd(data);
-    }
-
-    @Override
-    public ListElement removeEnd(DataElement temp)
-    {
-        if(data == temp)
-        {
-            return successor;
-        }
-        else
-        {
-            successor = successor.removeEnd(temp);
-            return this;
-        }
-    }
-
-    @Override
-    public DataElement findDataElement(String key)
-    {
-        if(data.compareKey(key))
-        {
-            return data;
-        }else{
-            return successor.findDataElement(key);
-        }
-    }
 }
-

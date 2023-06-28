@@ -26,20 +26,20 @@ public class List
         return temp;
     }
 
+    public void insertLast(DataElement data)
+    {
+        first = first.insertLast(data);
+    }
+
     public int size()
     {
         return first.size();
     }
 
-    public void insertLast(DataElement dNew)
-    {
-        first = first.insertLast(dNew);
-    }
-
     public DataElement removeLast()
     {
-        DataElement temp = first.getEnd(null);
-        first = first.removeEnd(temp);
+        DataElement temp = first.getLast(null);
+        first = first.removeLast(temp);
         return temp;
     }
 
