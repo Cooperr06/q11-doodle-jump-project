@@ -4,16 +4,16 @@ import dinojump.Renderer;
 import dinojump.util.Platform;
 import dinojump.util.Position;
 import dinojump.util.Skin;
+import list.DataElement;
+import list.List;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 public class PlatformManager
 {
     public static PlatformManager instance;
 
-    private final List<Platform> platforms = new LinkedList<>();
+    private final List platforms = new List();
     private final Skin platformSkin = Skin.of(1);
 
     private final int rows;
@@ -36,17 +36,14 @@ public class PlatformManager
 
     public void iterateLoop()
     {
-        for (Platform platform : platforms)
-        {
-            platform.iterateLoop();
-        }
+        platforms.forEach(DataElement::iterateLoop);
 
-        Platform firstPlatform = platforms.get(0);
+        DataElement firstPlatform = platforms.getFirst().getDataElement();
         // If there is a platform which is outside the playable area it gets deleted
         if (firstPlatform.getPosition().getY() < 0)
         {
-            platforms.remove(firstPlatform);
-            platforms.add(firstPlatform);
+            platforms.removeFirst();
+            platforms.insertLast(firstPlatform);
         }
         firstPlatform.getPosition().setY(rows + 2);
     }
@@ -58,7 +55,8 @@ public class PlatformManager
         int currentY = distance;
         for (int i = 0; i < amount; i++)
         {
-            platforms.add(new Platform(platformSkin, new Position(random.nextInt(columns), currentY)));
+            Platform platform = new Platform(platformSkin, new Position(random.nextInt(columns), currentY));
+            platforms.insertLast(platform);
             currentY += distance;
         }
     }

@@ -1,13 +1,11 @@
 package list;
 
-import util.Position;
-import util.Skin;
+import dinojump.util.Position;
+import dinojump.util.Skin;
 
 public interface DataElement
 {
     void iterateLoop();
-
-    boolean compareKey(String key);
 
     void moveTo(int x, int y);
 
