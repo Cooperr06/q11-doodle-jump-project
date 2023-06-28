@@ -31,7 +31,7 @@ public class DinoJump
 
     public void startGameLoop(long fps)
     {
-        Timer timer = new Timer("timer1", true);
+        Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(6);
         timer.scheduleAtFixedRate(new TimerTask()
         {
@@ -40,11 +40,12 @@ public class DinoJump
             {
                 loop();
             }
-        }, 0L, fps / 1000);
+        }, 0L, 1000 / fps);
     }
 
     private void loop()
     {
+        Renderer.getInstance().clearScreen();
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
     }
