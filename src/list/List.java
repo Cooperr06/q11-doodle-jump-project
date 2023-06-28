@@ -8,9 +8,15 @@ public class List
     {
     }
 
+    public ListElement getFirst()
+    {
+        return first;
+    }
+
     public void insertFirst(DataElement data)
     {
-        first = new Node(data, first);
+        ListElement storage = first;
+        first = new Node(data, storage);
     }
 
     public DataElement removeFirst()
@@ -27,13 +33,13 @@ public class List
 
     public void insertLast(DataElement dNew)
     {
-        first.insertLast(dNew);
+        first = first.insertLast(dNew);
     }
 
     public DataElement removeLast()
     {
         DataElement temp = first.getEnd(null);
-        first.removeEnd(temp);
+        first = first.removeEnd(temp);
         return temp;
     }
 

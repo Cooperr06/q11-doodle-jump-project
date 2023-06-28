@@ -47,7 +47,7 @@ public class Node extends ListElement
     @Override
     public DataElement getEnd(DataElement temp)
     {
-        return successor.getEnd(temp);
+        return successor.getEnd(data);
     }
 
     @Override
@@ -56,7 +56,9 @@ public class Node extends ListElement
         if(data == temp)
         {
             return successor;
-        }else{
+        }
+        else
+        {
             successor = successor.removeEnd(temp);
             return this;
         }
