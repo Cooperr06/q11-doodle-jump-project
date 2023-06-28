@@ -1,6 +1,6 @@
 package dinojump.util;
 
-public class Platform implements Movable
+public class Platform implements Movable implements DataElement
 {
     private final Skin skin;
 
