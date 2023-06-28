@@ -62,4 +62,10 @@ public class PlatformManager
             currentY += distance;
         }
     }
+
+    // return the platform list
+    public List getList()
+    {
+        return platforms;
+    }
 }
