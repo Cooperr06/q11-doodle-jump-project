@@ -39,6 +39,7 @@ public class Platform implements Movable, DataElement
         this.position = position;
     }
 
+    @Override
     public void iterateLoop()
     {
         position.setX(position.getX() - Avatar.getInstance().getXVelocity());
