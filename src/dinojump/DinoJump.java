@@ -45,8 +45,8 @@ public class DinoJump
 
     private void loop()
     {
-        Renderer.getInstance().clearScreen();
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
+        Renderer.getInstance().clearScreen();
     }
 }

@@ -1,6 +1,5 @@
 package dinojump.util;
 
-import dinojump.Renderer;
 import dinojump.manager.InputManager;
 
 import javax.swing.*;
@@ -25,7 +24,9 @@ public class Stage
     public void showMainScreen()
     {
         JButton start = new JButton();
-        Renderer.getInstance().renderButton(start, 0.5F, 0.2F);
+        start.setText("start");
+
+
         start.addActionListener(e ->
         {
             InputManager.getInstance().buttonPressed("start");

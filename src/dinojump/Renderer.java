@@ -17,6 +17,7 @@ public class Renderer extends Canvas
 
     private static Renderer instance;
     private final JFrame window; // frame in OS
+    private final JPanel panel;
     private final BufferStrategy bufferStrategy; // required to make custom render methods
 
     private final int rows = 10; // logic dimensions are fixed
@@ -51,8 +52,10 @@ public class Renderer extends Canvas
         window.setPreferredSize(new Dimension(width, height));
         window.setLocation(0, 0);
 
+        panel = new JPanel();
+        panel.add(this);
         // putting canvas into frame
-        window.add(this);
+        window.add(panel);
         window.pack();
 
         // creating custom buffer strategy (required to make custom render methods)
@@ -64,7 +67,7 @@ public class Renderer extends Canvas
     {
         if (instance == null)
         {
-            instance = new Renderer(720, 1000);
+            instance = new Renderer(1080, 720);
         }
         return instance;
     }
@@ -168,8 +171,7 @@ public class Renderer extends Canvas
      *
      * @param image background image
      */
-    public void drawBackground(Image image)
-    {
+    public void renderBackground(Image image) {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.drawImage(image, 0, 0, window.getWidth(), window.getHeight(), null);
         graphics.dispose();
@@ -181,30 +183,28 @@ public class Renderer extends Canvas
      * @param x      relative position from left (float 0-1)
      * @param y      relative position from top (float 0-1)
      */
-    public void renderButton(JButton button, float x, float y)
-    {
+    public void renderButton(JButton button, float x, float y) {
         buttons.add(button);
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
-        button.setAlignmentX(window.getWidth() * x - (float) button.getHeight() / 2);
-        button.setAlignmentY(window.getHeight() * y - (float) button.getWidth() / 2);
-        window.add(button);
+        float buttonX = x * window.getWidth() - button.getWidth() / 2f;
+        float buttonY = y * window.getHeight() - button.getHeight() / 2f;
+        button.setBounds((int) buttonX, (int) buttonY, button.getWidth(), button.getHeight());
+        button.setVisible(true);
+        panel.add(button);
         graphics.dispose();
         bufferStrategy.show();
     }
 
-    public void clearScreen()
-    {
-        while (!buttons.isEmpty())
-        {
+    public void clearScreen() {
+        while (!buttons.isEmpty()) {
             window.getContentPane().remove(buttons.size() - 1);
             buttons.remove(buttons.size() - 1);
         }
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(Color.black);
-        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
-        graphics.dispose();
-        bufferStrategy.show();
+        graphics.clearRect(0, 0, window.getWidth(), window.getHeight());
+
     }
 
     public int getRows()
@@ -232,13 +232,15 @@ public class Renderer extends Canvas
         return finTileSize;
     }
 
-    public int getPlatformWidth()
-    {
+    public int getPlatformWidth() {
         return finTileSize * 2;
     }
 
-    public int getPlatformHeight()
-    {
+    public int getPlatformHeight() {
         return finTileSize / 2;
+    }
+
+    public JFrame getWindow() {
+        return window;
     }
 }
