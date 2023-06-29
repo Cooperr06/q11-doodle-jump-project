@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.InputManager;
 import dinojump.util.Position;
 import dinojump.util.Skin;
 
@@ -54,8 +55,13 @@ public class Renderer extends Canvas
 
         panel = new JPanel();
         panel.add(this);
+
+
         // putting canvas into frame
         window.add(panel);
+        // adding InputManager as key listener
+        window.addKeyListener(InputManager.getInstance());
+
         window.pack();
 
         // creating custom buffer strategy (required to make custom render methods)
@@ -123,7 +129,7 @@ public class Renderer extends Canvas
     /**
      * renders Avatar
      *
-     * @param skin Skinobject to be passed
+     * @param skin Skin object to be passed
      */
     public void renderAvatar(Skin skin, Position position)
     {
