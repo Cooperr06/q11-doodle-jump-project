@@ -24,7 +24,7 @@ public class Avatar implements Movable
 
     private Avatar()
     {
-        position = new Position(0, 0);
+        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
         skin = Skin.of(0);
 
         maxXVelocity = 10;
@@ -47,13 +47,17 @@ public class Avatar implements Movable
         position.setY(y);
     }
 
+    public void iterateLoop()
+    {
+        updateVelocity();
+        updatePosition();
+        redraw();
+    }
+
     public void updateVelocity()
     {
-        //update Velocity
-
-        //xVelocity
-
-        if (xAcceleration == 0)       //deceleration
+        // xVelocity
+        if (xAcceleration == 0) // deceleration
         {
             if (abs(xVelocity) < floor((double) abs(maxXVelocity) / 4))
             {
@@ -64,7 +68,7 @@ public class Avatar implements Movable
                 xVelocity = (int) floor((double) xVelocity / 2);
             }
         }
-        else                      //acceleration
+        else // acceleration
         {
             xVelocity += xAcceleration;
 
@@ -78,27 +82,25 @@ public class Avatar implements Movable
             }
         }
 
-
-        //yVelocity
-
+        // yVelocity
         /*
         since there is no accelerating process in jumping, it goes maxVel -slowly-> Vel = 0 -slowly-> -1 * maxVel
         until collisionManager "accelerates" again, witch is considered as a starting signal to jump, therefor repeats the cycle
          */
-        if (yAcceleration > 0)       //got accelerated by collisionManager
+        if (yAcceleration > 0) // got accelerated by collisionManager
         {
             yVelocity = maxYVelocity;
             yAcceleration = 0;
         }
-        else if (yVelocity > 0)       //traveling upwards
+        else if (yVelocity > 0) // traveling upwards
         {
             yVelocity = (int) floor((double) yVelocity / 1.2);
         }
-        else if (yVelocity == 0)        //stalling
+        else if (yVelocity == 0) // stalling
         {
             yVelocity = -1;
         }
-        else     //traveling downwards
+        else // traveling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
             if (yVelocity < maxYVelocity * -1)
@@ -108,7 +110,6 @@ public class Avatar implements Movable
         }
     }
 
-
     public void updatePosition()
     {
         moveTo(position.getX() + xVelocity, position.getY() + yVelocity);
@@ -117,13 +118,6 @@ public class Avatar implements Movable
     public void redraw()
     {
         Renderer.getInstance().renderAvatar(skin, position);
-    }
-
-    public void iterateLoop()
-    {
-        updateVelocity();
-        updatePosition();
-        redraw();
     }
 
     public Skin getSkin()

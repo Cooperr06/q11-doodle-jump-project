@@ -15,6 +15,17 @@ public class Platform implements Movable, DataElement
     }
 
     @Override
+    public void iterateLoop()
+    {
+        updatePosition();
+    }
+
+    public void updatePosition()
+    {
+        position.setY(position.getY() - Avatar.getInstance().getYVelocity());
+    }
+
+    @Override
     public void moveTo(int x, int y)
     {
         position.setX(x);
@@ -37,11 +48,5 @@ public class Platform implements Movable, DataElement
     public void setPosition(Position position)
     {
         this.position = position;
-    }
-
-    @Override
-    public void iterateLoop()
-    {
-        position.setX(position.getX() - Avatar.getInstance().getXVelocity());
     }
 }

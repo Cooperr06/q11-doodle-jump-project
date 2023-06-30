@@ -10,6 +10,11 @@ public class List
     {
     }
 
+    public DataElement get(int index)
+    {
+        return first.get(index);
+    }
+
     public ListElement getFirst()
     {
         return first;
@@ -21,16 +26,21 @@ public class List
         first = new Node(data, storage);
     }
 
+    public void insertLast(DataElement data)
+    {
+        first = first.insertLast(data);
+    }
+
+    public void remove(DataElement data)
+    {
+        first = first.remove(data);
+    }
+
     public DataElement removeFirst()
     {
         DataElement temp = first.getDataElement();
         first = first.getSuccessor();
         return temp;
-    }
-
-    public void insertLast(DataElement data)
-    {
-        first = first.insertLast(data);
     }
 
     public void forEach(Consumer<DataElement> action)
@@ -41,12 +51,5 @@ public class List
     public int size()
     {
         return first.size();
-    }
-
-    public DataElement removeLast()
-    {
-        DataElement temp = first.getLast(null);
-        first = first.removeLast(temp);
-        return temp;
     }
 }

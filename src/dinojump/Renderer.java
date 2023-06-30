@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.InputManager;
 import dinojump.util.Position;
 import dinojump.util.Skin;
 
@@ -8,31 +9,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.round;
+import static java.lang.Math.sin;
 
 public class Renderer extends Canvas
 {
+    private final List<JButton> buttons = new ArrayList<>();
+
     private static Renderer instance;
     private final JFrame window; // frame in OS
+    private final JPanel panel;
     private final BufferStrategy bufferStrategy; // required to make custom render methods
 
     private final int rows = 10; // logic dimensions are fixed
-    private final int columns = 6;
+    private final int columns = 20;
     private final int tileSize = 32; // sprite resolution is fixed
 
-    public int screenHeight;
-    public int screenWidth;
+    private int scale;
+    private int finTileSize;
 
-    public int scale;
-    public int finTileSize;
+    private int screenHeight;
+    private int screenWidth;
 
-    public List<JButton> buttons;
+    private long startTime;
+    private Color backgroundColor;
 
     private Renderer(int width, int height)
     {
         super(); // call parent constructor
+        backgroundColor = new Color(0, 0, 0);//init bg color
         this.setPreferredSize(new Dimension(width, height)); // set size of canvas to draw on
-        this.setBackground(Color.black); // bg color black
+        this.setBackground(backgroundColor); // set bg color
         this.setVisible(true);
 
         // initializing values
@@ -50,21 +60,27 @@ public class Renderer extends Canvas
         window.setPreferredSize(new Dimension(width, height));
         window.setLocation(0, 0);
 
+        panel = new JPanel();
+        panel.add(this);
+
         // putting canvas into frame
-        window.add(this);
+        window.add(panel);
+        // adding InputManager as key listener
+        window.addKeyListener(InputManager.getInstance());
+
         window.pack();
 
+        startTime = System.currentTimeMillis();
         // creating custom buffer strategy (required to make custom render methods)
         createBufferStrategy(2);
         bufferStrategy = getBufferStrategy();
-
     }
 
     public static Renderer getInstance()
     {
         if (instance == null)
         {
-            instance = new Renderer(720, 1280);
+            instance = new Renderer(1080, 720);
         }
         return instance;
     }
@@ -78,8 +94,6 @@ public class Renderer extends Canvas
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -96,8 +110,6 @@ public class Renderer extends Canvas
         graphics.setColor(Color.white);
         graphics.setFont(font);
         graphics.drawString(text, position.getX(), position.getY());
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -113,15 +125,12 @@ public class Renderer extends Canvas
         graphics.setColor(Color.white);
         graphics.setFont(new Font("Arial", Font.PLAIN, size));
         graphics.drawString(text, position.getX(), position.getY());
-        graphics.dispose();
-        bufferStrategy.show();
-
     }
 
     /**
      * renders Avatar
      *
-     * @param skin Skinobject to be passed
+     * @param skin Skin object to be passed
      */
     public void renderAvatar(Skin skin, Position position)
     {
@@ -136,29 +145,30 @@ public class Renderer extends Canvas
             throw new RuntimeException(e);
         }
         graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
      * renders Platform with twice the width of the player and half the height
      *
-     * @param skin skin to render
+     * @param platforms platforms to render
      */
-    public void renderPlatform(Skin skin, Position position)
+    public void renderPlatforms(list.List platforms)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
-        Image image;
-        try
+        platforms.forEach(platform ->
         {
-            image = ImageIO.read(skin.getImages()[0]);
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        graphics.drawImage(image, position.getX(), position.getY(), finTileSize / 2, finTileSize * 2, null);
+            Image image;
+            try
+            {
+                image = ImageIO.read(platform.getSkin().getImages()[0]);
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
+            graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize, finTileSize, null);
+        });
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -169,12 +179,10 @@ public class Renderer extends Canvas
      *
      * @param image background image
      */
-    public void drawBackground(Image image)
+    public void renderBackground(Image image)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.drawImage(image, 0, 0, window.getWidth(), window.getHeight(), null);
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -185,12 +193,14 @@ public class Renderer extends Canvas
     public void renderButton(JButton button, float x, float y)
     {
         buttons.add(button);
-        Graphics graphics = getBufferStrategy().getDrawGraphics();
-        button.setAlignmentX(window.getWidth() * x - (float) button.getHeight() / 2);
-        button.setAlignmentY(window.getHeight() * y - (float) button.getWidth() / 2);
-        window.add(button);
-        graphics.dispose();
-        bufferStrategy.show();
+
+        Graphics graphics = bufferStrategy.getDrawGraphics();
+        float buttonX = x * window.getWidth() - button.getWidth() / 2f;
+        float buttonY = y * window.getHeight() - button.getHeight() / 2f;
+
+        button.setBounds((int) buttonX, (int) buttonY, button.getWidth(), button.getHeight());
+        button.setVisible(true);
+        panel.add(button);
     }
 
     public void clearScreen()
@@ -202,10 +212,25 @@ public class Renderer extends Canvas
         }
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(Color.black);
-        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
-        graphics.dispose();
-        bufferStrategy.show();
+        graphics.clearRect(0, 0, window.getWidth(), window.getHeight());
     }
+
+    public void updateBackgroundColor()
+    {
+        float minimumBrightness = 0.2f;
+        float speed = 0.8f;
+        float time = (System.currentTimeMillis() - startTime) / 1000f;
+
+        int r = (int) round((((sin(time * 0.3f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        int g = (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        int b = (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        backgroundColor = new Color(r, g, b);
+
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+        graphics.setColor(backgroundColor);
+        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
+    }
+
 
     public int getRows()
     {
@@ -240,5 +265,10 @@ public class Renderer extends Canvas
     public int getPlatformHeight()
     {
         return finTileSize / 2;
+    }
+
+    public JFrame getWindow()
+    {
+        return window;
     }
 }
