@@ -1,7 +1,5 @@
 package dinojump.util;
 
-import dinojump.Renderer;
-
 public class Platform implements Movable
 {
     private final Skin skin;
@@ -41,16 +39,11 @@ public class Platform implements Movable
     public void iterateLoop()
     {
         updatePosition();
-        redraw();
+
     }
 
     public void updatePosition()
     {
-        position.setX(position.getX() - Avatar.getInstance().getXVelocity());
-    }
-
-    public void redraw()
-    {
-        Renderer.getInstance().renderPlatform(skin, position);
+        position.setY(position.getY() - Avatar.getInstance().getYVelocity());
     }
 }

@@ -19,10 +19,13 @@ public class PlatformManager
     private final int rows;
     private final int columns;
 
+    private Random random;
+
     private PlatformManager()
     {
         rows = Renderer.getInstance().getRows();
         columns = Renderer.getInstance().getColumns();
+        random = new Random();
     }
 
     public static PlatformManager getInstance()
@@ -41,25 +44,45 @@ public class PlatformManager
             platform.iterateLoop();
         }
 
-        Platform firstPlatform = platforms.get(0);
-        // If there is a platform which is outside the playable area it gets deleted
-        if (firstPlatform.getPosition().getY() < 0)
+        // platforms that are below the window get reused on top
+        itteration:
         {
-            platforms.remove(firstPlatform);
-            platforms.add(firstPlatform);
+            for (int i = 0; i < platforms.size(); i++)
+            {
+
+                if (platforms.get(i).getPosition().getY() > Renderer.getInstance().getHeight() - 100)
+                {
+                    Platform speicher = platforms.get(i);
+                    platforms.remove(platforms.get(i));
+                    platforms.add(speicher);
+                    speicher.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
+                    i--;
+                }
+                else
+                {
+
+                    break itteration;
+                }
+
+
+            }
         }
-        firstPlatform.getPosition().setY(rows + 2);
+        draw();
     }
 
     public void spawnInitialPlatforms(int amount)
     {
-        Random random = new Random();
-        int distance = rows - 1 / amount;
-        int currentY = distance;
+
         for (int i = 0; i < amount; i++)
         {
-            platforms.add(new Platform(platformSkin, new Position(random.nextInt(columns), currentY)));
-            currentY += distance;
+            platforms.add(new Platform(platformSkin, new Position((int) (random.nextGaussian() * 3 + columns / 2), (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows))));
+
+            System.out.println("Platform " + i + " X: " + platforms.get(i).getPosition().getX() + " Y: " + platforms.get(i).getPosition().getY());
         }
+    }
+
+    public void draw()
+    {
+        Renderer.getInstance().renderPlatforms(platforms);
     }
 }

@@ -32,7 +32,7 @@ public class DinoJump
     public void startGameLoop(long fps)
     {
         Timer timer = new Timer();
-        PlatformManager.getInstance().spawnInitialPlatforms(6);
+        PlatformManager.getInstance().spawnInitialPlatforms(20);
         timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
@@ -45,6 +45,7 @@ public class DinoJump
 
     private void loop()
     {
+        Renderer.getInstance().updateBackgroundColor();
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
         Renderer.getInstance().clearScreen();

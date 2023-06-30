@@ -1,6 +1,7 @@
 package dinojump;
 
 import dinojump.manager.InputManager;
+import dinojump.util.Platform;
 import dinojump.util.Position;
 import dinojump.util.Skin;
 
@@ -12,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.round;
+import static java.lang.Math.sin;
+
 public class Renderer extends Canvas
 {
     private final List<JButton> buttons = new ArrayList<>();
@@ -22,7 +26,7 @@ public class Renderer extends Canvas
     private final BufferStrategy bufferStrategy; // required to make custom render methods
 
     private final int rows = 10; // logic dimensions are fixed
-    private final int columns = 6;
+    private final int columns = 20;
     private final int tileSize = 32; // sprite resolution is fixed
 
     private int screenHeight;
@@ -30,12 +34,15 @@ public class Renderer extends Canvas
 
     private int scale;
     private int finTileSize;
+    long startTime;
+    private Color backgroundColor;
 
     private Renderer(int width, int height)
     {
         super(); // call parent constructor
+        backgroundColor = new Color(0, 0, 0);//init bg color
         this.setPreferredSize(new Dimension(width, height)); // set size of canvas to draw on
-        this.setBackground(Color.black); // bg color black
+        this.setBackground(backgroundColor); // set bg color
         this.setVisible(true);
 
         // initializing values
@@ -64,6 +71,7 @@ public class Renderer extends Canvas
 
         window.pack();
 
+        startTime = System.currentTimeMillis();
         // creating custom buffer strategy (required to make custom render methods)
         createBufferStrategy(2);
         bufferStrategy = getBufferStrategy();
@@ -87,8 +95,6 @@ public class Renderer extends Canvas
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -105,8 +111,6 @@ public class Renderer extends Canvas
         graphics.setColor(Color.white);
         graphics.setFont(font);
         graphics.drawString(text, position.getX(), position.getY());
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -122,8 +126,6 @@ public class Renderer extends Canvas
         graphics.setColor(Color.white);
         graphics.setFont(new Font("Arial", Font.PLAIN, size));
         graphics.drawString(text, position.getX(), position.getY());
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -144,29 +146,34 @@ public class Renderer extends Canvas
             throw new RuntimeException(e);
         }
         graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
-        graphics.dispose();
-        bufferStrategy.show();
+
     }
 
     /**
      * renders Platform with twice the width of the player and half the height
      *
-     * @param skin skin to render
+     * @param platforms platforms to render
      */
-    public void renderPlatform(Skin skin, Position position)
+    public void renderPlatforms(List<Platform> platforms)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
-        Image image;
-        try
+        for (int i = 0; i < platforms.size(); i++)
         {
-            image = ImageIO.read(skin.getImages()[0]);
+            Image image;
+
+            try
+            {
+                image = ImageIO.read(platforms.get(i).getSkin().getImages()[0]);
+
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
+            graphics.drawImage(image, platforms.get(i).getPosition().getX() * window.getWidth() / columns, platforms.get(i).getPosition().getY(), finTileSize, finTileSize, null);
         }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        graphics.drawImage(image, position.getX(), position.getY(), finTileSize / 2, finTileSize * 2, null);
+
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -177,11 +184,10 @@ public class Renderer extends Canvas
      *
      * @param image background image
      */
-    public void renderBackground(Image image) {
+    public void renderBackground(Image image)
+    {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.drawImage(image, 0, 0, window.getWidth(), window.getHeight(), null);
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
     /**
@@ -189,7 +195,8 @@ public class Renderer extends Canvas
      * @param x      relative position from left (float 0-1)
      * @param y      relative position from top (float 0-1)
      */
-    public void renderButton(JButton button, float x, float y) {
+    public void renderButton(JButton button, float x, float y)
+    {
         buttons.add(button);
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
@@ -198,12 +205,12 @@ public class Renderer extends Canvas
         button.setBounds((int) buttonX, (int) buttonY, button.getWidth(), button.getHeight());
         button.setVisible(true);
         panel.add(button);
-        graphics.dispose();
-        bufferStrategy.show();
     }
 
-    public void clearScreen() {
-        while (!buttons.isEmpty()) {
+    public void clearScreen()
+    {
+        while (!buttons.isEmpty())
+        {
             window.getContentPane().remove(buttons.size() - 1);
             buttons.remove(buttons.size() - 1);
         }
@@ -212,6 +219,18 @@ public class Renderer extends Canvas
         graphics.clearRect(0, 0, window.getWidth(), window.getHeight());
 
     }
+
+    public void updateBackgroundColor()
+    {
+        float minHelligkeit = 0.2f;
+        float speed = 0.8f;
+        float time = (System.currentTimeMillis() - startTime) / 1000f;
+        backgroundColor = new Color((int) round((((sin(time * 0.3f * speed) + 1) / 2) / (1 / (1 - minHelligkeit)) + minHelligkeit) * 255f), (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minHelligkeit)) + minHelligkeit) * 255f), (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minHelligkeit)) + minHelligkeit) * 255f));
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+        graphics.setColor(backgroundColor);
+        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
+    }
+
 
     public int getRows()
     {
@@ -238,15 +257,18 @@ public class Renderer extends Canvas
         return finTileSize;
     }
 
-    public int getPlatformWidth() {
+    public int getPlatformWidth()
+    {
         return finTileSize * 2;
     }
 
-    public int getPlatformHeight() {
+    public int getPlatformHeight()
+    {
         return finTileSize / 2;
     }
 
-    public JFrame getWindow() {
+    public JFrame getWindow()
+    {
         return window;
     }
 }
