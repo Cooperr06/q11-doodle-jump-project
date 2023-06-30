@@ -43,28 +43,21 @@ public class PlatformManager
         {
             platform.iterateLoop();
         }
-
         // platforms that are below the window get reused on top
-        itteration:
+        for (int i = 0; i < platforms.size(); i++)
         {
-            for (int i = 0; i < platforms.size(); i++)
+
+            if (platforms.get(i).getPosition().getY() > Renderer.getInstance().getHeight() - 100)
             {
-
-                if (platforms.get(i).getPosition().getY() > Renderer.getInstance().getHeight() - 100)
-                {
-                    Platform speicher = platforms.get(i);
-                    platforms.remove(platforms.get(i));
-                    platforms.add(speicher);
-                    speicher.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
-                    i--;
-                }
-                else
-                {
-
-                    break itteration;
-                }
-
-
+                Platform temp = platforms.get(i);
+                platforms.remove(platforms.get(i));
+                platforms.add(temp);
+                temp.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
+                i--;
+            }
+            else
+            {
+                break;
             }
         }
         draw();
@@ -72,12 +65,9 @@ public class PlatformManager
 
     public void spawnInitialPlatforms(int amount)
     {
-
         for (int i = 0; i < amount; i++)
         {
             platforms.add(new Platform(platformSkin, new Position((int) (random.nextGaussian() * 3 + columns / 2), (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows))));
-
-            System.out.println("Platform " + i + " X: " + platforms.get(i).getPosition().getX() + " Y: " + platforms.get(i).getPosition().getY());
         }
     }
 

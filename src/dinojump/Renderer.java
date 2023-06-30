@@ -158,22 +158,20 @@ public class Renderer extends Canvas
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
-        for (int i = 0; i < platforms.size(); i++)
+        for (Platform platform : platforms)
         {
             Image image;
-
             try
             {
-                image = ImageIO.read(platforms.get(i).getSkin().getImages()[0]);
+                image = ImageIO.read(platform.getSkin().getImages()[0]);
 
             }
             catch (IOException e)
             {
                 throw new RuntimeException(e);
             }
-            graphics.drawImage(image, platforms.get(i).getPosition().getX() * window.getWidth() / columns, platforms.get(i).getPosition().getY(), finTileSize, finTileSize, null);
+            graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize, finTileSize, null);
         }
-
         graphics.dispose();
         bufferStrategy.show();
     }
@@ -202,6 +200,7 @@ public class Renderer extends Canvas
         Graphics graphics = bufferStrategy.getDrawGraphics();
         float buttonX = x * window.getWidth() - button.getWidth() / 2f;
         float buttonY = y * window.getHeight() - button.getHeight() / 2f;
+
         button.setBounds((int) buttonX, (int) buttonY, button.getWidth(), button.getHeight());
         button.setVisible(true);
         panel.add(button);
@@ -217,15 +216,19 @@ public class Renderer extends Canvas
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(Color.black);
         graphics.clearRect(0, 0, window.getWidth(), window.getHeight());
-
     }
 
     public void updateBackgroundColor()
     {
-        float minHelligkeit = 0.2f;
+        float minimumBrightness = 0.2f;
         float speed = 0.8f;
         float time = (System.currentTimeMillis() - startTime) / 1000f;
-        backgroundColor = new Color((int) round((((sin(time * 0.3f * speed) + 1) / 2) / (1 / (1 - minHelligkeit)) + minHelligkeit) * 255f), (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minHelligkeit)) + minHelligkeit) * 255f), (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minHelligkeit)) + minHelligkeit) * 255f));
+
+        int r = (int) round((((sin(time * 0.3f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        int g = (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        int b = (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        backgroundColor = new Color(r, g, b);
+
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
