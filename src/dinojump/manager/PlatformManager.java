@@ -76,8 +76,6 @@ public class PlatformManager
         for (int i = 0; i < amount; i++)
         {
             platforms.add(new Platform(platformSkin, new Position((int) (random.nextGaussian() * 3 + columns / 2), (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows))));
-
-            System.out.println("Platform " + i + " X: " + platforms.get(i).getPosition().getX() + " Y: " + platforms.get(i).getPosition().getY());
         }
     }
 
