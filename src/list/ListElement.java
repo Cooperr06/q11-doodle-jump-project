@@ -9,6 +9,14 @@ public abstract class ListElement
     }
 
     /**
+     * Returns the data element of the list element with the specific index
+     *
+     * @param index current index
+     * @return data element of the list element with the specific index
+     */
+    public abstract DataElement get(int index);
+
+    /**
      * Inserts a data element at the end of the list
      *
      * @param data data to insert
@@ -17,12 +25,12 @@ public abstract class ListElement
     public abstract ListElement insertLast(DataElement data);
 
     /**
-     * Removes the last list element in the list
+     * Removes the list element with the specific data element from this list
      *
-     * @param temp data element of the last list element
-     * @return node or leaf as new successor or new first element in list
+     * @param data list element's data element
+     * @return new first list element or new successor
      */
-    public abstract ListElement removeLast(DataElement temp);
+    public abstract ListElement remove(DataElement data);
 
     /**
      * Performs an action on all list elements of a list

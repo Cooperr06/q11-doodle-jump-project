@@ -1,7 +1,6 @@
 package dinojump;
 
 import dinojump.manager.InputManager;
-import dinojump.util.Platform;
 import dinojump.util.Position;
 import dinojump.util.Skin;
 
@@ -29,12 +28,13 @@ public class Renderer extends Canvas
     private final int columns = 20;
     private final int tileSize = 32; // sprite resolution is fixed
 
+    private int scale;
+    private int finTileSize;
+
     private int screenHeight;
     private int screenWidth;
 
-    private int scale;
-    private int finTileSize;
-    long startTime;
+    private long startTime;
     private Color backgroundColor;
 
     private Renderer(int width, int height)
@@ -62,7 +62,6 @@ public class Renderer extends Canvas
 
         panel = new JPanel();
         panel.add(this);
-
 
         // putting canvas into frame
         window.add(panel);
@@ -146,7 +145,6 @@ public class Renderer extends Canvas
             throw new RuntimeException(e);
         }
         graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
-
     }
 
     /**
@@ -154,11 +152,11 @@ public class Renderer extends Canvas
      *
      * @param platforms platforms to render
      */
-    public void renderPlatforms(List<Platform> platforms)
+    public void renderPlatforms(list.List platforms)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
 
-        for (Platform platform : platforms)
+        platforms.forEach(platform ->
         {
             Image image;
             try
@@ -170,7 +168,7 @@ public class Renderer extends Canvas
                 throw new RuntimeException(e);
             }
             graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize, finTileSize, null);
-        }
+        });
         graphics.dispose();
         bufferStrategy.show();
     }

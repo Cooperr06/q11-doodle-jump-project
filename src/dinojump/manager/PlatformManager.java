@@ -39,21 +39,16 @@ public class PlatformManager
 
     public void iterateLoop()
     {
-
-        for (Platform platform : platforms)
-        {
-            platform.iterateLoop();
-        }
+        platforms.forEach(DataElement::iterateLoop);
         // platforms that are below the window get reused on top
         for (int i = 0; i < platforms.size(); i++)
         {
-
-            if (platforms.get(i).getPosition().getY() > Renderer.getInstance().getHeight() - 100)
+            DataElement platform = platforms.get(i);
+            if (platform.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
             {
-                Platform temp = platforms.get(i);
-                platforms.remove(platforms.get(i));
-                platforms.add(temp);
-                temp.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
+                platforms.remove(platform);
+                platforms.insertLast(platform);
+                platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
                 i--;
             }
             else
@@ -68,9 +63,9 @@ public class PlatformManager
     {
         for (int i = 0; i < amount; i++)
         {
-
-            platforms.add(new Platform(platformSkin, new Position((int) (random.nextGaussian() * 3 + columns / 2), (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows))));
-
+            int x = (int) (random.nextGaussian() * 3 + columns / 2);
+            int y = (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows);
+            platforms.insertLast(new Platform(platformSkin, new Position(x, y)));
         }
     }
 
