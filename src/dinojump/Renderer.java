@@ -164,7 +164,6 @@ public class Renderer extends Canvas
             try
             {
                 image = ImageIO.read(platform.getSkin().getImages()[0]);
-
             }
             catch (IOException e)
             {
