@@ -4,16 +4,16 @@ import dinojump.Renderer;
 import dinojump.util.Platform;
 import dinojump.util.Position;
 import dinojump.util.Skin;
+import list.DataElement;
+import list.List;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 public class PlatformManager
 {
     public static PlatformManager instance;
 
-    private final List<Platform> platforms = new LinkedList<>();
+    private final List platforms = new List();
     private final Skin platformSkin = Skin.of(1);
 
     private final int rows;
@@ -39,6 +39,7 @@ public class PlatformManager
 
     public void iterateLoop()
     {
+
         for (Platform platform : platforms)
         {
             platform.iterateLoop();
@@ -67,7 +68,9 @@ public class PlatformManager
     {
         for (int i = 0; i < amount; i++)
         {
+
             platforms.add(new Platform(platformSkin, new Position((int) (random.nextGaussian() * 3 + columns / 2), (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows))));
+
         }
     }
 
