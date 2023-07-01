@@ -28,7 +28,7 @@ public class Avatar implements Movable
         skin = Skin.of(0);
 
         maxXVelocity = 10;
-        maxYVelocity = 10;
+        maxYVelocity = 60;
     }
 
     public static Avatar getInstance()
@@ -55,13 +55,13 @@ public class Avatar implements Movable
 
         if (xAcceleration == 0)       //deceleration
         {
-            if (abs(xVelocity) < floor((double) abs(maxXVelocity) / 4))
+            if (abs(xVelocity) < floor((double) abs(maxXVelocity) / 10))
             {
                 xVelocity = 0;
             }
             else
             {
-                xVelocity = (int) floor((double) xVelocity / 2);
+                xVelocity = (int) floor((double) xVelocity / 1.1);
             }
         }
         else                      //acceleration
@@ -87,23 +87,23 @@ public class Avatar implements Movable
          */
         if (yAcceleration > 0)       //got accelerated by collisionManager
         {
-            yVelocity = maxYVelocity;
+            yVelocity = maxYVelocity * -1;
             yAcceleration = 0;
         }
-        else if (yVelocity > 0)       //traveling upwards
+        else if (yVelocity < 0)       //traveling upwards
         {
             yVelocity = (int) floor((double) yVelocity / 1.2);
         }
         else if (yVelocity == 0)        //stalling
         {
-            yVelocity = -1;
+            yVelocity = 1;
         }
         else     //traveling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
-            if (yVelocity < maxYVelocity * -1)
+            if (yVelocity < maxYVelocity)
             {
-                yVelocity = maxYVelocity * -1;
+                yVelocity = maxYVelocity;
             }
         }
     }
