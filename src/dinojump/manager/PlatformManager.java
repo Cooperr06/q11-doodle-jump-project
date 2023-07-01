@@ -19,10 +19,13 @@ public class PlatformManager
     private final int rows;
     private final int columns;
 
+    private Random random;
+
     private PlatformManager()
     {
         rows = Renderer.getInstance().getRows();
         columns = Renderer.getInstance().getColumns();
+        random = new Random();
     }
 
     public static PlatformManager getInstance()
@@ -37,27 +40,37 @@ public class PlatformManager
     public void iterateLoop()
     {
         platforms.forEach(DataElement::iterateLoop);
-
-        DataElement firstPlatform = platforms.getFirst().getDataElement();
-        // If there is a platform which is outside the playable area it gets deleted
-        if (firstPlatform.getPosition().getY() < 0)
+        // platforms that are below the window get reused on top
+        for (int i = 0; i < platforms.size(); i++)
         {
-            platforms.removeFirst();
-            platforms.insertLast(firstPlatform);
+            DataElement platform = platforms.get(i);
+            if (platform.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
+            {
+                platforms.remove(platform);
+                platforms.insertLast(platform);
+                platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
+                i--;
+            }
+            else
+            {
+                break;
+            }
         }
-        firstPlatform.getPosition().setY(rows + 2);
+        draw();
     }
 
     public void spawnInitialPlatforms(int amount)
     {
-        Random random = new Random();
-        int distance = rows - 1 / amount;
-        int currentY = distance;
         for (int i = 0; i < amount; i++)
         {
-            Platform platform = new Platform(platformSkin, new Position(random.nextInt(columns), currentY));
-            platforms.insertLast(platform);
-            currentY += distance;
+            int x = (int) (random.nextGaussian() * 3 + columns / 2);
+            int y = (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows);
+            platforms.insertLast(new Platform(platformSkin, new Position(x, y)));
         }
+    }
+
+    public void draw()
+    {
+        Renderer.getInstance().renderPlatforms(platforms);
     }
 }

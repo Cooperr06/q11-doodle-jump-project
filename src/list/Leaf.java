@@ -10,13 +10,19 @@ public class Leaf extends ListElement
     }
 
     @Override
+    public DataElement get(int index)
+    {
+        throw new IndexOutOfBoundsException();
+    }
+
+    @Override
     public ListElement insertLast(DataElement data)
     {
         return new Node(data, this);
     }
 
     @Override
-    public ListElement removeLast(DataElement temp)
+    public ListElement remove(DataElement temp)
     {
         return this;
     }

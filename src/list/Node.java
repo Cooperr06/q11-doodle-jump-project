@@ -22,6 +22,19 @@ public class Node extends ListElement
     }
 
     @Override
+    public DataElement get(int index)
+    {
+        if (index == 0)
+        {
+            return data;
+        }
+        else
+        {
+            return successor.get(index - 1);
+        }
+    }
+
+    @Override
     public ListElement insertLast(DataElement data)
     {
         successor = successor.insertLast(data);
@@ -29,15 +42,15 @@ public class Node extends ListElement
     }
 
     @Override
-    public ListElement removeLast(DataElement temp)
+    public ListElement remove(DataElement data)
     {
-        if (data == temp)
+        if (this.data == data)
         {
             return successor;
         }
         else
         {
-            successor = successor.removeLast(temp);
+            successor = successor.remove(data);
             return this;
         }
     }

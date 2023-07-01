@@ -35,8 +35,8 @@ public class InputManager implements KeyListener
         // check which button is pressed
         switch (e.getKeyCode())
         {
-            case 37 -> Avatar.getInstance().setXAcceleration(-1); // A is pressed
-            case 39 -> Avatar.getInstance().setXAcceleration(1); // D is pressed
+            case 65 -> Avatar.getInstance().setXAcceleration(-1); // A is pressed
+            case 68 -> Avatar.getInstance().setXAcceleration(1); // D is pressed
         }
     }
 
@@ -46,7 +46,7 @@ public class InputManager implements KeyListener
         // check which button is released
         switch (e.getKeyCode())
         {
-            case 37, 39 -> Avatar.getInstance().setXAcceleration(0); // A or D is released
+            case 65, 68 -> Avatar.getInstance().setXAcceleration(0); // A or D is released
         }
     }
 
