@@ -7,6 +7,8 @@ import dinojump.util.Skin;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,12 +56,22 @@ public class Renderer extends Canvas
         // creating frame and setting default attributes
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setTitle("DinoJump");
         window.setVisible(true);
         window.setPreferredSize(new Dimension(width, height));
         window.setLocation(0, 0);
 
+        window.addComponentListener(new ComponentAdapter()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                super.componentResized(e);
+                resize(e.getComponent().getWidth(), e.getComponent().getHeight());
+
+            }
+        });
         panel = new JPanel();
         panel.add(this);
 
@@ -225,12 +237,15 @@ public class Renderer extends Canvas
         int g = (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
         int b = (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
         backgroundColor = new Color(r, g, b);
-
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
     }
 
+    public void resize(int width, int height)
+    {
+        this.setBounds(window.getX(), window.getY(), width, height);
+    }
 
     public int getRows()
     {

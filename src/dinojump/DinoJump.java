@@ -33,6 +33,7 @@ public class DinoJump
     {
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
+        //Audio.getInstance().playSoundtrack();
         timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
