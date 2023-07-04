@@ -4,19 +4,19 @@ import java.io.File;
 
 public final class Skin
 {
+    private final int id;
     private final File[] images;
-    private final int prize;
 
-    public Skin(File[] images, int prize)
+    public Skin(int id, File[] images)
     {
+        this.id = id;
         this.images = images;
-        this.prize = prize;
     }
 
     public static Skin of(int id)
     {
         File skinDirectory = new File("./resources/skins/" + id);
-        return new Skin(skinDirectory.listFiles(), 0); // TODO: Get Prize of Database
+        return new Skin(id, skinDirectory.listFiles());
     }
 
     public File[] getImages()
@@ -24,8 +24,8 @@ public final class Skin
         return images;
     }
 
-    public int getPrize()
+    public int getId()
     {
-        return prize;
+        return id;
     }
 }
