@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.DatabaseManager;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.ScoreManager;
 import dinojump.util.Audio;
@@ -29,8 +30,8 @@ public class DinoJump
 
     public void start()
     {
-        DatabaseManager.getInstance(System.getProperty("db_url"), System.getProperty("db_user"), System.getProperty("db_password"));
-        SkinManager.getInstance().addSkins(DatabaseManager.getInstance().getSkins());
+        DatabaseManager.getInstance().initialize(System.getProperty("db_url"), System.getProperty("db_user"), System.getProperty("db_password"));
+        SkinManager.getInstance().initializeSkins();
         Stage.getInstance().showMainScreen();
     }
 

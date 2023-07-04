@@ -24,19 +24,17 @@ public class SkinManager
         return instance;
     }
 
-    public void addSkins(List<Skin> skins)
+    public void initializeSkins()
     {
-        this.skins.addAll(skins);
+        skins = DatabaseManager.getInstance().getSkins();
     }
 
-    public void addSkin(Skin skin)
+    public Skin getSkin(int id)
     {
-        skins.add(skin);
-    }
-
-    public void addSkin(int id)
-    {
-        skins.add(Skin.of(id));
+        return skins.stream()
+                .filter(skin -> skin.getId() == id)
+                .limit(1)
+                .findFirst().orElseThrow();
     }
 
     public List<Skin> getSkins()
