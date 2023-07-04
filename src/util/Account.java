@@ -2,30 +2,19 @@ package util;
 
 public class Account
 {
-    private final String accountName;
-    private final String passwordHash;
+    private final String macAddress;
 
     private int highscore;
-    private Skin[] skins;
-    private int coins;
 
-    public Account(String accountName, String passwordHash, int highscore, Skin[] skins, int coins)
+    public Account(String macAddress, int highscore)
     {
-        this.accountName = accountName;
-        this.passwordHash = passwordHash;
+        this.macAddress = macAddress;
         this.highscore = highscore;
-        this.skins = skins;
-        this.coins = coins;
     }
 
-    public String getAccountName()
+    public String getMacAddress()
     {
-        return accountName;
-    }
-
-    public String getPasswordHash()
-    {
-        return passwordHash;
+        return macAddress;
     }
 
     public int getHighscore()
@@ -38,57 +27,18 @@ public class Account
         this.highscore = highscore;
     }
 
-    public Skin[] getSkins()
-    {
-        return skins;
-    }
-
-    public void setSkins(Skin[] skins)
-    {
-        this.skins = skins;
-    }
-
-    public int getCoins()
-    {
-        return coins;
-    }
-
-    public void setCoins(int coins)
-    {
-        this.coins = coins;
-    }
-
-    public void addCoins(int coins)
-    {
-        this.coins += coins;
-    }
-
-    public void deductCoins(int coins)
-    {
-        this.coins -= coins;
-    }
-
     public static class Builder
     {
-        private String accountName;
-        private String passwordHash;
+        private String macAddress;
         private int highscore;
-        private Skin[] skins;
-        private int coins;
 
         public Builder()
         {
         }
 
-        public Builder setAccountName(String accountName)
+        public Builder setMacAddress(String macAddress)
         {
-            this.accountName = accountName;
-            return this;
-        }
-
-        public Builder setPasswordHash(String passwordHash)
-        {
-            this.passwordHash = passwordHash;
+            this.macAddress = macAddress;
             return this;
         }
 
@@ -98,21 +48,9 @@ public class Account
             return this;
         }
 
-        public Builder setSkins(Skin[] skins)
-        {
-            this.skins = skins;
-            return this;
-        }
-
-        public Builder setCoins(int coins)
-        {
-            this.coins = coins;
-            return this;
-        }
-
         public Account build()
         {
-            return new Account(accountName, passwordHash, highscore, skins, coins);
+            return new Account(macAddress, highscore);
         }
     }
 }
