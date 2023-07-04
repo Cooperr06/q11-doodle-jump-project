@@ -1,8 +1,8 @@
-package database;
+package dinojump.manager;
 
+import dinojump.util.Account;
+import dinojump.util.Skin;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
-import util.Account;
-import util.Skin;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,12 +34,12 @@ public class DatabaseManager
     }
 
     /**
-     * Initializes the data source with the specific url, user and password, tests the connection to the database<br>
+     * Initializes the data source with the specific url, user and password, tests the connection to the dinojump.database<br>
      * and executes the initialization SQL script
      *
-     * @param url      url to the database (e. g. <code>"jdbc:mariadb://[host]:[port]/[database]</code>
-     * @param user     username for accessing the database
-     * @param password user credentials for accessing the database
+     * @param url      url to the dinojump.database (e. g. <code>"jdbc:mariadb://[host]:[port]/[dinojump.database]</code>
+     * @param user     username for accessing the dinojump.database
+     * @param password user credentials for accessing the dinojump.database
      */
     public void initialize(String url, String user, String password)
     {
@@ -50,7 +50,7 @@ public class DatabaseManager
             dataSource.setUser(user);
             dataSource.setUrl(url);
 
-            System.out.println("Successfully connected to database");
+            System.out.println("Successfully connected to dinojump.database");
 
             executeSql(new File("./resources/initialize_db.sql")); // executes the initialization script for first setup
         }
@@ -71,7 +71,7 @@ public class DatabaseManager
             ResultSet resultSet = statement.executeQuery(); // executes the query and retrieves a result set
             resultSet.next(); // go to first row
 
-            // retrieves all attributes from the database and returns the data
+            // retrieves all attributes from the dinojump.database and returns the data
             return new Account.Builder()
                     .setMacAddress(resultSet.getString("mac_address"))
                     .setHighscore(resultSet.getInt("highscore"))
