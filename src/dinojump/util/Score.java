@@ -39,7 +39,7 @@ public class Score
     }
 
     // renders Score
-    private void RenderScore()
+    private void renderScore()
     {
         Renderer.getInstance().renderText(String.valueOf(getScore()), position, scoreTextSize);
     }
