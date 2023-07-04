@@ -2,21 +2,11 @@ package dinojump.util;
 
 public class Account
 {
-    private static Account instance;
+    private final String macAddress;
 
-    private String macAddress;
     private int highscore;
 
-    private Account()
-    {
-    }
-
-    public static Account getInstance()
-    {
-        return instance;
-    }
-
-    public void initialize(String macAddress, int highscore)
+    public Account(String macAddress, int highscore)
     {
         this.macAddress = macAddress;
         this.highscore = highscore;
@@ -35,5 +25,32 @@ public class Account
     public void setHighscore(int highscore)
     {
         this.highscore = highscore;
+    }
+
+    public static class Builder
+    {
+        private String macAddress;
+        private int highscore;
+
+        public Builder()
+        {
+        }
+
+        public Builder setMacAddress(String macAddress)
+        {
+            this.macAddress = macAddress;
+            return this;
+        }
+
+        public Builder setHighscore(int highscore)
+        {
+            this.highscore = highscore;
+            return this;
+        }
+
+        public Account build()
+        {
+            return new Account(macAddress, highscore);
+        }
     }
 }
