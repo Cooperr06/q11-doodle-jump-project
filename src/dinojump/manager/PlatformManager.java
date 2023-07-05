@@ -46,6 +46,8 @@ public class PlatformManager
             DataElement platform = platforms.get(i);
             if (platform.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
             {
+                ScoreManager.getInstance().addScore(1);
+                ScoreManager.getInstance().renderScore();
                 platforms.remove(platform);
                 platforms.insertLast(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
