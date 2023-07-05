@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 public class DinoJump
 {
+    private boolean running = false;
     private static DinoJump instance;
 
     private DinoJump()
@@ -35,6 +36,7 @@ public class DinoJump
 
     public void startGameLoop(long fps)
     {
+        setRunning(true);
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
         timer.scheduleAtFixedRate(new TimerTask()
@@ -53,5 +55,15 @@ public class DinoJump
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
         Renderer.getInstance().clearScreen();
+    }
+
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void setRunning(boolean running)
+    {
+        this.running = running;
     }
 }
