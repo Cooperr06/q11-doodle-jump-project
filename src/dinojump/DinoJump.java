@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.CollisionManager;
 import dinojump.manager.PlatformManager;
 import dinojump.util.Avatar;
 import dinojump.util.Stage;
@@ -46,6 +47,7 @@ public class DinoJump
     private void loop()
     {
         Renderer.getInstance().updateBackgroundColor();
+        CollisionManager.getInstance().iterate();
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
         Renderer.getInstance().clearScreen();
