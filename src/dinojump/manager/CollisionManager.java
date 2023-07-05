@@ -20,13 +20,9 @@ public class CollisionManager
     {
         if (instance == null)
         {
-            return new CollisionManager();
+            instance = new CollisionManager();
         }
-        else
-        {
-            return instance;
-        }
-
+        return instance;
     }
 
     public void checkForCollision()
@@ -39,20 +35,18 @@ public class CollisionManager
         {
             for (int i = 0; i < platforms.size(); i++)
             {
-                if (avtPos.getX() < platforms.get(i).getPosition().getX() + Renderer.getInstance().getPlatformWidth() && avtPos.getX() - Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getX())
+                //if (avtPos.getX() + Renderer.getInstance().getPlatformWidth() < platforms.get(i).getPosition().getX() + 600 && avtPos.getX() - Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getX())
                 {
-                    if (avtPos.getY() - Renderer.getInstance().getAvatarDimensions() + Renderer.getInstance().getPlatformWidth() < platforms.get(i).getPosition().getY() && avtPos.getY() - Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getY())
+                    if (avtPos.getY() - Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPosition().getY() && avtPos.getY() + Renderer.getInstance().getAvatarDimensions() - Renderer.getInstance().getPlatformHeight() > platforms.get(i).getPosition().getY())
                     {
                         Avatar.getInstance().setYAcceleration(1);
                     }
                 }
-
             }
         }
-
     }
 
-    public void iterate()
+    public void iterateLoop()
     {
         checkForCollision();
     }
