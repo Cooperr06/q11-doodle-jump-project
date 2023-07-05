@@ -78,4 +78,9 @@ public class PlatformManager
     {
         Renderer.getInstance().renderPlatforms(platforms);
     }
+
+    public List getPlatforms()
+    {
+        return platforms;
+    }
 }
