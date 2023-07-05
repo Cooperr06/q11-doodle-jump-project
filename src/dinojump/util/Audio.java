@@ -21,8 +21,8 @@ public class Audio
             gameStart = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_start.wav").getAbsoluteFile());
             gameLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_loop.wav").getAbsoluteFile());
             lobbyLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/lobby.wav").getAbsoluteFile());
-            jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav"));
-            gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav"));
+            jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav").getAbsoluteFile());
+            gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav").getAbsoluteFile());
         }
         catch (UnsupportedAudioFileException | IOException e)
         {
