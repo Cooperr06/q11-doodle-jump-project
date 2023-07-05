@@ -2,6 +2,7 @@ package dinojump;
 
 import dinojump.manager.PlatformManager;
 import dinojump.manager.ScoreManager;
+import dinojump.util.Audio;
 import dinojump.util.Avatar;
 import dinojump.util.Stage;
 
@@ -34,6 +35,7 @@ public class DinoJump
     {
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
+        Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
@@ -52,6 +54,5 @@ public class DinoJump
         PlatformManager.getInstance().iterateLoop();
         ScoreManager.getInstance().iterateLoop();//text has to be last!
         Renderer.getInstance().clearScreen();
-
     }
 }

@@ -25,7 +25,7 @@ public class ScoreManager
         score = 0;
         scoreTextSize = 40;
         position = new Position(50, 80);
-
+        this.renderScore();
     }
 
     public void resetScore()
@@ -36,7 +36,6 @@ public class ScoreManager
     public void renderScore()
     {
         Renderer.getInstance().renderText(String.valueOf(score), position, scoreTextSize);
-
     }
 
     public void addScore(int add) {
