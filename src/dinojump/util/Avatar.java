@@ -20,15 +20,15 @@ public class Avatar implements Movable
     private int maxYVelocity;
 
     private int xAcceleration;
-    private int yAcceleration;
+    private int yAcceleration = 1;
 
     private Avatar()
     {
         position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
         skin = Skin.of(0);
 
-        maxXVelocity = 10;
-        maxYVelocity = 10;
+        maxXVelocity = 40;
+        maxYVelocity = 60;
     }
 
     public static Avatar getInstance()
@@ -59,13 +59,20 @@ public class Avatar implements Movable
         // xVelocity
         if (xAcceleration == 0) // deceleration
         {
-            if (abs(xVelocity) < floor((double) abs(maxXVelocity) / 4))
+            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 7))
             {
                 xVelocity = 0;
             }
             else
             {
-                xVelocity = (int) floor((double) xVelocity / 2);
+                if (xVelocity < 0)
+                {
+                    xVelocity = (int) ceil((double) xVelocity / 1.1);
+                }
+                else
+                {
+                    xVelocity = (int) floor((double) xVelocity / 1.1);
+                }
             }
         }
         else // acceleration
@@ -89,30 +96,31 @@ public class Avatar implements Movable
          */
         if (yAcceleration > 0) // got accelerated by collisionManager
         {
-            yVelocity = maxYVelocity;
+            yVelocity = maxYVelocity * -1;
             yAcceleration = 0;
         }
-        else if (yVelocity > 0) // traveling upwards
+        else if (yVelocity < 0) //traveling upwards
         {
-            yVelocity = (int) floor((double) yVelocity / 1.2);
+            yVelocity = (int) ceil((double) yVelocity / 1.05);
         }
         else if (yVelocity == 0) // stalling
         {
-            yVelocity = -1;
+            yVelocity = 1;
         }
         else // traveling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
-            if (yVelocity < maxYVelocity * -1)
+            int maxFallingVelocity = (int) floor((double) maxYVelocity / 6);
+            if (yVelocity > maxFallingVelocity)
             {
-                yVelocity = maxYVelocity * -1;
+                yVelocity = maxFallingVelocity;
             }
         }
     }
 
     public void updatePosition()
     {
-        moveTo(position.getX() + xVelocity, position.getY() + yVelocity);
+        moveTo(position.getX() + xVelocity / 10, position.getY() + yVelocity / 10);
     }
 
     public void redraw()
