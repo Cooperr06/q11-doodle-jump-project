@@ -29,11 +29,6 @@ public class CollisionManager
 
     }
 
-    public void setPlatforms(List newPlatforms)
-    {
-        platforms = newPlatforms;
-    }
-
     public void checkForCollision()
     {
         Position avtPos = avatar.getInstance().getPosition();
@@ -55,6 +50,11 @@ public class CollisionManager
             }
         }
 
+    }
+
+    public void iterate()
+    {
+        checkForCollision();
     }
 }
 
