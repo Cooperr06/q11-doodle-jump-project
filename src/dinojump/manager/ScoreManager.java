@@ -25,7 +25,12 @@ public class ScoreManager
         score = 0;
         scoreTextSize = 40;
         position = new Position(50, 80);
-        this.renderScore();
+        renderScore();
+    }
+
+    public void iterateLoop()
+    {
+        renderScore();
     }
 
     public void resetScore()
@@ -38,15 +43,13 @@ public class ScoreManager
         Renderer.getInstance().renderText(String.valueOf(score), position, scoreTextSize);
     }
 
-    public void addScore(int add) {
+    public void addScore(int add)
+    {
         score += add;
     }
 
-    public int getScore() {
+    public int getScore()
+    {
         return score;
-    }
-
-    public void iterateLoop() {
-        this.renderScore();
     }
 }
