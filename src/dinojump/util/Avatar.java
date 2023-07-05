@@ -26,7 +26,7 @@ public class Avatar implements Movable
     private Avatar()
     {
         position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
-        skin = Skin.of(0);
+        skin = Skin.selectAvatarSkin();
 
         maxXVelocity = 40;
         maxYVelocity = 60;
