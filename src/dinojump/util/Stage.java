@@ -14,6 +14,8 @@ public class Stage
 
     private Skin backgroundSkin;
 
+    private static boolean inGame;
+
     private Stage()
     {
     }
@@ -48,5 +50,15 @@ public class Stage
     public void showGameOverScreen()
     {
         Renderer.getInstance().renderText("Game Over", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+    }
+
+    public static void startGame()
+    {
+        inGame = true;
+    }
+
+    public void endGame()
+    {
+        inGame = false;
     }
 }

@@ -36,7 +36,7 @@ public class DinoJump
         Stage.getInstance().showMainScreen();
     }
 
-    public void startGameLoop(long fps)
+    public static void startGameLoop(long fps)
     {
         setRunning(true);
         Timer timer = new Timer();
