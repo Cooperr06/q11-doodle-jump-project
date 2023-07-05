@@ -1,5 +1,6 @@
 package dinojump.util;
 
+import dinojump.DinoJump;
 import dinojump.Renderer;
 
 import static java.lang.Math.*;
@@ -51,6 +52,7 @@ public class Avatar implements Movable
     {
         updateVelocity();
         updatePosition();
+        checkForGameOver();
         redraw();
     }
 
@@ -126,6 +128,15 @@ public class Avatar implements Movable
     public void redraw()
     {
         Renderer.getInstance().renderAvatar(skin, position);
+    }
+
+    public void checkForGameOver()
+    {
+        if (instance.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
+        {
+            Stage.getInstance().showGameOverScreen();
+            DinoJump.getInstance().setRunning(false);
+        }
     }
 
     public Skin getSkin()
@@ -214,5 +225,4 @@ public class Avatar implements Movable
     {
         this.yAcceleration = yAcceleration;
     }
-
 }
