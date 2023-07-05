@@ -69,7 +69,6 @@ public class Renderer extends Canvas
             {
                 super.componentResized(e);
                 resize(e.getComponent().getWidth(), e.getComponent().getHeight());
-
             }
         });
         panel = new JPanel();
@@ -240,7 +239,6 @@ public class Renderer extends Canvas
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
-
     }
 
     public void resize(int width, int height)
