@@ -48,11 +48,11 @@ public class DinoJump
 
     private void loop()
     {
-        //this order has to be preserved in order for graphics to show up correctly
-        Renderer.getInstance().updateBackgroundColor();//background to draw on
-        Avatar.getInstance().iterateLoop();//avatar and platform are interchageable
+        // this order has to be preserved in order for graphics to show up correctly
+        Renderer.getInstance().updateBackgroundColor(); // background to draw on
+        Avatar.getInstance().iterateLoop(); // avatar and platform are interchageable
         PlatformManager.getInstance().iterateLoop();
-        ScoreManager.getInstance().iterateLoop();//text has to be last!
+        ScoreManager.getInstance().iterateLoop(); // text has to be last!
         Renderer.getInstance().clearScreen();
     }
 }
