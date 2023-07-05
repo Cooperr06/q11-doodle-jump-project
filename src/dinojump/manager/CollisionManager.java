@@ -44,7 +44,7 @@ public class CollisionManager
         {
             for (int i = 0; i < platforms.size(); i++)
             {
-                if (avtPos.getX() + Renderer.getInstance().getPlatformWidth() < platforms.get(i).getPosition().getX() && avtPos.getX() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getX())
+                if (avtPos.getX() < platforms.get(i).getPosition().getX() + Renderer.getInstance().getPlatformWidth() && avtPos.getX() - Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getX())
                 {
                     if (avtPos.getY() > platforms.get(i).getPosition().getY() && avtPos.getY() + Renderer.getInstance().getPlatformHeight() < platforms.get(i).getPosition().getY())
                     {
