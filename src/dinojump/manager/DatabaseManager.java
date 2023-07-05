@@ -53,6 +53,7 @@ public class DatabaseManager
             System.out.println("Successfully connected to dinojump.database");
 
             executeSql(new File("./resources/initialize_db.sql")); // executes the initialization script for first setup
+            initializeAccount();
         }
         catch (SQLException e)
         {
@@ -60,38 +61,37 @@ public class DatabaseManager
         }
     }
 
-    public Account getAccount(String macAddress)
+    public void initializeAccount()
     {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM account WHERE mac_address = ?"))
+             PreparedStatement statement = connection.prepareStatement("SELECT highscore FROM account WHERE mac_address = ?"))
         {
+            String macAddress = getMacAddress();
             // sets the parameter for the query
             statement.setString(1, macAddress);
 
             ResultSet resultSet = statement.executeQuery(); // executes the query and retrieves a result set
-            resultSet.next(); // go to first row
+            if (!resultSet.next()) // if there is no account, register a new one
+            {
+                registerAccount();
+            }
 
-            // retrieves all attributes from the dinojump.database and returns the data
-            return new Account.Builder()
-                    .setMacAddress(resultSet.getString("mac_address"))
-                    .setHighscore(resultSet.getInt("highscore"))
-                    .build();
+            // retrieves all attributes from the dinojump database and initializes the account
+            Account.getInstance().initialize(macAddress, resultSet.getInt("highscore"));
         }
         catch (SQLException e)
         {
             e.printStackTrace();
-            return null; // return null if an error occurred
         }
     }
 
-    public void addAccount(Account account)
+    public void registerAccount()
     {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO account (mac_address, highscore) VALUES (?, ?)"))
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO account (mac_address, highscore) VALUES (?, 0)"))
         {
             // sets the parameters for the update
-            statement.setString(1, account.getMacAddress());
-            statement.setInt(2, account.getHighscore());
+            statement.setString(1, getMacAddress());
 
             statement.executeUpdate();
         }
