@@ -56,7 +56,7 @@ public class Renderer extends Canvas
         // creating frame and setting default attributes
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setTitle("DinoJump");
         window.setVisible(true);
         window.setPreferredSize(new Dimension(width, height));
@@ -240,6 +240,7 @@ public class Renderer extends Canvas
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
+
     }
 
     public void resize(int width, int height)
@@ -274,7 +275,7 @@ public class Renderer extends Canvas
 
     public int getPlatformWidth()
     {
-        return finTileSize * 2;
+        return finTileSize;
     }
 
     public int getPlatformHeight()

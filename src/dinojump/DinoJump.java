@@ -1,6 +1,7 @@
 package dinojump;
 
 import dinojump.manager.PlatformManager;
+import dinojump.util.Audio;
 import dinojump.util.Avatar;
 import dinojump.util.Stage;
 
@@ -33,7 +34,8 @@ public class DinoJump
     {
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
-        //Audio.getInstance().playSoundtrack();
+        //Audio.getInstance().playGame();
+        Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
