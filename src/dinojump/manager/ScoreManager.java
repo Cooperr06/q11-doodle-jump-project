@@ -1,24 +1,24 @@
-package dinojump.util;
+package dinojump.manager;
 
 import dinojump.Renderer;
-import dinojump.manager.InputManager;
+import dinojump.util.Position;
 
-public class Score
+public class ScoreManager
 {
     private int score;
     private Position position;
     private int scoreTextSize;
-
-    private static Score instance;
-    public static  Score getInstance()
+    private static ScoreManager instance;
+    public static ScoreManager getInstance()
     {
         if (instance == null)
         {
-            instance = new Score();
+            instance = new ScoreManager();
         }
         return instance;
     }
-    private Score()
+
+    private ScoreManager()
     {
         score = 0;
         scoreTextSize = 20;
@@ -27,22 +27,19 @@ public class Score
         this.renderScore();
     }
 
-    // resets score to 0, call on exit/retry
     public void resetScore()
     {
         score = 0;
     }
 
-    // returns current score
     public int getScore()
     {
         return score;
     }
 
-    // renders Score
     public void renderScore()
     {
-        Renderer.getInstance().renderText(String.valueOf(getScore()), position, scoreTextSize);
+        Renderer.getInstance().renderText(String.valueOf(score), position, scoreTextSize);
     }
 
     public void addScore(int add)

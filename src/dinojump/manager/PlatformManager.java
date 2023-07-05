@@ -3,7 +3,6 @@ package dinojump.manager;
 import dinojump.Renderer;
 import dinojump.util.Platform;
 import dinojump.util.Position;
-import dinojump.util.Score;
 import dinojump.util.Skin;
 import list.DataElement;
 import list.List;
@@ -47,8 +46,8 @@ public class PlatformManager
             DataElement platform = platforms.get(i);
             if (platform.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
             {
-                Score.getInstance().addScore(1);
-                Score.getInstance().renderScore();
+                ScoreManager.getInstance().addScore(1);
+                ScoreManager.getInstance().renderScore();
                 platforms.remove(platform);
                 platforms.insertLast(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
