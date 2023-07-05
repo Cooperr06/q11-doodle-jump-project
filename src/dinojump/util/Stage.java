@@ -24,14 +24,7 @@ public class Stage
 
     public void showMainScreen()
     {
-        JButton start = new JButton();
-        start.setText("start");
-
-
-        start.addActionListener(e ->
-        {
-            InputManager.getInstance().buttonPressed("start");
-        });
+        Renderer.getInstance().renderText("Press Enter To Start", new Position(Renderer.getInstance().getScreenWidth() / 2 , Renderer.getInstance().getScreenHeight() / 2), 20);
     }
 
     public void showSettingsScreen()

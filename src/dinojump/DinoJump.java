@@ -13,6 +13,7 @@ import java.util.TimerTask;
 
 public class DinoJump
 {
+    private boolean running = false;
     private static DinoJump instance;
 
     private DinoJump()
@@ -37,6 +38,7 @@ public class DinoJump
 
     public void startGameLoop(long fps)
     {
+        setRunning(true);
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
         Audio.getInstance().playGame();
@@ -58,5 +60,15 @@ public class DinoJump
         PlatformManager.getInstance().iterateLoop();
         ScoreManager.getInstance().iterateLoop(); // text has to be last!
         Renderer.getInstance().clearScreen();
+    }
+
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void setRunning(boolean running)
+    {
+        this.running = running;
     }
 }
