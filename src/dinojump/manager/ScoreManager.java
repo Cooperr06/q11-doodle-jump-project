@@ -5,10 +5,12 @@ import dinojump.util.Position;
 
 public class ScoreManager
 {
+    private static ScoreManager instance;
+
     private int score;
     private Position position;
     private int scoreTextSize;
-    private static ScoreManager instance;
+    
     public static ScoreManager getInstance()
     {
         if (instance == null)
