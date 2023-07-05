@@ -50,7 +50,6 @@ public class PlatformManager
                 platforms.insertLast(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
                 i--;
-
             }
             else
             {
