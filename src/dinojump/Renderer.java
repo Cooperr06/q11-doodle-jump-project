@@ -121,10 +121,11 @@ public class Renderer extends Canvas
     public void renderText(String text, Position position, int size)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-
-        graphics.setColor(Color.white);
+        graphics.setColor(Color.black);
         graphics.setFont(new Font("Arial", Font.PLAIN, size));
         graphics.drawString(text, position.getX(), position.getY());
+        graphics.dispose();
+        bufferStrategy.show();
     }
 
     /**
@@ -169,8 +170,7 @@ public class Renderer extends Canvas
             }
             graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize, finTileSize, null);
         });
-        graphics.dispose();
-        bufferStrategy.show();
+
     }
 
     /**
