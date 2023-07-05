@@ -7,8 +7,6 @@ import dinojump.util.Skin;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,15 +60,6 @@ public class Renderer extends Canvas
         window.setPreferredSize(new Dimension(width, height));
         window.setLocation(0, 0);
 
-        window.addComponentListener(new ComponentAdapter()
-        {
-            @Override
-            public void componentResized(ComponentEvent e)
-            {
-                super.componentResized(e);
-                resize(e.getComponent().getWidth(), e.getComponent().getHeight());
-            }
-        });
         panel = new JPanel();
         panel.add(this);
 
@@ -78,7 +67,6 @@ public class Renderer extends Canvas
         window.add(panel);
         // adding InputManager as key listener
         window.addKeyListener(InputManager.getInstance());
-
         window.pack();
 
         startTime = System.currentTimeMillis();
@@ -239,11 +227,6 @@ public class Renderer extends Canvas
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
-    }
-
-    public void resize(int width, int height)
-    {
-        this.setBounds(window.getX(), window.getY(), width, height);
     }
 
     public int getRows()

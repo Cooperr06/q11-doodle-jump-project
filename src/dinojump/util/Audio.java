@@ -20,9 +20,9 @@ public class Audio
     {
         try
         {
-            gameStart = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_start.wav").getAbsoluteFile());
-            gameLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_loop.wav").getAbsoluteFile());
-            lobbyLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/lobby.wav").getAbsoluteFile());
+            gameStart = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_start.wav"));
+            gameLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_loop.wav"));
+            lobbyLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/lobby.wav"));
             jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav"));
             gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav"));
 
