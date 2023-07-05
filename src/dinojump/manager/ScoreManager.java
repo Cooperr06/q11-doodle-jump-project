@@ -34,11 +34,6 @@ public class ScoreManager
         score = 0;
     }
 
-    public int getScore()
-    {
-        return score;
-    }
-
     public void renderScore()
     {
         Renderer.getInstance().renderText(String.valueOf(score), position, scoreTextSize);
@@ -47,5 +42,10 @@ public class ScoreManager
     public void addScore(int add)
     {
         score += add;
+    }
+
+    public int getScore()
+    {
+        return score;
     }
 }
