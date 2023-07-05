@@ -14,6 +14,8 @@ public class Stage
 
     private Skin backgroundSkin;
 
+    private static boolean inGame;
+
     private Stage()
     {
     }
@@ -48,5 +50,15 @@ public class Stage
     public void showGameOverScreen()
     {
 
+    }
+
+    public static void startGame()
+    {
+        inGame = true;
+    }
+
+    public void endGame()
+    {
+        inGame = false;
     }
 }

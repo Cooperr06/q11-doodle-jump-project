@@ -27,6 +27,11 @@ public class InputManager implements KeyListener
     @Override
     public void keyTyped(KeyEvent e)
     {
+        if(e.getKeyCode()==13)
+        {
+            DinoJump.startGameLoop(60);
+            Stage.startGame();
+        }
     }
 
     @Override
