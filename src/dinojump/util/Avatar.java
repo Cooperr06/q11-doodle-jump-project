@@ -59,7 +59,7 @@ public class Avatar implements Movable
         // xVelocity
         if (xAcceleration == 0) // deceleration
         {
-            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 7))    //-1 / 10 = -0.1 -> floor(-0.1) still -1
+            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 7))
             {
                 xVelocity = 0;
             }
@@ -110,7 +110,7 @@ public class Avatar implements Movable
         else // traveling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
-            int maxFallingVelocity = (int) floor(maxYVelocity / 6);
+            int maxFallingVelocity = (int) floor((double) maxYVelocity / 6);
             if (yVelocity > maxFallingVelocity)
             {
                 yVelocity = maxFallingVelocity;
