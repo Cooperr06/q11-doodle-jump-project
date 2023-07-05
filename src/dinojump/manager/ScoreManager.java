@@ -23,9 +23,14 @@ public class ScoreManager
     private ScoreManager()
     {
         score = 0;
-        scoreTextSize = 20;
-        position = new Position(10, 10);
-        this.renderScore();
+        scoreTextSize = 40;
+        position = new Position(50, 80);
+        renderScore();
+    }
+
+    public void iterateLoop()
+    {
+        renderScore();
     }
 
     public void resetScore()
