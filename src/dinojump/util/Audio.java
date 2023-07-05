@@ -7,11 +7,13 @@ import java.io.IOException;
 public class Audio
 {
     private static Audio instance;
-    private AudioInputStream gameStart;
-    private AudioInputStream gameLoop;
-    private AudioInputStream lobbyLoop;
-    private AudioInputStream jump;
-    private AudioInputStream gameOver;
+
+    private final AudioInputStream gameStart;
+    private final AudioInputStream gameLoop;
+    private final AudioInputStream lobbyLoop;
+    private final AudioInputStream jump;
+    private final AudioInputStream gameOver;
+
     private Clip bgMusic;
 
     private Audio()
@@ -21,18 +23,11 @@ public class Audio
             gameStart = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_start.wav").getAbsoluteFile());
             gameLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_loop.wav").getAbsoluteFile());
             lobbyLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/lobby.wav").getAbsoluteFile());
-            jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav").getAbsoluteFile());
-            gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav").getAbsoluteFile());
-        }
-        catch (UnsupportedAudioFileException | IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        try
-        {
+            jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav"));
+            gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav"));
             bgMusic = AudioSystem.getClip();
         }
-        catch (LineUnavailableException e)
+        catch (UnsupportedAudioFileException | LineUnavailableException | IOException e)
         {
             throw new RuntimeException(e);
         }
@@ -76,27 +71,20 @@ public class Audio
 
     public void playSound(String effect)
     {
-        Clip clip = null;
+        Clip clip;
         try
         {
             clip = AudioSystem.getClip();
             switch (effect)
             {
-                case "jump" ->
-                {
-                    clip.open(jump);
-                }
-                case "gameOver" ->
-                {
-                    clip.open(gameOver);
-                }
+                case "jump" -> clip.open(jump);
+                case "gameOver" -> clip.open(gameOver);
             }
         }
         catch (LineUnavailableException | IOException e)
         {
             throw new RuntimeException(e);
         }
-
         clip.start();
     }
 

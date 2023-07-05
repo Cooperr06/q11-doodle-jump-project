@@ -69,7 +69,6 @@ public class Renderer extends Canvas
             {
                 super.componentResized(e);
                 resize(e.getComponent().getWidth(), e.getComponent().getHeight());
-
             }
         });
         panel = new JPanel();
