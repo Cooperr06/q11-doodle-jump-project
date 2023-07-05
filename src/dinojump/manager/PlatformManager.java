@@ -48,6 +48,7 @@ public class PlatformManager
             if (platform.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
             {
                 Score.getInstance().addScore(1);
+                Score.getInstance().renderScore();
                 platforms.remove(platform);
                 platforms.insertLast(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));

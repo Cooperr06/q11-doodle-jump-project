@@ -24,6 +24,7 @@ public class Score
         scoreTextSize = 20;
         position.setX(10);
         position.setY(10);
+        this.renderScore();
     }
 
     // resets score to 0, call on exit/retry
@@ -39,7 +40,7 @@ public class Score
     }
 
     // renders Score
-    private void RenderScore()
+    public void renderScore()
     {
         Renderer.getInstance().renderText(String.valueOf(getScore()), position, scoreTextSize);
     }
