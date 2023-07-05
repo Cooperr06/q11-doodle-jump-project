@@ -41,6 +41,6 @@ public class Stage
 
     public void showGameOverScreen()
     {
-        Renderer.getInstance().renderText("GameOver", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+        Renderer.getInstance().renderText("Game Over", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
     }
 }
