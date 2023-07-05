@@ -1,22 +1,18 @@
 package dinojump.util;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
 public class Audio
 {
-    //bitte nicht angucken
     private static Audio instance;
     private AudioInputStream gameStart;
     private AudioInputStream gameLoop;
     private AudioInputStream lobbyLoop;
-    Clip bgMusic;
     private AudioInputStream jump;
     private AudioInputStream gameOver;
+    private Clip bgMusic;
 
     private Audio()
     {
@@ -28,7 +24,7 @@ public class Audio
             jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav"));
             gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav"));
         }
-        catch (Exception e)
+        catch (UnsupportedAudioFileException | IOException e)
         {
             throw new RuntimeException(e);
         }
@@ -40,8 +36,6 @@ public class Audio
         {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public static Audio getInstance()
@@ -55,45 +49,25 @@ public class Audio
 
     public void playGame()
     {
-
-
         try
         {
             bgMusic.open(gameLoop);
         }
-        catch (LineUnavailableException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (IOException e)
+        catch (LineUnavailableException | IOException e)
         {
             throw new RuntimeException(e);
         }
         bgMusic.loop(1000);
-
     }
 
     public void playLobby()
     {
-
-
         try
         {
             bgMusic = AudioSystem.getClip();
-        }
-        catch (LineUnavailableException e)
-        {
-            throw new RuntimeException(e);
-        }
-        try
-        {
             bgMusic.open(lobbyLoop);
         }
-        catch (LineUnavailableException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (IOException e)
+        catch (LineUnavailableException | IOException e)
         {
             throw new RuntimeException(e);
         }
@@ -102,47 +76,27 @@ public class Audio
 
     public void playSound(String effect)
     {
-
         Clip clip = null;
         try
         {
             clip = AudioSystem.getClip();
+            switch (effect)
+            {
+                case "jump" ->
+                {
+                    clip.open(jump);
+                }
+                case "gameOver" ->
+                {
+                    clip.open(gameOver);
+                }
+            }
         }
-        catch (LineUnavailableException e)
+        catch (LineUnavailableException | IOException e)
         {
             throw new RuntimeException(e);
         }
 
-        switch (effect)
-        {
-            case "jump" ->
-            {
-                try
-                {
-                    clip.open(jump);
-                }
-                catch (LineUnavailableException | IOException e)
-                {
-                    throw new RuntimeException(e);
-                }
-
-            }
-            case "gameOver" ->
-            {
-                try
-                {
-                    clip.open(gameOver);
-                }
-                catch (LineUnavailableException e)
-                {
-                    throw new RuntimeException(e);
-                }
-                catch (IOException e)
-                {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
         clip.start();
     }
 
