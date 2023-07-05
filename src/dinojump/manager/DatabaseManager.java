@@ -104,7 +104,7 @@ public class DatabaseManager
     public List<Skin> getSkins()
     {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM skin"))
+             PreparedStatement statement = connection.prepareStatement("SELECT id FROM skin"))
         {
             List<Skin> skins = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package dinojump.util;
 
+import dinojump.Renderer;
 import dinojump.manager.InputManager;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class Stage
 
     public void showMainScreen()
     {
+        Renderer.getInstance().renderText("Highscore: " + Account.getInstance().getHighscore(), new Position(5, 5), 24);
         JButton start = new JButton();
         start.setText("start");
 

@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.DatabaseManager;
 import dinojump.manager.PlatformManager;
 import dinojump.util.Audio;
 import dinojump.util.Avatar;
@@ -27,6 +28,8 @@ public class DinoJump
 
     public void start()
     {
+        DatabaseManager.getInstance().initialize(
+                System.getProperty("db_url"), System.getProperty("db_user"), System.getProperty("db_password"));
         Stage.getInstance().showMainScreen();
     }
 
