@@ -1,16 +1,15 @@
-package manager;
+package dinojump.manager;
 
-import util.Avatar;
-import util.Platform;
-import util.Position;
-
-import java.util.List;
+import dinojump.Renderer;
+import dinojump.util.Avatar;
+import dinojump.util.Position;
+import list.List;
 
 public class CollisionManager
 {
     private static CollisionManager instance;
     private Avatar avatar;
-    private List<Platform> platforms;
+    private List platforms;
 
     private CollisionManager()
     {
@@ -30,33 +29,26 @@ public class CollisionManager
 
     }
 
-    public void setPlatforms(List<Platform> newPlatforms)
+    public void setPlatforms(List newPlatforms)
     {
         platforms = newPlatforms;
-    }
-
-    public void setAvatar(Avatar newAvatar)
-    {
-        Avatar = newAvatar;
     }
 
     public void checkForCollision()
     {
         Position avtPos = avatar.getPosition();
-        List<Position> platformPos = new List<Position>();
+        platforms = PlatformManager.getInstance().getPlatforms();
         int avtVel = avatar.getYVelocity();
 
         if (avtVel < 0)
         {
-            for (int i = 0; i < platformPos.size(); i++)
+            for (int i = 0; i < platforms.size(); i++)
             {
-                //First Variable is the width of the Platform, the second Variable is the width of the player
-                if (avtPos.getX() + 50 < platformPos.get(i).getX() && avtPos.getX() + 12 > platformPos.get(i).getX())
+                if (avtPos.getX() + Renderer.getInstance().getPlatformWidth() < platforms.get(i).getPosition().getX() && avtPos.getX() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getX())
                 {
-                    //Variable is the hight of the Platform
-                    if (avtPos.getY() > platformPos.get(i).getY() && avtPos.getY() + 5 < platformPos.get(i).getY()))
+                    if (avtPos.getY() > platforms.get(i).getPosition().getY() && avtPos.getY() + Renderer.getInstance().getPlatformHeight() < platforms.get(i).getPosition().getY())
                     {
-                        DinoJump.get
+                        Avatar.getInstance().setYAcceleration(1);
                     }
                 }
 
@@ -65,6 +57,3 @@ public class CollisionManager
 
     }
 }
-
-
-
