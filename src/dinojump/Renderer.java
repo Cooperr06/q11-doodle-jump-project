@@ -67,7 +67,6 @@ public class Renderer extends Canvas
         window.add(panel);
         // adding InputManager as key listener
         window.addKeyListener(InputManager.getInstance());
-
         window.pack();
 
         startTime = System.currentTimeMillis();
@@ -225,12 +224,10 @@ public class Renderer extends Canvas
         int g = (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
         int b = (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
         backgroundColor = new Color(r, g, b);
-
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
     }
-
 
     public int getRows()
     {
@@ -259,7 +256,7 @@ public class Renderer extends Canvas
 
     public int getPlatformWidth()
     {
-        return finTileSize * 2;
+        return finTileSize;
     }
 
     public int getPlatformHeight()
