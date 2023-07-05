@@ -36,11 +36,11 @@ public class CollisionManager
 
     public void checkForCollision()
     {
-        Position avtPos = avatar.getPosition();
+        Position avtPos = avatar.getInstance().getPosition();
         platforms = PlatformManager.getInstance().getPlatforms();
-        int avtVel = avatar.getYVelocity();
+        int avtVel = avatar.getInstance().getYVelocity();
 
-        if (avtVel < 0)
+        if (avtVel > 0)
         {
             for (int i = 0; i < platforms.size(); i++)
             {
