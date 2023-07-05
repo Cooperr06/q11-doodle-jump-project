@@ -1,10 +1,9 @@
 package dinojump.util;
 
+import dinojump.DinoJump;
 import dinojump.Renderer;
 
 import static java.lang.Math.*;
-import dinojump.util.Stage;
-import dinojump.DinoJump;
 
 public class Avatar implements Movable
 {
@@ -218,6 +217,4 @@ public class Avatar implements Movable
     {
         this.yAcceleration = yAcceleration;
     }
-
-
 }
