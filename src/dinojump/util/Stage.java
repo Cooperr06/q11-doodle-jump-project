@@ -1,6 +1,7 @@
 package dinojump.util;
 
 import dinojump.manager.InputManager;
+import dinojump.Renderer;
 
 import javax.swing.*;
 
@@ -40,6 +41,6 @@ public class Stage
 
     public void showGameOverScreen()
     {
-
+        Renderer.getInstance().renderText("GameOver",new Position(Renderer.getInstance().getScreenWidth()/2,Renderer.getInstance().getScreenHeight()/2),20);
     }
 }
