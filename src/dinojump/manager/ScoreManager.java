@@ -39,13 +39,15 @@ public class ScoreManager
 
     }
 
-    public void addScore(int add)
-    {
+    public void addScore(int add) {
         score += add;
     }
 
-    public int getScore()
-    {
+    public int getScore() {
         return score;
+    }
+
+    public void iterateLoop() {
+        renderScore();
     }
 }

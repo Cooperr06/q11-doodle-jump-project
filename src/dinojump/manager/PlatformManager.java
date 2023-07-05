@@ -39,6 +39,7 @@ public class PlatformManager
 
     public void iterateLoop()
     {
+        boolean scoreupdate = false;
         platforms.forEach(DataElement::iterateLoop);
         // platforms that are below the window get reused on top
         for (int i = 0; i < platforms.size(); i++)
@@ -46,17 +47,21 @@ public class PlatformManager
             DataElement platform = platforms.get(i);
             if (platform.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
             {
-                ScoreManager.getInstance().addScore(1);
-                ScoreManager.getInstance().renderScore();
+                scoreupdate = true;
                 platforms.remove(platform);
                 platforms.insertLast(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
                 i--;
-            }
-            else
-            {
+            } else {
+
                 break;
+
             }
+            if (scoreupdate = true) {
+                ScoreManager.getInstance().addScore(1);
+                ScoreManager.getInstance().renderScore();
+            }
+
         }
         draw();
     }

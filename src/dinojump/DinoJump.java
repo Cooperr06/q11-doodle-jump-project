@@ -1,6 +1,7 @@
 package dinojump;
 
 import dinojump.manager.PlatformManager;
+import dinojump.manager.ScoreManager;
 import dinojump.util.Avatar;
 import dinojump.util.Stage;
 
@@ -49,5 +50,6 @@ public class DinoJump
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
         Renderer.getInstance().clearScreen();
+        ScoreManager.getInstance().iterateLoop();
     }
 }
