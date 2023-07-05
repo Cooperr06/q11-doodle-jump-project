@@ -34,7 +34,6 @@ public class DinoJump
     {
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
-        //Audio.getInstance().playGame();
         Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
         {
