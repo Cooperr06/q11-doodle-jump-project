@@ -169,7 +169,6 @@ public class Renderer extends Canvas
             }
             graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize, finTileSize, null);
         });
-
     }
 
     /**
