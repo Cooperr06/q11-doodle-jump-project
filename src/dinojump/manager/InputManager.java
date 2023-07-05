@@ -29,7 +29,7 @@ public class InputManager implements KeyListener
     {
         if(e.getKeyCode()==13)
         {
-            DinoJump.startGameLoop(60);
+            DinoJump.getInstance().startGameLoop(60);
             Stage.startGame();
         }
     }
