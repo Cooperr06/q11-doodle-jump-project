@@ -1,5 +1,6 @@
 package dinojump.util;
 
+import dinojump.DinoJump;
 import dinojump.Renderer;
 import dinojump.manager.InputManager;
 
@@ -28,15 +29,15 @@ public class Stage
 
     public void showMainScreen()
     {
-        try
-        {
-            Renderer.getInstance().renderBackground(ImageIO.read(backgroundSkin.getImages()[0]));
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        Renderer.getInstance().renderText("Press Enter To Start", new Position(Renderer.getInstance().getScreenWidth() / 2 , Renderer.getInstance().getScreenHeight() / 2), 20);
+            try
+            {
+                Renderer.getInstance().renderBackground(ImageIO.read(backgroundSkin.getImages()[0]));
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
+            Renderer.getInstance().renderText("Press Enter To Start", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
     }
 
     public void showSettingsScreen()
