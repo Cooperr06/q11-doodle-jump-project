@@ -24,8 +24,7 @@ public class ScoreManager
     {
         score = 0;
         scoreTextSize = 20;
-        position.setX(10);
-        position.setY(10);
+        position = new Position(10, 10);
         this.renderScore();
     }
 
