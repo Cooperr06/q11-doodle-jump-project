@@ -1,6 +1,7 @@
 package dinojump.manager;
 
 import dinojump.Renderer;
+import dinojump.util.Audio;
 import dinojump.util.Avatar;
 import dinojump.util.Position;
 import list.List;
@@ -40,6 +41,7 @@ public class CollisionManager
                     if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPosition().getY() + Renderer.getInstance().getPlatformHeight() && avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getY())
                     {
                         Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxYVelocity());
+                        Audio.getInstance().playSound("jump");
                     }
                 }
             }
