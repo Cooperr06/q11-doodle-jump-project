@@ -5,7 +5,7 @@ import java.util.Random;
 
 public final class Skin
 {
-    private static final int[] AVATAR_SKINS = new int[]{0,2,3,4};
+    private static final int[] avatarSkins = new int[]{0, 1};
 
     private final int id;
     private final File[] images;
@@ -34,7 +34,7 @@ public final class Skin
 
     public static Skin selectAvatarSkin()
     {
-        return Skin.of(AVATAR_SKINS[new Random().nextInt(AVATAR_SKINS.length)]);
+        return Skin.of(avatarSkins[new Random().nextInt(avatarSkins.length)]);
     }
 
 }
