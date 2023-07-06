@@ -1,5 +1,6 @@
 package dinojump.util;
 
+import dinojump.DinoJump;
 import dinojump.Renderer;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.SkinManager;

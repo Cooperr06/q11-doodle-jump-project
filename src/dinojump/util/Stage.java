@@ -34,7 +34,7 @@ public class Stage
         {
             throw new RuntimeException(e);
         }
-        Renderer.getInstance().renderText("Press Enter To start", new Position(Renderer.getInstance().getScreenWidth() / 2 - 200,
+        Renderer.getInstance().renderText("Press Enter to start", new Position(Renderer.getInstance().getScreenWidth() / 2 - 200,
                 Renderer.getInstance().getScreenHeight() / 2), 50);
     }
 
