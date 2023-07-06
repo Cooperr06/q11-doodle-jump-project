@@ -28,6 +28,7 @@ public class Stage
         try
         {
             Renderer.getInstance().renderBackground(ImageIO.read(background.getImages()[0]));
+            Audio.getInstance().playLobby();
         }
         catch (IOException e)
         {
@@ -44,5 +45,7 @@ public class Stage
     public void showGameOverScreen()
     {
         Renderer.getInstance().renderText("Game Over", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+        Audio.getInstance().stopMusic();
+        Audio.getInstance().playSound("gameOver");
     }
 }

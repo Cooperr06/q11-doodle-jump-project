@@ -90,6 +90,6 @@ public class Audio
 
     public void stopMusic()
     {
-        bgMusic.stop();
+        bgMusic.close();
     }
 }

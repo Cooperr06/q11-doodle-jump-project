@@ -140,6 +140,7 @@ public class Avatar implements Movable
         if (getPosition().getY() < -PlatformManager.getInstance().getPlatforms().getFirst().getDataElement().getPosition().getY() && yVelocity > 0)
         {
             Stage.getInstance().showGameOverScreen();
+            DinoJump.getInstance().getTimer().cancel();
             DinoJump.getInstance().setRunning(false);
         }
     }

@@ -15,6 +15,7 @@ import java.util.TimerTask;
 public class DinoJump
 {
     private boolean running = false;
+    private Timer timer;
     private static DinoJump instance;
 
     private DinoJump()
@@ -37,9 +38,11 @@ public class DinoJump
         Stage.getInstance().showMainScreen();
     }
 
-    public void startGameLoop(long fps) {
+    public void startGameLoop(long fps)
+    {
+        reset();
         this.setRunning(true);
-        Timer timer = new Timer();
+        timer = new Timer("dinojump-game");
         PlatformManager.getInstance().spawnInitialPlatforms(20);
         Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
@@ -62,6 +65,19 @@ public class DinoJump
         Renderer.getInstance().clearScreen();
     }
 
+    public void reset()
+    {
+        if (timer != null)
+        {
+            timer.cancel();
+        }
+        Renderer.getInstance().clearScreen();
+        Audio.getInstance().stopMusic();
+        PlatformManager.getInstance().getPlatforms().clear();
+        Avatar.getInstance().setYAcceleration(1);
+        ScoreManager.getInstance().resetScore();
+    }
+
     public boolean isRunning()
     {
         return running;
@@ -69,7 +85,11 @@ public class DinoJump
 
     public void setRunning(boolean running)
     {
-        System.out.println("Now: " + running);
         this.running = running;
+    }
+
+    public Timer getTimer()
+    {
+        return timer;
     }
 }
