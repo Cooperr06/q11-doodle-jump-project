@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.DatabaseManager;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.ScoreManager;
 import dinojump.manager.SkinManager;
@@ -31,6 +32,7 @@ public class DinoJump
 
     public void start()
     {
+        DatabaseManager.getInstance().initialize(System.getenv("db_url"), System.getenv("db_user"), System.getenv("db_password"));
         SkinManager.getInstance().initializeSkins();
         Stage.getInstance().showMainScreen();
     }

@@ -52,7 +52,7 @@ public class DatabaseManager
 
             System.out.println("Successfully connected to dinojump.database");
 
-            executeSql(new File("./resources/initialize_db.sql")); // executes the initialization script for first setup
+            executeSql(new File("./resources/sql/initialize_db.sql")); // executes the initialization script for first setup
         }
         catch (SQLException e)
         {

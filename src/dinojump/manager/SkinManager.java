@@ -2,14 +2,14 @@ package dinojump.manager;
 
 import dinojump.util.Skin;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SkinManager
 {
     private static SkinManager instance;
 
-    private final List<Skin> skins = new ArrayList<>();
+    private List<Skin> skins;
 
     private SkinManager()
     {
@@ -26,14 +26,16 @@ public class SkinManager
 
     public void initializeSkins()
     {
+        skins = DatabaseManager.getInstance().getSkins();
     }
 
-    public Skin getSkin(int id)
+    public Skin selectAvatarSkin()
     {
-        return skins.stream()
-                .filter(skin -> skin.getId() == id)
-                .limit(1)
-                .findFirst().orElseThrow();
+        if (skins.size() == 0)
+        {
+            throw new RuntimeException("There are no skins configured");
+        }
+        return skins.get(new Random().nextInt(skins.size()));
     }
 
     public List<Skin> getSkins()

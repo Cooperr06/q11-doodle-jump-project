@@ -3,6 +3,7 @@ package dinojump.util;
 import dinojump.DinoJump;
 import dinojump.Renderer;
 import dinojump.manager.PlatformManager;
+import dinojump.manager.SkinManager;
 
 import static java.lang.Math.*;
 
@@ -27,7 +28,7 @@ public class Avatar implements Movable
     private Avatar()
     {
         position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
-        skin = Skin.selectAvatarSkin();
+        skin = SkinManager.getInstance().selectAvatarSkin();
 
         maxXVelocity = 40;
         maxYVelocity = 60;
