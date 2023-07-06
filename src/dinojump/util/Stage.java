@@ -1,13 +1,14 @@
 package dinojump.util;
 
 import dinojump.Renderer;
-import dinojump.manager.InputManager;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
 public class Stage
 {
     private static Stage instance;
+    private static final Skin background = Skin.of(0);
 
     private Stage()
     {
@@ -24,14 +25,17 @@ public class Stage
 
     public void showMainScreen()
     {
-        JButton start = new JButton();
-        start.setText("start");
-
-
-        start.addActionListener(e ->
+        try
         {
-            InputManager.getInstance().buttonPressed("start");
-        });
+            Renderer.getInstance().renderBackground(ImageIO.read(background.getImages()[0]));
+            Audio.getInstance().playLobby();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        Renderer.getInstance().renderText("Press Enter To start", new Position(Renderer.getInstance().getScreenWidth() / 2 - 200,
+                Renderer.getInstance().getScreenHeight() / 2), 50);
     }
 
     public void showSettingsScreen()
@@ -41,6 +45,9 @@ public class Stage
 
     public void showGameOverScreen()
     {
-        Renderer.getInstance().renderText("Game Over", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+        Renderer.getInstance().renderText("Game Over! Press Enter to restart!", new Position(Renderer.getInstance().getScreenWidth() / 2 - 375,
+                Renderer.getInstance().getScreenHeight() / 2), 50);
+        Audio.getInstance().stopMusic();
+        Audio.getInstance().playSound("gameOver");
     }
 }

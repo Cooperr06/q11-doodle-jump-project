@@ -2,6 +2,8 @@ package dinojump.util;
 
 import dinojump.DinoJump;
 import dinojump.Renderer;
+import dinojump.manager.PlatformManager;
+import dinojump.manager.SkinManager;
 
 import static java.lang.Math.*;
 
@@ -26,7 +28,7 @@ public class Avatar implements Movable
     private Avatar()
     {
         position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
-        skin = Skin.of(0);
+        skin = SkinManager.getInstance().selectAvatarSkin();
 
         maxXVelocity = 40;
         maxYVelocity = 60;
@@ -122,7 +124,10 @@ public class Avatar implements Movable
 
     public void updatePosition()
     {
-        moveTo(position.getX() + xVelocity / 10, position.getY() + yVelocity / 10);
+        if (DinoJump.getInstance().isRunning())
+        {
+            position.setX(position.getX() + xVelocity / 10);
+        }
     }
 
     public void redraw()
@@ -132,9 +137,11 @@ public class Avatar implements Movable
 
     public void checkForGameOver()
     {
-        if (instance.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
+        // if the current y of the avatar is greater than the y of the lowest platform, the avatar cannot move upwards anymore --> Game Over
+        if (getPosition().getY() > PlatformManager.getInstance().getPlatforms().getFirst().getDataElement().getPosition().getY() && yVelocity > 0)
         {
             Stage.getInstance().showGameOverScreen();
+            DinoJump.getInstance().getTimer().cancel();
             DinoJump.getInstance().setRunning(false);
         }
     }
