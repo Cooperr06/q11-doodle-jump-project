@@ -21,11 +21,11 @@ public class Audio
 
     private Audio()
     {
-        gameStart = new File("./resources/audio/music/soundtrack_start.wav").getAbsoluteFile();
-        gameLoop = new File("./resources/audio/music/soundtrack_loop.wav").getAbsoluteFile();
-        lobbyLoop = new File("./resources/audio/music/lobby.wav").getAbsoluteFile();
-        jump = new File("./resources/audio/fx/jump_1.wav").getAbsoluteFile();
-        gameOver = new File("./resources/audio/fx/gameover2.wav").getAbsoluteFile();
+        gameStart = new File("./resources/audio/music/soundtrack_start.wav");
+        gameLoop = new File("./resources/audio/music/soundtrack_loop.wav");
+        lobbyLoop = new File("./resources/audio/music/lobby.wav");
+        jump = new File("./resources/audio/fx/jump_1.wav");
+        gameOver = new File("./resources/audio/fx/gameover2.wav");
         try
         {
             bgMusic = AudioSystem.getClip();
