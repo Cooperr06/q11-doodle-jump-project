@@ -14,4 +14,8 @@ public interface DataElement
     Position getPosition();
 
     void setPosition(Position position);
+
+    int getPixelPositionX();
+
+    int getPixelPositionY();
 }

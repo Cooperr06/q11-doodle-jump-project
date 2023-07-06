@@ -47,7 +47,7 @@ public class DinoJump
     private void loop()
     {
         Renderer.getInstance().updateBackgroundColor();
-        CollisionManager.getInstance().iterate();
+        CollisionManager.getInstance().iterateLoop();
         Avatar.getInstance().iterateLoop();
         PlatformManager.getInstance().iterateLoop();
         Renderer.getInstance().clearScreen();
