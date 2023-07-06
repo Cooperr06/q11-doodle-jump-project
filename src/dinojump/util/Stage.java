@@ -39,15 +39,10 @@ public class Stage
                 Renderer.getInstance().getScreenHeight() / 2), 50);
     }
 
-    public void showSettingsScreen()
-    {
-
-    }
-
     public void showGameOverScreen()
     {
         Renderer.getInstance().renderText("Game Over! Press Enter to restart!\nYour score: " + ScoreManager.getInstance().getScore(),
-                new Position(Renderer.getInstance().getScreenWidth() / 2 - 375, Renderer.getInstance().getScreenHeight() / 2), 50);
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 375, Renderer.getInstance().getScreenHeight() / 2), 30);
         Audio.getInstance().stopMusic();
         Audio.getInstance().playSound("gameOver");
     }
