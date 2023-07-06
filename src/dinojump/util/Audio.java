@@ -87,7 +87,7 @@ public class Audio
         {
             throw new RuntimeException(e);
         }
-        bgMusic.start();
+        clip.start();
     }
 
     public void stopMusic()
