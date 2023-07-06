@@ -26,7 +26,6 @@ public class SkinManager
 
     public void initializeSkins()
     {
-       // skins = DatabaseManager.getInstance().getSkins();
     }
 
     public Skin getSkin(int id)
