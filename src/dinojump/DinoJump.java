@@ -35,7 +35,7 @@ public class DinoJump
     public void startGameLoop(long fps)
     {
         Timer timer = new Timer();
-        PlatformManager.getInstance().spawnInitialPlatforms(20);
+        PlatformManager.getInstance().spawnInitialPlatforms(14);
         Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
         {

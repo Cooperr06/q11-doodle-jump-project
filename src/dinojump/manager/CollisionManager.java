@@ -37,7 +37,7 @@ public class CollisionManager
             {
                 if (avatar.getPosition().getX() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPixelPositionX() && avatar.getPosition().getX() < platforms.get(i).getPixelPositionX() + Renderer.getInstance().getPlatformWidth())
                 {
-                    if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPixelPositionY() + Renderer.getInstance().getPlatformHeight() && avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPixelPositionY())
+                    if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPosition().getY() + Renderer.getInstance().getPlatformHeight() && avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getY())
                     {
                         Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxYVelocity());
                     }
