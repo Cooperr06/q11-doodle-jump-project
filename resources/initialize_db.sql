@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS account
+(
+    mac_address CHAR(17) PRIMARY KEY,
+    highscore   INT UNSIGNED
+);
+
+CREATE TABLE IF NOT EXISTS skin
+(
+    id INT UNSIGNED PRIMARY KEY
+);
