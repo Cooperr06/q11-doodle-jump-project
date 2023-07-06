@@ -88,8 +88,16 @@ public class Audio
                     clip.open(AudioSystem.getAudioInputStream(jump));
                 }
                 case "gameOver" -> bgMusic.open(AudioSystem.getAudioInputStream(gameOver));
-                case "achievementSmall" -> bgMusic.open(AudioSystem.getAudioInputStream(smallAchievement));
-                case "achievementBIg" -> bgMusic.open(AudioSystem.getAudioInputStream(bigAchievement));
+                case "achievementSmall" ->
+                {
+                    clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(smallAchievement));
+                }
+                case "achievementBig" ->
+                {
+                    clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(bigAchievement));
+                }
             }
         }
         catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)

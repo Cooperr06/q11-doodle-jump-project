@@ -66,13 +66,17 @@ public class ScoreManager
 
     public void checkAchievement()
     {
+        if (score == 0)
+        {
+            return;
+        }
         if (score % 1000 == 0)
         {
-            Audio.getInstance().playSound("bigAchievement");
+            Audio.getInstance().playSound("achievementBig");
         }
         else if (score % 100 == 0)
         {
-            Audio.getInstance().playSound("smallAchievement");
+            Audio.getInstance().playSound("achievementSmall");
         }
     }
 }
