@@ -39,10 +39,10 @@ public class InputManager implements KeyListener
             case 68 -> Avatar.getInstance().setXAcceleration(1); // D is pressed
             case 10 ->
             {
+                System.out.println(DinoJump.getInstance().isRunning());
                 if (!DinoJump.getInstance().isRunning())
                 {
                     DinoJump.getInstance().startGameLoop(60); // Enter is pressed, starts game
-                    Stage.getInstance().setRunning(true);
                 }
             }
         }

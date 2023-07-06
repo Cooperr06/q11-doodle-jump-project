@@ -180,7 +180,7 @@ public class Renderer extends Canvas
     public void renderBackground(Image image)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-        graphics.drawImage(image, 500, 0, window.getWidth(), window.getHeight(), null);
+        graphics.drawImage(image, 0, 0, window.getWidth(), window.getHeight(), null);
     }
 
     /**

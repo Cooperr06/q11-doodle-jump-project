@@ -8,9 +8,7 @@ import java.io.IOException;
 public class Stage
 {
     private static Stage instance;
-    private static final Skin background = Skin.of(5);
-
-    private boolean running;
+    private static final Skin background = Skin.of(9);
 
     private Stage()
     {
@@ -46,15 +44,5 @@ public class Stage
     public void showGameOverScreen()
     {
         Renderer.getInstance().renderText("Game Over", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
-    }
-
-    public boolean isRunning()
-    {
-        return running;
-    }
-
-    public void setRunning(boolean running)
-    {
-        this.running = running;
     }
 }
