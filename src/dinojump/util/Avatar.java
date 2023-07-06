@@ -122,7 +122,7 @@ public class Avatar implements Movable
 
     public void updatePosition()
     {
-        moveTo(position.getX() + xVelocity / 10, position.getY() + yVelocity / 10);
+        position.setX(position.getX() + xVelocity / 10);
     }
 
     public void redraw()

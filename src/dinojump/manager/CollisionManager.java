@@ -8,12 +8,9 @@ import list.List;
 public class CollisionManager
 {
     private static CollisionManager instance;
-    private Avatar avatar;
-    private List platforms;
 
     private CollisionManager()
     {
-        avatar = Avatar.getInstance();
     }
 
     public static CollisionManager getInstance()
@@ -31,8 +28,9 @@ public class CollisionManager
 
     public void checkForCollision()
     {
-        Position avtPos = avatar.getInstance().getPosition();
-        platforms = PlatformManager.getInstance().getPlatforms();
+        Position avtPos = Avatar.getInstance().getPosition();
+        List platforms = PlatformManager.getInstance().getPlatforms();
+        Avatar avatar = Avatar.getInstance();
         if (avatar.getYVelocity() > 0)
         {
             for (int i = 0; i < platforms.size(); i++)
