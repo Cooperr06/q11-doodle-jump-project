@@ -24,6 +24,15 @@ public class SkinManager
         return instance;
     }
 
+    public Skin selectAvatarSkin()
+    {
+        if (skins.size() == 0)
+        {
+            throw new RuntimeException("There are no skins configured");
+        }
+        return skins.get(new Random().nextInt(skins.size()));
+    }
+
     public void initializeSkins()
     {
         skins = DatabaseManager.getInstance().getSkins();
