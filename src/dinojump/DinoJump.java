@@ -1,8 +1,10 @@
 package dinojump;
 
 import dinojump.manager.CollisionManager;
+import dinojump.manager.DatabaseManager;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.ScoreManager;
+import dinojump.manager.SkinManager;
 import dinojump.util.Audio;
 import dinojump.util.Avatar;
 import dinojump.util.Stage;
@@ -12,6 +14,8 @@ import java.util.TimerTask;
 
 public class DinoJump
 {
+    private boolean running = false;
+    private Timer timer;
     private static DinoJump instance;
 
     private DinoJump()
@@ -29,13 +33,17 @@ public class DinoJump
 
     public void start()
     {
+        DatabaseManager.getInstance().initialize(System.getenv("db_url"), System.getenv("db_user"), System.getenv("db_password"));
+        SkinManager.getInstance().initializeSkins();
         Stage.getInstance().showMainScreen();
     }
 
     public void startGameLoop(long fps)
     {
-        Timer timer = new Timer();
+        reset();
         PlatformManager.getInstance().spawnInitialPlatforms(14);
+        this.setRunning(true);
+        timer = new Timer("dinojump-game");
         Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
         {
@@ -56,5 +64,33 @@ public class DinoJump
         PlatformManager.getInstance().iterateLoop();
         ScoreManager.getInstance().iterateLoop(); // text has to be last!
         Renderer.getInstance().clearScreen();
+    }
+
+    public void reset()
+    {
+        if (timer != null)
+        {
+            timer.cancel();
+        }
+        Renderer.getInstance().clearScreen();
+        Audio.getInstance().stopMusic();
+        PlatformManager.getInstance().getPlatforms().clear();
+        Avatar.getInstance().setYAcceleration(1);
+        ScoreManager.getInstance().resetScore();
+    }
+
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void setRunning(boolean running)
+    {
+        this.running = running;
+    }
+
+    public Timer getTimer()
+    {
+        return timer;
     }
 }

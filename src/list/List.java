@@ -15,6 +15,11 @@ public class List
         return first.get(index);
     }
 
+    public void clear()
+    {
+        first = new Leaf();
+    }
+
     public ListElement getFirst()
     {
         return first;
