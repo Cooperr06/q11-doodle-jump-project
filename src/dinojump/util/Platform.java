@@ -1,5 +1,6 @@
 package dinojump.util;
 
+import dinojump.Renderer;
 import list.DataElement;
 
 public class Platform implements Movable, DataElement
@@ -42,6 +43,18 @@ public class Platform implements Movable, DataElement
     public Position getPosition()
     {
         return position;
+    }
+
+    @Override
+    public int getPixelPositionX()
+    {
+        return (int) ((float) position.getX() / (float) Renderer.getInstance().getColumns() * (float) Renderer.getInstance().getScreenWidth());
+    }
+
+    @Override
+    public int getPixelPositionY()
+    {
+        return -position.getY();
     }
 
     @Override

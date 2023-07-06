@@ -1,5 +1,6 @@
 package dinojump;
 
+import dinojump.manager.CollisionManager;
 import dinojump.manager.DatabaseManager;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.ScoreManager;
@@ -40,9 +41,9 @@ public class DinoJump
     public void startGameLoop(long fps)
     {
         reset();
+        PlatformManager.getInstance().spawnInitialPlatforms(14);
         this.setRunning(true);
         timer = new Timer("dinojump-game");
-        PlatformManager.getInstance().spawnInitialPlatforms(20);
         Audio.getInstance().playGame();
         timer.scheduleAtFixedRate(new TimerTask()
         {
@@ -58,7 +59,8 @@ public class DinoJump
     {
         // this order has to be preserved in order for graphics to show up correctly
         Renderer.getInstance().updateBackgroundColor(); // background to draw on
-        Avatar.getInstance().iterateLoop(); // avatar and platform are interchangeable
+        CollisionManager.getInstance().iterateLoop();
+        Avatar.getInstance().iterateLoop(); // avatar and platform are interchageable
         PlatformManager.getInstance().iterateLoop();
         ScoreManager.getInstance().iterateLoop(); // text has to be last!
         Renderer.getInstance().clearScreen();

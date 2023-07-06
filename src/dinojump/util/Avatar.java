@@ -1,6 +1,5 @@
 package dinojump.util;
 
-import dinojump.DinoJump;
 import dinojump.Renderer;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.SkinManager;
@@ -14,7 +13,6 @@ public class Avatar implements Movable
     private final Skin skin;
 
     private Position position;
-    private int score;
 
     private int xVelocity;
     private int yVelocity;
@@ -31,7 +29,7 @@ public class Avatar implements Movable
         skin = SkinManager.getInstance().selectAvatarSkin();
 
         maxXVelocity = 40;
-        maxYVelocity = 60;
+        maxYVelocity = 40;
     }
 
     public static Avatar getInstance()
@@ -161,16 +159,6 @@ public class Avatar implements Movable
     public void setPosition(Position position)
     {
         this.position = position;
-    }
-
-    public int getScore()
-    {
-        return score;
-    }
-
-    public void setScore(int score)
-    {
-        this.score = score;
     }
 
     public int getXVelocity()

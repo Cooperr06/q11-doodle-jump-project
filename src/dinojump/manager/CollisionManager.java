@@ -1,0 +1,56 @@
+package dinojump.manager;
+
+import dinojump.Renderer;
+import dinojump.util.Avatar;
+import dinojump.util.Position;
+import list.List;
+
+public class CollisionManager
+{
+    private static CollisionManager instance;
+
+    private CollisionManager()
+    {
+    }
+
+    public static CollisionManager getInstance()
+    {
+        if (instance == null)
+        {
+            return new CollisionManager();
+        }
+        else
+        {
+            return instance;
+        }
+
+    }
+
+    public void checkForCollision()
+    {
+        Position avtPos = Avatar.getInstance().getPosition();
+        List platforms = PlatformManager.getInstance().getPlatforms();
+        Avatar avatar = Avatar.getInstance();
+        if (avatar.getYVelocity() > 0)
+        {
+            for (int i = 0; i < platforms.size(); i++)
+            {
+                if (avatar.getPosition().getX() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPixelPositionX() && avatar.getPosition().getX() < platforms.get(i).getPixelPositionX() + Renderer.getInstance().getPlatformWidth())
+                {
+                    if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPosition().getY() + Renderer.getInstance().getPlatformHeight() && avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getY())
+                    {
+                        Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxYVelocity());
+                    }
+                }
+            }
+        }
+    }
+
+    public void iterateLoop()
+    {
+        checkForCollision();
+    }
+}
+
+
+

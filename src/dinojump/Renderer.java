@@ -167,7 +167,7 @@ public class Renderer extends Canvas
             {
                 throw new RuntimeException(e);
             }
-            graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize, finTileSize, null);
+            graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize * 3 / 4, finTileSize * 3 / 4, null);
         });
     }
 
@@ -255,12 +255,12 @@ public class Renderer extends Canvas
 
     public int getPlatformWidth()
     {
-        return finTileSize;
+        return finTileSize / 2;
     }
 
     public int getPlatformHeight()
     {
-        return finTileSize / 2;
+        return finTileSize / 4;
     }
 
     public JFrame getWindow()
