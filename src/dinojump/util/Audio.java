@@ -1,6 +1,9 @@
 package dinojump.util;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
@@ -8,26 +11,26 @@ public class Audio
 {
     private static Audio instance;
 
-    private final AudioInputStream gameStart;
-    private final AudioInputStream gameLoop;
-    private final AudioInputStream lobbyLoop;
-    private final AudioInputStream jump;
-    private final AudioInputStream gameOver;
+    private final File gameStart;
+    private final File gameLoop;
+    private final File lobbyLoop;
+    private final File jump;
+    private final File gameOver;
 
     private Clip bgMusic;
 
     private Audio()
     {
+        gameStart = new File("./resources/audio/music/soundtrack_start.wav").getAbsoluteFile();
+        gameLoop = new File("./resources/audio/music/soundtrack_loop.wav").getAbsoluteFile();
+        lobbyLoop = new File("./resources/audio/music/lobby.wav").getAbsoluteFile();
+        jump = new File("./resources/audio/fx/jump_1.wav").getAbsoluteFile();
+        gameOver = new File("./resources/audio/fx/gameover2.wav").getAbsoluteFile();
         try
         {
-            gameStart = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_start.wav").getAbsoluteFile());
-            gameLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/soundtrack_loop.wav").getAbsoluteFile());
-            lobbyLoop = AudioSystem.getAudioInputStream(new File("./resources/audio/music/lobby.wav").getAbsoluteFile());
-            jump = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/jump_1.wav").getAbsoluteFile());
-            gameOver = AudioSystem.getAudioInputStream(new File("./resources/audio/fx/gameover2.wav").getAbsoluteFile());
             bgMusic = AudioSystem.getClip();
         }
-        catch (UnsupportedAudioFileException | LineUnavailableException | IOException e)
+        catch (LineUnavailableException e)
         {
             throw new RuntimeException(e);
         }
@@ -46,9 +49,9 @@ public class Audio
     {
         try
         {
-            bgMusic.open(gameLoop);
+            bgMusic.open(AudioSystem.getAudioInputStream(gameLoop));
         }
-        catch (LineUnavailableException | IOException e)
+        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
         {
             throw new RuntimeException(e);
         }
@@ -59,9 +62,9 @@ public class Audio
     {
         try
         {
-            bgMusic.open(lobbyLoop);
+            bgMusic.open(AudioSystem.getAudioInputStream(lobbyLoop));
         }
-        catch (LineUnavailableException | IOException e)
+        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
         {
             throw new RuntimeException(e);
         }
@@ -78,12 +81,12 @@ public class Audio
                 case "jump" ->
                 {
                     clip = AudioSystem.getClip();
-                    clip.open(jump);
+                    clip.open(AudioSystem.getAudioInputStream(jump));
                 }
-                case "gameOver" -> bgMusic.open(gameOver);
+                case "gameOver" -> bgMusic.open(AudioSystem.getAudioInputStream(gameOver));
             }
         }
-        catch (LineUnavailableException | IOException e)
+        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
         {
             throw new RuntimeException(e);
         }
@@ -92,7 +95,6 @@ public class Audio
 
     public void stopMusic()
     {
-        bgMusic.stop();
         bgMusic.close();
     }
 }
