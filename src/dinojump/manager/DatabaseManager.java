@@ -53,6 +53,7 @@ public class DatabaseManager
             System.out.println("Successfully connected to dinojump.database");
 
             executeSql(new File("./resources/sql/initialize_db.sql")); // executes the initialization script for first setup
+            initializeAccount();
         }
         catch (SQLException e)
         {
@@ -60,27 +61,57 @@ public class DatabaseManager
         }
     }
 
-    public Account getAccount(String macAddress)
+    public void initializeAccount()
+    {
+        String macAddress = getMacAddress();
+        int highscore = getHighscore(macAddress);
+        Account.getInstance().setMacAddress(macAddress);
+        Account.getInstance().setHighscore(highscore);
+        if (highscore == -1)
+        {
+            Account.getInstance().setHighscore(0);
+            addAccount(Account.getInstance());
+        }
+    }
+
+    public int getHighscore(String macAddress)
     {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM account WHERE mac_address = ?"))
+             PreparedStatement statement = connection.prepareStatement("SELECT highscore FROM account WHERE mac_address = ?"))
         {
             // sets the parameter for the query
             statement.setString(1, macAddress);
 
             ResultSet resultSet = statement.executeQuery(); // executes the query and retrieves a result set
-            resultSet.next(); // go to first row
+            if (!resultSet.next()) // go to first row
+            {
+                return -1;
+            }
 
             // retrieves all attributes from the dinojump.database and returns the data
-            return new Account.Builder()
-                    .setMacAddress(resultSet.getString("mac_address"))
-                    .setHighscore(resultSet.getInt("highscore"))
-                    .build();
+            return resultSet.getInt("highscore");
         }
         catch (SQLException e)
         {
             e.printStackTrace();
-            return null; // return null if an error occurred
+            return 0; // return zero if an error occurred
+        }
+    }
+
+    public void updateHighscore(String macAddress, int highscore)
+    {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE account SET highscore = ? WHERE mac_address = ?"))
+        {
+            // sets the parameters for the update
+            statement.setInt(1, highscore);
+            statement.setString(2, macAddress);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
         }
     }
 

@@ -1,6 +1,7 @@
 package dinojump.util;
 
 import dinojump.Renderer;
+import dinojump.manager.ScoreManager;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -45,8 +46,8 @@ public class Stage
 
     public void showGameOverScreen()
     {
-        Renderer.getInstance().renderText("Game Over! Press Enter to restart!", new Position(Renderer.getInstance().getScreenWidth() / 2 - 375,
-                Renderer.getInstance().getScreenHeight() / 2), 50);
+        Renderer.getInstance().renderText("Game Over! Press Enter to restart!\nYour score: " + ScoreManager.getInstance().getScore(),
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 375, Renderer.getInstance().getScreenHeight() / 2), 50);
         Audio.getInstance().stopMusic();
         Audio.getInstance().playSound("gameOver");
     }

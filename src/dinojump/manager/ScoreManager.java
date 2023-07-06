@@ -33,6 +33,15 @@ public class ScoreManager
         renderScore();
     }
 
+    public void updateScoreToDatabase()
+    {
+        String macAddress = DatabaseManager.getInstance().getMacAddress();
+        if (DatabaseManager.getInstance().getHighscore(macAddress) < score)
+        {
+            DatabaseManager.getInstance().updateHighscore(macAddress, score);
+        }
+    }
+
     public void resetScore()
     {
         score = 0;
