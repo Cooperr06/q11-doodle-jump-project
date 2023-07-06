@@ -1,6 +1,6 @@
 package dinojump;
 
-import dinojump.manager.DatabaseManager;
+// import dinojump.manager.DatabaseManager;
 import dinojump.manager.PlatformManager;
 import dinojump.manager.SkinManager;
 import dinojump.util.Avatar;
@@ -29,22 +29,19 @@ public class DinoJump
 
     public void start()
     {
-        DatabaseManager.getInstance().initialize(System.getProperty("db_url"), System.getProperty("db_user"), System.getProperty("db_password"));
+        //DatabaseManager.getInstance().initialize(System.getProperty("db_url"), System.getProperty("db_user"), System.getProperty("db_password"));
         SkinManager.getInstance().initializeSkins();
         Stage.getInstance().showMainScreen();
     }
 
-    public static void startGameLoop(long fps)
-    {
-        setRunning(true);
+    public void startGameLoop(long fps) {
+        this.setRunning(true);
         Timer timer = new Timer();
         PlatformManager.getInstance().spawnInitialPlatforms(20);
-        timer.scheduleAtFixedRate(new TimerTask()
-        {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run()
-            {
-                loop();
+            public void run() {
+                DinoJump.getInstance().loop();
             }
         }, 0L, 1000 / fps);
     }

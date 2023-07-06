@@ -6,13 +6,14 @@ import dinojump.manager.InputManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 
 public class Stage
 {
     private static Stage instance;
+    private static Skin background = Skin.of(5);
 
-    private Skin backgroundSkin;
 
     private static boolean inGame;
 
@@ -33,7 +34,7 @@ public class Stage
     {
             try
             {
-                Renderer.getInstance().renderBackground(ImageIO.read(backgroundSkin.getImages()[0]));
+                Renderer.getInstance().renderBackground(ImageIO.read(background.getImages()[0]));
             }
             catch (IOException e)
             {

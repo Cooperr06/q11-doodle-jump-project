@@ -36,4 +36,5 @@ public final class Skin
     {
         return Skin.of(AVATAR_SKINS[new Random().nextInt(AVATAR_SKINS.length)]);
     }
+
 }
