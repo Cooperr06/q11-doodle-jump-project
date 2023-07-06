@@ -33,7 +33,6 @@ public class DinoJump
 
     public void start()
     {
-        //DatabaseManager.getInstance().initialize(System.getProperty("db_url"), System.getProperty("db_user"), System.getProperty("db_password"));
         SkinManager.getInstance().initializeSkins();
         Stage.getInstance().showMainScreen();
     }
