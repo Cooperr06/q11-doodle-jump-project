@@ -1,7 +1,5 @@
 package dinojump;
 
-// import dinojump.manager.DatabaseManager;
-
 import dinojump.manager.PlatformManager;
 import dinojump.manager.ScoreManager;
 import dinojump.manager.SkinManager;
