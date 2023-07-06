@@ -1,12 +1,9 @@
 package dinojump.util;
 
 import java.io.File;
-import java.util.Random;
 
 public final class Skin
 {
-    private static final int[] avatarSkins = new int[]{0, 2, 3, 4, 5, 6, 7, 8};
-
     private final int id;
     private final File[] images;
 
@@ -31,10 +28,4 @@ public final class Skin
     {
         return id;
     }
-
-    public static Skin selectAvatarSkin()
-    {
-        return Skin.of(avatarSkins[new Random().nextInt(avatarSkins.length)]);
-    }
-
 }

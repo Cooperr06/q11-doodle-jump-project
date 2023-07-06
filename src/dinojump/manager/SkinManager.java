@@ -2,14 +2,14 @@ package dinojump.manager;
 
 import dinojump.util.Skin;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SkinManager
 {
     private static SkinManager instance;
 
-    private final List<Skin> skins = new ArrayList<>();
+    private List<Skin> skins;
 
     private SkinManager()
     {
@@ -26,6 +26,7 @@ public class SkinManager
 
     public void initializeSkins()
     {
+        skins = DatabaseManager.getInstance().getSkins();
     }
 
     public List<Skin> getSkins()
