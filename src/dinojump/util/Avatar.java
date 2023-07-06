@@ -11,7 +11,6 @@ public class Avatar implements Movable
     private final Skin skin;
 
     private Position position;
-    private int score;
 
     private int xVelocity;
     private int yVelocity;
@@ -134,7 +133,6 @@ public class Avatar implements Movable
         if (instance.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
         {
             Stage.getInstance().showGameOverScreen();
-            //DinoJump.getInstance().setRunning(false);
         }
     }
 
@@ -153,16 +151,6 @@ public class Avatar implements Movable
     public void setPosition(Position position)
     {
         this.position = position;
-    }
-
-    public int getScore()
-    {
-        return score;
-    }
-
-    public void setScore(int score)
-    {
-        this.score = score;
     }
 
     public int getXVelocity()
