@@ -52,7 +52,7 @@ public class Audio
         {
             throw new RuntimeException(e);
         }
-        bgMusic.loop(1000);
+        bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void playLobby()
@@ -65,7 +65,7 @@ public class Audio
         {
             throw new RuntimeException(e);
         }
-        bgMusic.loop(100);
+        bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void playSound(String effect)
@@ -92,6 +92,7 @@ public class Audio
 
     public void stopMusic()
     {
+        bgMusic.stop();
         bgMusic.close();
     }
 }

@@ -28,14 +28,6 @@ public class SkinManager
     {
     }
 
-    public Skin getSkin(int id)
-    {
-        return skins.stream()
-                .filter(skin -> skin.getId() == id)
-                .limit(1)
-                .findFirst().orElseThrow();
-    }
-
     public List<Skin> getSkins()
     {
         return skins;
