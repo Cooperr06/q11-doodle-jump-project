@@ -1,21 +1,16 @@
 package dinojump.util;
 
-import dinojump.DinoJump;
 import dinojump.Renderer;
-import dinojump.manager.InputManager;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 
 public class Stage
 {
     private static Stage instance;
-    private static Skin background = Skin.of(5);
+    private static final Skin background = Skin.of(5);
 
-
-    private static boolean inGame;
+    private boolean running;
 
     private Stage()
     {
@@ -32,15 +27,15 @@ public class Stage
 
     public void showMainScreen()
     {
-            try
-            {
-                Renderer.getInstance().renderBackground(ImageIO.read(background.getImages()[0]));
-            }
-            catch (IOException e)
-            {
-                throw new RuntimeException(e);
-            }
-            Renderer.getInstance().renderText("Press Enter To Start", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+        try
+        {
+            Renderer.getInstance().renderBackground(ImageIO.read(background.getImages()[0]));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        Renderer.getInstance().renderText("Press Enter To Start", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
     }
 
     public void showSettingsScreen()
@@ -53,13 +48,13 @@ public class Stage
 
     }
 
-    public static void startGame()
+    public boolean isRunning()
     {
-        inGame = true;
+        return running;
     }
 
-    public void endGame()
+    public void setRunning(boolean running)
     {
-        inGame = false;
+        this.running = running;
     }
 }
