@@ -70,11 +70,16 @@ public class Audio
 
     public void playSound(String effect)
     {
+        Clip clip = bgMusic;
         try
         {
             switch (effect)
             {
-                case "jump" -> bgMusic.open(jump);
+                case "jump" ->
+                {
+                    clip = AudioSystem.getClip();
+                    clip.open(jump);
+                }
                 case "gameOver" -> bgMusic.open(gameOver);
             }
         }
