@@ -59,7 +59,6 @@ public class Audio
     {
         try
         {
-            bgMusic = AudioSystem.getClip();
             bgMusic.open(lobbyLoop);
         }
         catch (LineUnavailableException | IOException e)
@@ -71,21 +70,19 @@ public class Audio
 
     public void playSound(String effect)
     {
-        Clip clip;
         try
         {
-            clip = AudioSystem.getClip();
             switch (effect)
             {
-                case "jump" -> clip.open(jump);
-                case "gameOver" -> clip.open(gameOver);
+                case "jump" -> bgMusic.open(jump);
+                case "gameOver" -> bgMusic.open(gameOver);
             }
         }
         catch (LineUnavailableException | IOException e)
         {
             throw new RuntimeException(e);
         }
-        clip.start();
+        bgMusic.start();
     }
 
     public void stopMusic()

@@ -34,7 +34,8 @@ public class Stage
         {
             throw new RuntimeException(e);
         }
-        Renderer.getInstance().renderText("Press Enter To Start", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+        Renderer.getInstance().renderText("Press Enter To start", new Position(Renderer.getInstance().getScreenWidth() / 2 - 200,
+                Renderer.getInstance().getScreenHeight() / 2), 50);
     }
 
     public void showSettingsScreen()
@@ -44,7 +45,8 @@ public class Stage
 
     public void showGameOverScreen()
     {
-        Renderer.getInstance().renderText("Game Over", new Position(Renderer.getInstance().getScreenWidth() / 2, Renderer.getInstance().getScreenHeight() / 2), 20);
+        Renderer.getInstance().renderText("Game Over! Press Enter to restart!", new Position(Renderer.getInstance().getScreenWidth() / 2 - 375,
+                Renderer.getInstance().getScreenHeight() / 2), 50);
         Audio.getInstance().stopMusic();
         Audio.getInstance().playSound("gameOver");
     }
