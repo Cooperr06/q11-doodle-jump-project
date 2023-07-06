@@ -1,6 +1,7 @@
 package dinojump.manager;
 
 import dinojump.Renderer;
+import dinojump.util.Audio;
 import dinojump.util.Position;
 
 public class ScoreManager
@@ -30,6 +31,7 @@ public class ScoreManager
 
     public void iterateLoop()
     {
+        checkAchievement();
         renderScore();
     }
 
@@ -51,5 +53,17 @@ public class ScoreManager
     public int getScore()
     {
         return score;
+    }
+
+    public void checkAchievement()
+    {
+        if (score % 1000 == 0)
+        {
+            Audio.getInstance().playSound("bigAchievement");
+        }
+        else if (score % 100 == 0)
+        {
+            Audio.getInstance().playSound("smallAchievement");
+        }
     }
 }
