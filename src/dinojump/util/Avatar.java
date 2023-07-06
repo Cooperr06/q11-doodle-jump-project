@@ -1,6 +1,5 @@
 package dinojump.util;
 
-import dinojump.DinoJump;
 import dinojump.Renderer;
 
 import static java.lang.Math.*;
@@ -135,7 +134,6 @@ public class Avatar implements Movable
         if (instance.getPosition().getY() > Renderer.getInstance().getHeight() - 100)
         {
             Stage.getInstance().showGameOverScreen();
-            DinoJump.getInstance().setRunning(false);
         }
     }
 
