@@ -144,7 +144,7 @@ public class Avatar implements Movable
     public void checkForGameOver()
     {
         // if the current y of the avatar is greater than the y of the lowest platform, the avatar cannot move upwards anymore --> Game Over
-        if (getPosition().getY() > PlatformManager.getInstance().getPlatforms().getFirst().getDataElement().getPosition().getY() && yVelocity > 0)
+        if (getPosition().getY() > PlatformManager.getInstance().getPlatforms().getFirst().getDataElement().getPosition().getY() + 800 && yVelocity > 0)
         {
             ScoreManager.getInstance().updateScore();
             Stage.getInstance().showGameOverScreen();
