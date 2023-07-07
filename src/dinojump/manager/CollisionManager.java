@@ -40,7 +40,7 @@ public class CollisionManager
                 {
                     if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPosition().getY() + Renderer.getInstance().getPlatformHeight() && avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getY())
                     {
-                        Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxYVelocity());
+                        Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxFallingVelocity());
                         Audio.getInstance().playSound("jump");
                     }
                 }

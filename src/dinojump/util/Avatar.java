@@ -20,7 +20,8 @@ public class Avatar implements Movable
     private int yVelocity;
 
     private int maxXVelocity;
-    private int maxYVelocity;
+    private int maxFallingVelocity;
+    private int maxJumpingVelocity;
 
     private int xAcceleration;
     private int yAcceleration = 1;
@@ -31,7 +32,8 @@ public class Avatar implements Movable
         skin = SkinManager.getInstance().selectAvatarSkin();
 
         maxXVelocity = 60;
-        maxYVelocity = 40;
+        maxFallingVelocity = 70;
+        maxJumpingVelocity = 40;
     }
 
     public static Avatar getInstance()
@@ -69,7 +71,7 @@ public class Avatar implements Movable
         // xVelocity
         if (xAcceleration == 0) // deceleration
         {
-            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 7))
+            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 10))
             {
                 xVelocity = 0;
             }
@@ -106,7 +108,7 @@ public class Avatar implements Movable
          */
         if (yAcceleration > 0) // got accelerated by collisionManager
         {
-            yVelocity = maxYVelocity * -1;
+            yVelocity = maxJumpingVelocity * -1;
             yAcceleration = 0;
         }
         else if (yVelocity < 0) //traveling upwards
@@ -120,7 +122,7 @@ public class Avatar implements Movable
         else // traveling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
-            int maxFallingVelocity = (int) floor((double) maxYVelocity / 6);
+            int maxFallingVelocity = (int) floor((double) this.maxFallingVelocity / 6);
             if (yVelocity > maxFallingVelocity)
             {
                 yVelocity = maxFallingVelocity;
@@ -201,14 +203,14 @@ public class Avatar implements Movable
         this.maxXVelocity = maxXVelocity;
     }
 
-    public int getMaxYVelocity()
+    public int getMaxFallingVelocity()
     {
-        return maxYVelocity;
+        return maxFallingVelocity;
     }
 
-    public void setMaxYVelocity(int maxYVelocity)
+    public void setMaxFallingVelocity(int maxFallingVelocity)
     {
-        this.maxYVelocity = maxYVelocity;
+        this.maxFallingVelocity = maxFallingVelocity;
     }
 
     public int getXAcceleration()
@@ -229,5 +231,15 @@ public class Avatar implements Movable
     public void setYAcceleration(int yAcceleration)
     {
         this.yAcceleration = yAcceleration;
+    }
+
+    public int getMaxJumpingVelocity()
+    {
+        return maxJumpingVelocity;
+    }
+
+    public void setMaxJumpingVelocity(int maxJumpingVelocity)
+    {
+        this.maxJumpingVelocity = maxJumpingVelocity;
     }
 }

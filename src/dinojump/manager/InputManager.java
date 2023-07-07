@@ -34,8 +34,8 @@ public class InputManager implements KeyListener
         // check which button is pressed
         switch (e.getKeyCode())
         {
-            case 65 -> Avatar.getInstance().setXAcceleration(-1); // A is pressed
-            case 68 -> Avatar.getInstance().setXAcceleration(1); // D is pressed
+            case 65 -> Avatar.getInstance().setXAcceleration(-5); // A is pressed
+            case 68 -> Avatar.getInstance().setXAcceleration(5); // D is pressed
             case 10 ->
             {
                 if (!DinoJump.getInstance().isRunning())

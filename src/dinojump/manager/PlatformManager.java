@@ -8,6 +8,7 @@ import list.DataElement;
 import list.List;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlatformManager
 {
@@ -50,7 +51,7 @@ public class PlatformManager
                 scoreUpdate = true;
                 platforms.remove(platform);
                 platforms.insertLast(platform);
-                platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
+                platform.setPosition(new Position((int) (random.nextGaussian() * 5 + columns / 2), ThreadLocalRandom.current().nextInt(0, 3) * (Renderer.getInstance().getScreenHeight() / Renderer.getInstance().getRows())));
                 i--;
             }
             else
@@ -71,7 +72,12 @@ public class PlatformManager
         for (int i = 0; i < amount; i++)
         {
             int x = (int) (random.nextGaussian() * 3 + columns / 2);
-            int y = (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows);
+            int y = (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows) + 3;
+            if (i == amount - 1)
+            {
+                x = columns / 2;
+                y = (int) Math.round(rows * 0.75);
+            }
             platforms.insertLast(new Platform(platformSkin, new Position(x, y)));
         }
     }
