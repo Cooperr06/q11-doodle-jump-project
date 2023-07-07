@@ -7,6 +7,8 @@ import dinojump.util.Skin;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
@@ -62,6 +64,20 @@ public class Renderer extends Canvas
         window.add(panel);
         // adding InputManager as key listener
         window.addKeyListener(InputManager.getInstance());
+        // adding a focus listener to always request focus back if it is lost
+        window.addFocusListener(new FocusListener()
+        {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                window.requestFocus();
+            }
+        });
         window.pack();
 
         // creating custom buffer strategy (required to make custom render methods)
