@@ -50,7 +50,7 @@ public class DatabaseManager
             dataSource.setUser(user);
             dataSource.setUrl(url);
 
-            System.out.println("Successfully connected to dinojump.database");
+            System.out.println("Successfully connected to dinojump database");
 
             executeSql(new File("./resources/sql/initialize_db.sql")); // executes the initialization script for first setup
             initializeAccount();

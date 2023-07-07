@@ -1,10 +1,6 @@
 package dinojump;
 
-import dinojump.manager.CollisionManager;
-import dinojump.manager.DatabaseManager;
-import dinojump.manager.PlatformManager;
-import dinojump.manager.ScoreManager;
-import dinojump.manager.SkinManager;
+import dinojump.manager.*;
 import dinojump.util.Audio;
 import dinojump.util.Avatar;
 import dinojump.util.Stage;
@@ -75,7 +71,7 @@ public class DinoJump
         Renderer.getInstance().clearScreen();
         Audio.getInstance().stopMusic();
         PlatformManager.getInstance().getPlatforms().clear();
-        Avatar.getInstance().setYAcceleration(1);
+        Avatar.getInstance().reset();
         ScoreManager.getInstance().resetScore();
     }
 

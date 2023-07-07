@@ -27,7 +27,7 @@ public class Avatar implements Movable
 
     private Avatar()
     {
-        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
+        reset();
         skin = SkinManager.getInstance().selectAvatarSkin();
 
         maxXVelocity = 40;
@@ -41,6 +41,12 @@ public class Avatar implements Movable
             instance = new Avatar();
         }
         return instance;
+    }
+
+    public void reset()
+    {
+        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
+        yAcceleration = 1;
     }
 
     @Override
@@ -144,6 +150,7 @@ public class Avatar implements Movable
             Stage.getInstance().showGameOverScreen();
             DinoJump.getInstance().getTimer().cancel();
             DinoJump.getInstance().setRunning(false);
+            PlatformManager.getInstance().getPlatforms().clear();
         }
     }
 
