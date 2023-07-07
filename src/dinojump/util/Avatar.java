@@ -152,6 +152,7 @@ public class Avatar implements Movable
             Stage.getInstance().showGameOverScreen();
             DinoJump.getInstance().getTimer().cancel();
             DinoJump.getInstance().setRunning(false);
+            PlatformManager.getInstance().getPlatforms().forEach(platform -> System.out.println(platform.getPosition().getY()));
             PlatformManager.getInstance().getPlatforms().clear();
         }
     }

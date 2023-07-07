@@ -36,6 +36,11 @@ public class List
         first = first.insertLast(data);
     }
 
+    public void insertSorted(DataElement data)
+    {
+        first = first.insertSorted(data);
+    }
+
     public void remove(DataElement data)
     {
         first = first.remove(data);

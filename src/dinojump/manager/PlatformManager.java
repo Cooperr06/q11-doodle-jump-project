@@ -50,8 +50,8 @@ public class PlatformManager
             {
                 scoreUpdate = true;
                 platforms.remove(platform);
-                platforms.insertLast(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 5 + columns / 2), ThreadLocalRandom.current().nextInt(0, 3) * (Renderer.getInstance().getScreenHeight() / Renderer.getInstance().getRows())));
+                platforms.insertSorted(platform);
                 i--;
             }
             else
@@ -78,7 +78,7 @@ public class PlatformManager
                 x = columns / 2;
                 y = (int) Math.round(rows * 0.75);
             }
-            platforms.insertLast(new Platform(platformSkin, new Position(x, y)));
+            platforms.insertSorted(new Platform(platformSkin, new Position(x, y)));
         }
     }
 
