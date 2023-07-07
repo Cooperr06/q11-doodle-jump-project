@@ -9,10 +9,11 @@ public class ScoreManager
 {
     private static ScoreManager instance;
 
-    private int score;
-    private Position position;
-    private int scoreTextSize;
-    
+    private final int scoreTextSize = 40;
+    private final Position position;
+
+    private int score = 0;
+
     public static ScoreManager getInstance()
     {
         if (instance == null)
@@ -24,8 +25,6 @@ public class ScoreManager
 
     private ScoreManager()
     {
-        score = 0;
-        scoreTextSize = 40;
         position = new Position(50, 80);
         renderScore();
     }
@@ -46,14 +45,14 @@ public class ScoreManager
         }
     }
 
-    public void resetScore()
-    {
-        score = 0;
-    }
-
     public void renderScore()
     {
         Renderer.getInstance().renderText(String.valueOf(score), position, scoreTextSize);
+    }
+
+    public void resetScore()
+    {
+        score = 0;
     }
 
     public void addScore(int add)

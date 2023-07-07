@@ -16,17 +16,15 @@ public class PlatformManager
 
     private final List platforms = new List();
     private final Skin platformSkin = Skin.of(1);
+    private final Random random = new Random();
 
     private final int rows;
     private final int columns;
-
-    private Random random;
 
     private PlatformManager()
     {
         rows = Renderer.getInstance().getRows();
         columns = Renderer.getInstance().getColumns();
-        random = new Random();
     }
 
     public static PlatformManager getInstance()
@@ -40,29 +38,23 @@ public class PlatformManager
 
     public void iterateLoop()
     {
-        boolean scoreUpdate;
         platforms.forEach(DataElement::iterateLoop);
         // platforms that are below the window get reused on top
         for (int i = 0; i < platforms.size(); i++)
         {
             DataElement platform = platforms.get(i);
-            if (platform.getPosition().getY() > Renderer.getInstance().getHeight() + 100)
+            if (platform.getPosition().getY() > Renderer.getInstance().getHeight() + 50)
             {
-                scoreUpdate = true;
                 platforms.remove(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 5 + columns / 2), ThreadLocalRandom.current().nextInt(0, 3) * (Renderer.getInstance().getScreenHeight() / Renderer.getInstance().getRows())));
                 platforms.insertSorted(platform);
-                i--;
             }
             else
             {
-                break;
+                continue;
             }
-
-            if (scoreUpdate) {
-                ScoreManager.getInstance().addScore(1);
-                ScoreManager.getInstance().renderScore();
-            }
+            ScoreManager.getInstance().addScore(1);
+            ScoreManager.getInstance().renderScore();
         }
         draw();
     }

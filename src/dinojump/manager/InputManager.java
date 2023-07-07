@@ -24,11 +24,6 @@ public class InputManager implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent e)
-    {
-    }
-
-    @Override
     public void keyPressed(KeyEvent e)
     {
         // check which button is pressed
@@ -54,5 +49,10 @@ public class InputManager implements KeyListener
         {
             case 65, 68 -> Avatar.getInstance().setXAcceleration(0); // A or D is released
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
     }
 }

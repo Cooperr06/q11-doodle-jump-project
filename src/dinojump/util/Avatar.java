@@ -47,7 +47,8 @@ public class Avatar implements Movable
 
     public void reset()
     {
-        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
+        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2,
+                Renderer.getInstance().getScreenHeight() / 2);
         yAcceleration = 1;
     }
 
@@ -103,15 +104,15 @@ public class Avatar implements Movable
 
         // yVelocity
         /*
-        since there is no accelerating process in jumping, it goes maxVel -slowly-> Vel = 0 -slowly-> -1 * maxVel
+        since there is no accelerating process in jumping, it goes maxVel - slowly -> Vel = 0 - slowly -> -1 * maxVel
         until collisionManager "accelerates" again, witch is considered as a starting signal to jump, therefor repeats the cycle
          */
-        if (yAcceleration > 0) // got accelerated by collisionManager
+        if (yAcceleration > 0) // getting accelerated by collisionManager
         {
             yVelocity = maxJumpingVelocity * -1;
             yAcceleration = 0;
         }
-        else if (yVelocity < 0) //traveling upwards
+        else if (yVelocity < 0) // travelling upwards
         {
             yVelocity = (int) ceil((double) yVelocity / 1.05);
         }
@@ -119,7 +120,7 @@ public class Avatar implements Movable
         {
             yVelocity = 1;
         }
-        else // traveling downwards
+        else // travelling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
             int maxFallingVelocity = (int) floor((double) this.maxFallingVelocity / 6);
@@ -140,11 +141,6 @@ public class Avatar implements Movable
         }
     }
 
-    public void redraw()
-    {
-        Renderer.getInstance().renderAvatar(skin, position);
-    }
-
     public void checkForGameOver()
     {
         // if the current y of the avatar is greater than the y of the lowest platform, the avatar cannot move upwards anymore --> Game Over
@@ -156,6 +152,11 @@ public class Avatar implements Movable
             DinoJump.getInstance().setRunning(false);
             PlatformManager.getInstance().getPlatforms().clear();
         }
+    }
+
+    public void redraw()
+    {
+        Renderer.getInstance().renderAvatar(skin, position);
     }
 
     public Skin getSkin()

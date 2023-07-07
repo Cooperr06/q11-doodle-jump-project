@@ -9,30 +9,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Math.round;
 import static java.lang.Math.sin;
 
 public class Renderer extends Canvas
 {
-    private final List<JButton> buttons = new ArrayList<>();
-
     private static Renderer instance;
+
     private final JFrame window; // frame in OS
-    private final JPanel panel;
     private final BufferStrategy bufferStrategy; // required to make custom render methods
 
     private final int rows = 10; // logic dimensions are fixed
     private final int columns = 20;
-    private final int tileSize = 32; // sprite resolution is fixed
 
-    private int scale;
-    private int finTileSize;
+    private final int finTileSize;
 
-    private int screenHeight;
-    private int screenWidth;
+    private final int screenHeight;
+    private final int screenWidth;
 
     private long startTime;
     private Color backgroundColor;
@@ -47,7 +41,9 @@ public class Renderer extends Canvas
         // initializing values
         screenHeight = height;
         screenWidth = width;
-        scale = (screenHeight / rows) / tileSize; // scale depends on height
+        // sprite resolution is fixed
+        int tileSize = 32;
+        int scale = (screenHeight / rows) / tileSize; // scale depends on height
         finTileSize = scale * tileSize; // calculation of final tile size on screen
 
         // creating frame and setting default attributes
@@ -59,7 +55,7 @@ public class Renderer extends Canvas
         window.setPreferredSize(new Dimension(width, height));
         window.setLocation(0, 0);
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.add(this);
 
         // putting canvas into frame
@@ -83,7 +79,7 @@ public class Renderer extends Canvas
     }
 
     /**
-     * renders image on Predetermined tileSize
+     * Renders an image on predetermined tileSize
      *
      * @param image image to be rendered
      */
@@ -94,11 +90,10 @@ public class Renderer extends Canvas
     }
 
     /**
-     * renders text
+     * Renders the specific text in the specific font
      *
      * @param text text to be shown
      * @param font text font
-     * @see Font#Font(String, int, int)
      */
     public void renderText(String text, Position position, Font font)
     {
@@ -110,7 +105,7 @@ public class Renderer extends Canvas
     }
 
     /**
-     * renders text
+     * Renders the specific text in the specific font size, here the default font "Arial" is used
      *
      * @param text text to be shown
      * @param size font size
@@ -126,9 +121,10 @@ public class Renderer extends Canvas
     }
 
     /**
-     * renders Avatar
+     * Renders the specific (avatar) skin at the specific position
      *
-     * @param skin Skin object to be passed
+     * @param skin     skin object to be rendered
+     * @param position position at which the skin should be rendered
      */
     public void renderAvatar(Skin skin, Position position)
     {
@@ -146,7 +142,7 @@ public class Renderer extends Canvas
     }
 
     /**
-     * renders Platform with twice the width of the player and half the height
+     * Renders the specific platforms with twice the width of the player and half the height
      *
      * @param platforms platforms to render
      */
@@ -170,10 +166,10 @@ public class Renderer extends Canvas
     }
 
     /**
-     * draws an image that is spanned across the whole window without giving a fuck about resolution or stretching
-     * <pre></pre>has to be rendered first, as it simultaneously deletes the previous frame
+     * Draws an image that is spanned across the whole window without giving a fuck about resolution<br>
+     * or stretching has to be rendered first, as it simultaneously deletes the previous frame
      *
-     * @param image background image
+     * @param image background image to draw
      */
     public void renderBackground(Image image)
     {
@@ -181,24 +177,6 @@ public class Renderer extends Canvas
         graphics.drawImage(image, 0, 0, window.getWidth(), window.getHeight(), null);
     }
 
-    /**
-     * @param button button to be rendered
-     * @param x      relative position from left (float 0-1)
-     * @param y      relative position from top (float 0-1)
-     */
-    public void renderButton(JButton button, float x, float y)
-    {
-        buttons.add(button);
-
-        Graphics graphics = bufferStrategy.getDrawGraphics();
-        float buttonX = x * window.getWidth() - button.getWidth() / 2f;
-        float buttonY = y * window.getHeight() - button.getHeight() / 2f;
-
-        button.setBounds((int) buttonX, (int) buttonY, button.getWidth(), button.getHeight());
-        button.setVisible(true);
-        panel.add(button);
-    }
-    
     public void updateBackgroundColor()
     {
         float minimumBrightness = 0.2f;
@@ -222,11 +200,6 @@ public class Renderer extends Canvas
 
     public void clearScreen()
     {
-        while (!buttons.isEmpty())
-        {
-            window.getContentPane().remove(buttons.size() - 1);
-            buttons.remove(buttons.size() - 1);
-        }
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(Color.black);
         graphics.clearRect(0, 0, window.getWidth(), window.getHeight());
@@ -236,6 +209,11 @@ public class Renderer extends Canvas
     {
         backgroundColor = new Color(0, 0, 0);
         startTime = System.currentTimeMillis();
+    }
+
+    public JFrame getWindow()
+    {
+        return window;
     }
 
     public int getRows()
@@ -271,10 +249,5 @@ public class Renderer extends Canvas
     public int getPlatformHeight()
     {
         return finTileSize / 4;
-    }
-
-    public JFrame getWindow()
-    {
-        return window;
     }
 }

@@ -19,13 +19,13 @@ public final class Skin
         return new Skin(id, skinDirectory.listFiles());
     }
 
-    public File[] getImages()
-    {
-        return images;
-    }
-
     public int getId()
     {
         return id;
+    }
+
+    public File[] getImages()
+    {
+        return images;
     }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Stage
 {
     private static Stage instance;
+
     private static final Skin background = Skin.of(0);
 
     private Stage()

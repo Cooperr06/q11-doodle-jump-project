@@ -11,25 +11,24 @@ public class Audio
 {
     private static Audio instance;
 
-    private final File gameStart;
-    private final File gameLoop;
-    private final File lobbyLoop;
-    private final File jump;
-    private final File gameOver;
-    private final File smallAchievement;
-    private final File bigAchievement;
+    private final File gameFile;
+    private final File lobbyFile;
 
-    private Clip bgMusic;
+    private final File jumpFile;
+    private final File smallAchievementFile;
+    private final File bigAchievementFile;
+    private final File gameOverFile;
+
+    private final Clip bgMusic;
 
     private Audio()
     {
-        gameStart = new File("./resources/audio/music/soundtrack_start.wav");
-        gameLoop = new File("./resources/audio/music/soundtrack_loop.wav");
-        lobbyLoop = new File("./resources/audio/music/lobby.wav");
-        jump = new File("./resources/audio/fx/jump_1.wav");
-        gameOver = new File("./resources/audio/fx/gameover2.wav");
-        smallAchievement = new File("./resources/audio/fx/achievementSmall.wav");
-        bigAchievement = new File("./resources/audio/fx/achievementBig.wav");
+        gameFile = new File("./resources/audio/music/soundtrack.wav");
+        lobbyFile = new File("./resources/audio/music/lobby.wav");
+        jumpFile = new File("./resources/audio/fx/jump_1.wav");
+        gameOverFile = new File("./resources/audio/fx/gameover2.wav");
+        smallAchievementFile = new File("./resources/audio/fx/achievementSmall.wav");
+        bigAchievementFile = new File("./resources/audio/fx/achievementBig.wav");
         try
         {
             bgMusic = AudioSystem.getClip();
@@ -53,7 +52,7 @@ public class Audio
     {
         try
         {
-            bgMusic.open(AudioSystem.getAudioInputStream(gameLoop));
+            bgMusic.open(AudioSystem.getAudioInputStream(gameFile));
         }
         catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
         {
@@ -66,7 +65,7 @@ public class Audio
     {
         try
         {
-            bgMusic.open(AudioSystem.getAudioInputStream(lobbyLoop));
+            bgMusic.open(AudioSystem.getAudioInputStream(lobbyFile));
         }
         catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
         {
@@ -85,19 +84,19 @@ public class Audio
                 case "jump" ->
                 {
                     clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(jump));
+                    clip.open(AudioSystem.getAudioInputStream(jumpFile));
                 }
-                case "gameOver" -> bgMusic.open(AudioSystem.getAudioInputStream(gameOver));
                 case "achievementSmall" ->
                 {
                     clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(smallAchievement));
+                    clip.open(AudioSystem.getAudioInputStream(smallAchievementFile));
                 }
                 case "achievementBig" ->
                 {
                     clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(bigAchievement));
+                    clip.open(AudioSystem.getAudioInputStream(bigAchievementFile));
                 }
+                case "gameOver" -> bgMusic.open(AudioSystem.getAudioInputStream(gameOverFile));
             }
         }
         catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)

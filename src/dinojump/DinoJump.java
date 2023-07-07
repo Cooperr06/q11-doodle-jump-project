@@ -49,7 +49,7 @@ public class DinoJump
             {
                 loop();
             }
-        }, 0L, 1000 / fps);
+        }, 0, 1000 / fps);
     }
 
     private void loop()
@@ -59,7 +59,7 @@ public class DinoJump
         CollisionManager.getInstance().iterateLoop();
         Avatar.getInstance().iterateLoop(); // avatar and platform are interchangeable
         PlatformManager.getInstance().iterateLoop();
-        ScoreManager.getInstance().iterateLoop(); // text has to be last!
+        ScoreManager.getInstance().iterateLoop(); // text has to be last
         Renderer.getInstance().clearScreen();
     }
 
