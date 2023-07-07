@@ -43,18 +43,15 @@ public class PlatformManager
         for (int i = 0; i < platforms.size(); i++)
         {
             DataElement platform = platforms.get(i);
-            if (platform.getPosition().getY() > Renderer.getInstance().getHeight() + 50)
+            if (platform.getPosition().getY() > Renderer.getInstance().getHeight() + 100)
             {
                 platforms.remove(platform);
                 platform.setPosition(new Position((int) (random.nextGaussian() * 5 + columns / 2), ThreadLocalRandom.current().nextInt(0, 3) * (Renderer.getInstance().getScreenHeight() / Renderer.getInstance().getRows())));
                 platforms.insertSorted(platform);
+
+                ScoreManager.getInstance().addScore(1);
+                ScoreManager.getInstance().renderScore();
             }
-            else
-            {
-                continue;
-            }
-            ScoreManager.getInstance().addScore(1);
-            ScoreManager.getInstance().renderScore();
         }
         draw();
     }
