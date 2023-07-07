@@ -132,7 +132,9 @@ public class Avatar implements Movable
 
     public void updatePosition()
     {
-        if (DinoJump.getInstance().isRunning())
+        if (DinoJump.getInstance().isRunning() &&
+                ((xVelocity > 0 && getPosition().getX() < Renderer.getInstance().getScreenWidth() - Renderer.getInstance().getAvatarDimensions() ||
+                        (xVelocity < 0 && getPosition().getX() > Renderer.getInstance().getAvatarDimensions()))))
         {
             position.setX(position.getX() + xVelocity / 10);
         }
