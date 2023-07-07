@@ -1,6 +1,7 @@
 package dinojump.manager;
 
 import dinojump.Renderer;
+import dinojump.util.Account;
 import dinojump.util.Audio;
 import dinojump.util.Position;
 
@@ -35,12 +36,13 @@ public class ScoreManager
         renderScore();
     }
 
-    public void updateScoreToDatabase()
+    public void updateScore()
     {
         String macAddress = DatabaseManager.getInstance().getMacAddress();
         if (DatabaseManager.getInstance().getHighscore(macAddress) < score)
         {
             DatabaseManager.getInstance().updateHighscore(macAddress, score);
+            Account.getInstance().setHighscore(score);
         }
     }
 

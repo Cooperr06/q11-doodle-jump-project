@@ -35,14 +35,22 @@ public class Stage
         {
             throw new RuntimeException(e);
         }
-        Renderer.getInstance().renderText("Press Enter to start", new Position(Renderer.getInstance().getScreenWidth() / 2 - 200,
-                Renderer.getInstance().getScreenHeight() / 2), 50);
+        Renderer.getInstance().renderText("Press Enter to start",
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 200,
+                        Renderer.getInstance().getScreenHeight() / 2), 50);
+        Renderer.getInstance().renderText("Your Highscore: " + Account.getInstance().getHighscore(),
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 120,
+                        Renderer.getInstance().getScreenHeight() / 2 + 50), 30);
     }
 
     public void showGameOverScreen()
     {
-        Renderer.getInstance().renderText("Game Over! Press Enter to restart! Your score: " + ScoreManager.getInstance().getScore(),
-                new Position(Renderer.getInstance().getScreenWidth() / 2 - 375, Renderer.getInstance().getScreenHeight() / 2), 30);
+        Renderer.getInstance().renderText("Game Over! Press Enter to restart!",
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 375, Renderer.getInstance().getScreenHeight() / 2), 50);
+        Renderer.getInstance().renderText("Your score: " + ScoreManager.getInstance().getScore(),
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 50, Renderer.getInstance().getScreenHeight() / 2 + 50), 30);
+        Renderer.getInstance().renderText("Your Highscore: " + Account.getInstance().getHighscore(),
+                new Position(Renderer.getInstance().getScreenWidth() / 2 - 100, Renderer.getInstance().getScreenHeight() / 2 + 100), 30);
         Audio.getInstance().stopMusic();
         Audio.getInstance().playSound("gameOver");
     }
