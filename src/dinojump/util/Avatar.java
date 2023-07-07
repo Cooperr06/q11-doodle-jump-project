@@ -30,7 +30,7 @@ public class Avatar implements Movable
         reset();
         skin = SkinManager.getInstance().selectAvatarSkin();
 
-        maxXVelocity = 40;
+        maxXVelocity = 60;
         maxYVelocity = 40;
     }
 

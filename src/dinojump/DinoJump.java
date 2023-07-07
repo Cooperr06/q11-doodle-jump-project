@@ -56,7 +56,7 @@ public class DinoJump
         // this order has to be preserved in order for graphics to show up correctly
         Renderer.getInstance().updateBackgroundColor(); // background to draw on
         CollisionManager.getInstance().iterateLoop();
-        Avatar.getInstance().iterateLoop(); // avatar and platform are interchageable
+        Avatar.getInstance().iterateLoop(); // avatar and platform are interchangeable
         PlatformManager.getInstance().iterateLoop();
         ScoreManager.getInstance().iterateLoop(); // text has to be last!
         Renderer.getInstance().clearScreen();

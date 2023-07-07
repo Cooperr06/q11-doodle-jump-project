@@ -41,7 +41,7 @@ public class Stage
 
     public void showGameOverScreen()
     {
-        Renderer.getInstance().renderText("Game Over! Press Enter to restart!\nYour score: " + ScoreManager.getInstance().getScore(),
+        Renderer.getInstance().renderText("Game Over! Press Enter to restart! Your score: " + ScoreManager.getInstance().getScore(),
                 new Position(Renderer.getInstance().getScreenWidth() / 2 - 375, Renderer.getInstance().getScreenHeight() / 2), 30);
         Audio.getInstance().stopMusic();
         Audio.getInstance().playSound("gameOver");
