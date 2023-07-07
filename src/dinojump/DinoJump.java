@@ -10,9 +10,10 @@ import java.util.TimerTask;
 
 public class DinoJump
 {
+    private static DinoJump instance;
+
     private boolean running = false;
     private Timer timer;
-    private static DinoJump instance;
 
     private DinoJump()
     {
