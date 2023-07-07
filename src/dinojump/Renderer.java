@@ -40,7 +40,6 @@ public class Renderer extends Canvas
     private Renderer(int width, int height)
     {
         super(); // call parent constructor
-        backgroundColor = new Color(0, 0, 0);//init bg color
         this.setPreferredSize(new Dimension(width, height)); // set size of canvas to draw on
         this.setBackground(backgroundColor); // set bg color
         this.setVisible(true);
@@ -69,7 +68,6 @@ public class Renderer extends Canvas
         window.addKeyListener(InputManager.getInstance());
         window.pack();
 
-        startTime = System.currentTimeMillis();
         // creating custom buffer strategy (required to make custom render methods)
         createBufferStrategy(2);
         bufferStrategy = getBufferStrategy();
@@ -201,6 +199,12 @@ public class Renderer extends Canvas
         panel.add(button);
     }
 
+    public void reset()
+    {
+        clearScreen();
+        resetBackgroundColor();
+    }
+
     public void clearScreen()
     {
         while (!buttons.isEmpty())
@@ -226,6 +230,12 @@ public class Renderer extends Canvas
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
+    }
+
+    public void resetBackgroundColor()
+    {
+        backgroundColor = new Color(0, 0, 0);
+        startTime = System.currentTimeMillis();
     }
 
     public int getRows()

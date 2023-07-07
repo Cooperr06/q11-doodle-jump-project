@@ -69,7 +69,7 @@ public class DinoJump
         {
             timer.cancel();
         }
-        Renderer.getInstance().clearScreen();
+        Renderer.getInstance().reset();
         Audio.getInstance().stopMusic();
         PlatformManager.getInstance().getPlatforms().clear();
         Avatar.getInstance().reset();
