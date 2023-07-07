@@ -2,6 +2,7 @@
 .idea/
 out/
 *.iml
+META-INF/
 
 # Compiled class file
 *.class
