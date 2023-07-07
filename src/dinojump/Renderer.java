@@ -198,6 +198,21 @@ public class Renderer extends Canvas
         button.setVisible(true);
         panel.add(button);
     }
+    
+    public void updateBackgroundColor()
+    {
+        float minimumBrightness = 0.2f;
+        float speed = 0.8f;
+        float time = (System.currentTimeMillis() - startTime) / 1000f;
+
+        int r = (int) round((((sin(time * 0.3f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        int g = (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        int b = (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
+        backgroundColor = new Color(r, g, b);
+        Graphics graphics = getBufferStrategy().getDrawGraphics();
+        graphics.setColor(backgroundColor);
+        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
+    }
 
     public void reset()
     {
@@ -215,21 +230,6 @@ public class Renderer extends Canvas
         Graphics graphics = getBufferStrategy().getDrawGraphics();
         graphics.setColor(Color.black);
         graphics.clearRect(0, 0, window.getWidth(), window.getHeight());
-    }
-
-    public void updateBackgroundColor()
-    {
-        float minimumBrightness = 0.2f;
-        float speed = 0.8f;
-        float time = (System.currentTimeMillis() - startTime) / 1000f;
-
-        int r = (int) round((((sin(time * 0.3f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
-        int g = (int) round((((sin(time * 0.4f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
-        int b = (int) round((((sin(time * 0.5f * speed) + 1) / 2) / (1 / (1 - minimumBrightness)) + minimumBrightness) * 255f);
-        backgroundColor = new Color(r, g, b);
-        Graphics graphics = getBufferStrategy().getDrawGraphics();
-        graphics.setColor(backgroundColor);
-        graphics.fillRect(0, 0, window.getWidth(), window.getHeight());
     }
 
     public void resetBackgroundColor()
