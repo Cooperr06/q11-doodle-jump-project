@@ -18,13 +18,9 @@ public class CollisionManager
     {
         if (instance == null)
         {
-            return new CollisionManager();
+            instance = new CollisionManager();
         }
-        else
-        {
-            return instance;
-        }
-
+        return instance;
     }
 
     public void checkForCollision()
@@ -36,11 +32,16 @@ public class CollisionManager
         {
             for (int i = 0; i < platforms.size(); i++)
             {
-                if (avatar.getPosition().getX() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPixelPositionX() && avatar.getPosition().getX() < platforms.get(i).getPixelPositionX() + Renderer.getInstance().getPlatformWidth())
+                if (avatar.getPosition().getX() + Renderer.getInstance().getAvatarDimensions() >
+                        platforms.get(i).getPixelXPosition() && avatar.getPosition().getX() <
+                        platforms.get(i).getPixelXPosition() + Renderer.getInstance().getPlatformWidth())
                 {
-                    if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() < platforms.get(i).getPosition().getY() + Renderer.getInstance().getPlatformHeight() && avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() > platforms.get(i).getPosition().getY())
+                    if (avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() <
+                            platforms.get(i).getPosition().getY() + Renderer.getInstance().getPlatformHeight() &&
+                            avatar.getPosition().getY() + Renderer.getInstance().getAvatarDimensions() >
+                                    platforms.get(i).getPosition().getY())
                     {
-                        Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxYVelocity());
+                        Avatar.getInstance().setYVelocity(-Avatar.getInstance().getMaxFallingVelocity());
                         Audio.getInstance().playSound("jump");
                     }
                 }
@@ -53,6 +54,3 @@ public class CollisionManager
         checkForCollision();
     }
 }
-
-
-

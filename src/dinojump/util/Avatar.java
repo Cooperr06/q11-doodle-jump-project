@@ -20,7 +20,8 @@ public class Avatar implements Movable
     private int yVelocity;
 
     private int maxXVelocity;
-    private int maxYVelocity;
+    private int maxFallingVelocity;
+    private int maxJumpingVelocity;
 
     private int xAcceleration;
     private int yAcceleration = 1;
@@ -31,7 +32,8 @@ public class Avatar implements Movable
         skin = SkinManager.getInstance().selectAvatarSkin();
 
         maxXVelocity = 60;
-        maxYVelocity = 40;
+        maxFallingVelocity = 70;
+        maxJumpingVelocity = 40;
     }
 
     public static Avatar getInstance()
@@ -45,7 +47,8 @@ public class Avatar implements Movable
 
     public void reset()
     {
-        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2, Renderer.getInstance().getScreenHeight() / 2);
+        position = new Position(Renderer.getInstance().getScreenWidth() / 2 - Renderer.getInstance().getAvatarDimensions() / 2,
+                Renderer.getInstance().getScreenHeight() / 2);
         yAcceleration = 1;
     }
 
@@ -69,7 +72,7 @@ public class Avatar implements Movable
         // xVelocity
         if (xAcceleration == 0) // deceleration
         {
-            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 7))
+            if (abs(xVelocity) <= ceil((double) abs(maxXVelocity) / 10))
             {
                 xVelocity = 0;
             }
@@ -101,15 +104,15 @@ public class Avatar implements Movable
 
         // yVelocity
         /*
-        since there is no accelerating process in jumping, it goes maxVel -slowly-> Vel = 0 -slowly-> -1 * maxVel
+        since there is no accelerating process in jumping, it goes maxVel - slowly -> Vel = 0 - slowly -> -1 * maxVel
         until collisionManager "accelerates" again, witch is considered as a starting signal to jump, therefor repeats the cycle
          */
-        if (yAcceleration > 0) // got accelerated by collisionManager
+        if (yAcceleration > 0) // getting accelerated by collisionManager
         {
-            yVelocity = maxYVelocity * -1;
+            yVelocity = maxJumpingVelocity * -1;
             yAcceleration = 0;
         }
-        else if (yVelocity < 0) //traveling upwards
+        else if (yVelocity < 0) // travelling upwards
         {
             yVelocity = (int) ceil((double) yVelocity / 1.05);
         }
@@ -117,10 +120,10 @@ public class Avatar implements Movable
         {
             yVelocity = 1;
         }
-        else // traveling downwards
+        else // travelling downwards
         {
             yVelocity = (int) ceil((double) yVelocity * 1.2);
-            int maxFallingVelocity = (int) floor((double) maxYVelocity / 6);
+            int maxFallingVelocity = (int) floor((double) this.maxFallingVelocity / 6);
             if (yVelocity > maxFallingVelocity)
             {
                 yVelocity = maxFallingVelocity;
@@ -130,28 +133,31 @@ public class Avatar implements Movable
 
     public void updatePosition()
     {
-        if (DinoJump.getInstance().isRunning())
+        if (DinoJump.getInstance().isRunning() &&
+                ((xVelocity > 0 && getPosition().getX() < Renderer.getInstance().getScreenWidth() - Renderer.getInstance().getAvatarDimensions() ||
+                        (xVelocity < 0 && getPosition().getX() > Renderer.getInstance().getAvatarDimensions()))))
         {
             position.setX(position.getX() + xVelocity / 10);
+        }
+    }
+
+    public void checkForGameOver()
+    {
+        // if the current y of the avatar is greater than the y of the lowest platform, the avatar cannot move upwards anymore --> Game Over
+        if (getPosition().getY() > PlatformManager.getInstance().getPlatforms().getFirst()
+                .getDataElement().getPosition().getY() + 300 && yVelocity > 0)
+        {
+            ScoreManager.getInstance().updateScore();
+            Stage.getInstance().showGameOverScreen();
+            DinoJump.getInstance().getTimer().cancel();
+            DinoJump.getInstance().setRunning(false);
+            PlatformManager.getInstance().getPlatforms().clear();
         }
     }
 
     public void redraw()
     {
         Renderer.getInstance().renderAvatar(skin, position);
-    }
-
-    public void checkForGameOver()
-    {
-        // if the current y of the avatar is greater than the y of the lowest platform, the avatar cannot move upwards anymore --> Game Over
-        if (getPosition().getY() > PlatformManager.getInstance().getPlatforms().getFirst().getDataElement().getPosition().getY() && yVelocity > 0)
-        {
-            ScoreManager.getInstance().updateScoreToDatabase();
-            Stage.getInstance().showGameOverScreen();
-            DinoJump.getInstance().getTimer().cancel();
-            DinoJump.getInstance().setRunning(false);
-            PlatformManager.getInstance().getPlatforms().clear();
-        }
     }
 
     public Skin getSkin()
@@ -201,14 +207,14 @@ public class Avatar implements Movable
         this.maxXVelocity = maxXVelocity;
     }
 
-    public int getMaxYVelocity()
+    public int getMaxFallingVelocity()
     {
-        return maxYVelocity;
+        return maxFallingVelocity;
     }
 
-    public void setMaxYVelocity(int maxYVelocity)
+    public void setMaxFallingVelocity(int maxFallingVelocity)
     {
-        this.maxYVelocity = maxYVelocity;
+        this.maxFallingVelocity = maxFallingVelocity;
     }
 
     public int getXAcceleration()
@@ -229,5 +235,15 @@ public class Avatar implements Movable
     public void setYAcceleration(int yAcceleration)
     {
         this.yAcceleration = yAcceleration;
+    }
+
+    public int getMaxJumpingVelocity()
+    {
+        return maxJumpingVelocity;
+    }
+
+    public void setMaxJumpingVelocity(int maxJumpingVelocity)
+    {
+        this.maxJumpingVelocity = maxJumpingVelocity;
     }
 }

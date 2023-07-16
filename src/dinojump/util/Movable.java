@@ -8,4 +8,3 @@ public interface Movable
 
     void setPosition(Position position);
 }
-

@@ -15,17 +15,15 @@ public class PlatformManager
 
     private final List platforms = new List();
     private final Skin platformSkin = Skin.of(1);
+    private final Random random = new Random();
 
     private final int rows;
     private final int columns;
-
-    private Random random;
 
     private PlatformManager()
     {
         rows = Renderer.getInstance().getRows();
         columns = Renderer.getInstance().getColumns();
-        random = new Random();
     }
 
     public static PlatformManager getInstance()
@@ -39,7 +37,6 @@ public class PlatformManager
 
     public void iterateLoop()
     {
-        boolean scoreUpdate;
         platforms.forEach(DataElement::iterateLoop);
         // platforms that are below the window get reused on top
         for (int i = 0; i < platforms.size(); i++)
@@ -47,18 +44,12 @@ public class PlatformManager
             DataElement platform = platforms.get(i);
             if (platform.getPosition().getY() > Renderer.getInstance().getHeight() + 100)
             {
-                scoreUpdate = true;
                 platforms.remove(platform);
-                platforms.insertLast(platform);
-                platform.setPosition(new Position((int) (random.nextGaussian() * 3 + columns / 2), random.nextInt(10) - 5));
-                i--;
-            }
-            else
-            {
-                break;
-            }
+                platform.moveTo(
+                        (int) (random.nextGaussian() * 5 + columns / 2),
+                        (int) random.nextGaussian() * -random.nextInt(50));
+                platforms.insertSorted(platform);
 
-            if (scoreUpdate) {
                 ScoreManager.getInstance().addScore(1);
                 ScoreManager.getInstance().renderScore();
             }
@@ -71,8 +62,13 @@ public class PlatformManager
         for (int i = 0; i < amount; i++)
         {
             int x = (int) (random.nextGaussian() * 3 + columns / 2);
-            int y = (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows);
-            platforms.insertLast(new Platform(platformSkin, new Position(x, y)));
+            int y = (rows - ((int) (((float) i / (float) (amount - 1) * rows))) * Renderer.getInstance().getScreenHeight() / rows) + 3;
+            if (i == amount - 1)
+            {
+                x = columns / 2;
+                y = (int) Math.round(Renderer.getInstance().getScreenHeight() * 0.1);
+            }
+            platforms.insertSorted(new Platform(platformSkin, new Position(x, y)));
         }
     }
 

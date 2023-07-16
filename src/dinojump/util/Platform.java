@@ -46,20 +46,22 @@ public class Platform implements Movable, DataElement
     }
 
     @Override
-    public int getPixelPositionX()
-    {
-        return (int) ((float) position.getX() / (float) Renderer.getInstance().getColumns() * (float) Renderer.getInstance().getScreenWidth());
-    }
-
-    @Override
-    public int getPixelPositionY()
-    {
-        return -position.getY();
-    }
-
-    @Override
     public void setPosition(Position position)
     {
         this.position = position;
+    }
+
+    @Override
+    public int getPixelXPosition()
+    {
+        return (int) ((float) position.getX() /
+                (float) Renderer.getInstance().getColumns() *
+                (float) Renderer.getInstance().getScreenWidth());
+    }
+
+    @Override
+    public int getPixelYPosition()
+    {
+        return -position.getY();
     }
 }

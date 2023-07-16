@@ -1,6 +1,7 @@
 package dinojump.manager;
 
 import dinojump.Renderer;
+import dinojump.util.Account;
 import dinojump.util.Audio;
 import dinojump.util.Position;
 
@@ -8,10 +9,12 @@ public class ScoreManager
 {
     private static ScoreManager instance;
 
-    private int score;
-    private Position position;
-    private int scoreTextSize;
-    
+    private final int scoreTextSize = 40;
+    private final Position position;
+
+    private int score = 0;
+    private int lastAchievement = 0;
+
     public static ScoreManager getInstance()
     {
         if (instance == null)
@@ -23,8 +26,6 @@ public class ScoreManager
 
     private ScoreManager()
     {
-        score = 0;
-        scoreTextSize = 40;
         position = new Position(50, 80);
         renderScore();
     }
@@ -35,23 +36,25 @@ public class ScoreManager
         renderScore();
     }
 
-    public void updateScoreToDatabase()
+    public void updateScore()
     {
         String macAddress = DatabaseManager.getInstance().getMacAddress();
         if (DatabaseManager.getInstance().getHighscore(macAddress) < score)
         {
             DatabaseManager.getInstance().updateHighscore(macAddress, score);
+            Account.getInstance().setHighscore(score);
         }
-    }
-
-    public void resetScore()
-    {
-        score = 0;
     }
 
     public void renderScore()
     {
         Renderer.getInstance().renderText(String.valueOf(score), position, scoreTextSize);
+    }
+
+    public void resetScore()
+    {
+        score = 0;
+        lastAchievement = 0;
     }
 
     public void addScore(int add)
@@ -70,13 +73,15 @@ public class ScoreManager
         {
             return;
         }
-        if (score % 1000 == 0)
+        if (score % 1000 == 0 && lastAchievement < score)
         {
             Audio.getInstance().playSound("achievementBig");
+            lastAchievement = score;
         }
-        else if (score % 100 == 0)
+        else if (score % 100 == 0 && lastAchievement < score)
         {
             Audio.getInstance().playSound("achievementSmall");
+            lastAchievement = score;
         }
     }
 }

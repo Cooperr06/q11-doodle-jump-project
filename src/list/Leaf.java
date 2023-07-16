@@ -22,6 +22,12 @@ public class Leaf extends ListElement
     }
 
     @Override
+    public ListElement insertSorted(DataElement data)
+    {
+        return insertLast(data);
+    }
+
+    @Override
     public ListElement remove(DataElement temp)
     {
         return this;

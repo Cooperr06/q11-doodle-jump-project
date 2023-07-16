@@ -42,6 +42,20 @@ public class Node extends ListElement
     }
 
     @Override
+    public ListElement insertSorted(DataElement data)
+    {
+        if (data.getPosition().getY() > this.data.getPosition().getY())
+        {
+            return new Node(data, this);
+        }
+        else
+        {
+            successor = successor.insertSorted(data);
+            return this;
+        }
+    }
+
+    @Override
     public ListElement remove(DataElement data)
     {
         if (this.data == data)

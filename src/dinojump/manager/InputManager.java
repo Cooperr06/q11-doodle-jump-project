@@ -24,18 +24,13 @@ public class InputManager implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent e)
-    {
-    }
-
-    @Override
     public void keyPressed(KeyEvent e)
     {
         // check which button is pressed
         switch (e.getKeyCode())
         {
-            case 65 -> Avatar.getInstance().setXAcceleration(-1); // A is pressed
-            case 68 -> Avatar.getInstance().setXAcceleration(1); // D is pressed
+            case 65 -> Avatar.getInstance().setXAcceleration(-5); // A is pressed
+            case 68 -> Avatar.getInstance().setXAcceleration(5); // D is pressed
             case 10 ->
             {
                 if (!DinoJump.getInstance().isRunning())
@@ -54,5 +49,10 @@ public class InputManager implements KeyListener
         {
             case 65, 68 -> Avatar.getInstance().setXAcceleration(0); // A or D is released
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
     }
 }

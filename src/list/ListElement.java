@@ -25,6 +25,14 @@ public abstract class ListElement
     public abstract ListElement insertLast(DataElement data);
 
     /**
+     * Inserts a data element sorted descending by its key (key = yPosition)
+     *
+     * @param data data to insert
+     * @return node or leaf as new successor or new list element in list
+     */
+    public abstract ListElement insertSorted(DataElement data);
+
+    /**
      * Removes the list element with the specific data element from this list
      *
      * @param data list element's data element
