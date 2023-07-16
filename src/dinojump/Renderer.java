@@ -17,17 +17,21 @@ public class Renderer extends Canvas
 {
     private static Renderer instance;
 
-    private final JFrame window; // frame in OS
-    private final BufferStrategy bufferStrategy; // required to make custom render methods
-
-    private final int rows = 10; // logic dimensions are fixed
+    // logic dimensions are fixed
+    private final int rows = 10;
     private final int columns = 20;
 
-    private final int finTileSize;
+    private final JFrame window; // frame in OS
+    private final BufferStrategy bufferStrategy; // required to make custom render methods
 
     private final int screenHeight;
     private final int screenWidth;
 
+    private final int finTileSize;
+
+    private final float avatarScale;
+
+    // required for animated rgb-background
     private long startTime;
     private Color backgroundColor;
 
@@ -38,14 +42,6 @@ public class Renderer extends Canvas
         this.setBackground(backgroundColor); // set bg color
         this.setVisible(true);
 
-        // initializing values
-        screenHeight = height;
-        screenWidth = width;
-        // sprite resolution is fixed
-        int tileSize = 32;
-        int scale = (screenHeight / rows) / tileSize; // scale depends on height
-        finTileSize = scale * tileSize; // calculation of final tile size on screen
-
         // creating frame and setting default attributes
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +50,17 @@ public class Renderer extends Canvas
         window.setVisible(true);
         window.setPreferredSize(new Dimension(width, height));
         window.setLocation(0, 0);
+
+        // initializing values
+        screenHeight = height;
+        screenWidth = width;
+
+        // sprite resolution is fixed
+        int tileSize = 32;
+        int scale = (screenHeight / rows) / tileSize; // scale depends on height
+        finTileSize = scale * tileSize; // calculation of final tile size on screen
+
+        avatarScale = 0.75F; // avatar scale is fixed
 
         JPanel panel = new JPanel();
         panel.add(this);
@@ -143,7 +150,8 @@ public class Renderer extends Canvas
     public void renderAvatar(Skin skin, Position position)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-        graphics.drawImage(skin.getImage(), position.getX(), position.getY(), finTileSize, finTileSize, null);
+        graphics.drawImage(skin.getImage(), position.getX(), position.getY(),
+                (int) (finTileSize * avatarScale), (int) (finTileSize * avatarScale), null);
     }
 
     /**
@@ -208,9 +216,19 @@ public class Renderer extends Canvas
         startTime = System.currentTimeMillis();
     }
 
-    public JFrame getWindow()
+    public int getAvatarDimensions()
     {
-        return window;
+        return (int) (finTileSize * avatarScale);
+    }
+
+    public int getPlatformWidth()
+    {
+        return finTileSize * 3 / 4;
+    }
+
+    public int getPlatformHeight()
+    {
+        return finTileSize / 4;
     }
 
     public int getRows()
@@ -231,20 +249,5 @@ public class Renderer extends Canvas
     public int getScreenWidth()
     {
         return screenWidth;
-    }
-
-    public int getAvatarDimensions()
-    {
-        return finTileSize;
-    }
-
-    public int getPlatformWidth()
-    {
-        return finTileSize / 2;
-    }
-
-    public int getPlatformHeight()
-    {
-        return finTileSize / 4;
     }
 }

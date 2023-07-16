@@ -1,34 +1,35 @@
 package dinojump.util;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
+import javax.sound.sampled.*;
 import java.io.IOException;
+import java.net.URL;
 
 public class Audio
 {
     private static Audio instance;
 
-    private final File gameFile;
-    private final File lobbyFile;
+    // music files
+    private final URL lobbyFileUrl;
+    private final URL soundtrackFileUrl;
 
-    private final File jumpFile;
-    private final File smallAchievementFile;
-    private final File bigAchievementFile;
-    private final File gameOverFile;
+    // fx effect files
+    private final URL bigAchievementFileUrl;
+    private final URL smallAchievementFileUrl;
+    private final URL gameOverFileUrl;
+    private final URL jumpFileUrl;
 
     private final Clip bgMusic;
 
     private Audio()
     {
-        gameFile = new File("./resources/audio/music/soundtrack.wav");
-        lobbyFile = new File("./resources/audio/music/lobby.wav");
-        jumpFile = new File("./resources/audio/fx/jump_1.wav");
-        gameOverFile = new File("./resources/audio/fx/gameover2.wav");
-        smallAchievementFile = new File("./resources/audio/fx/achievementSmall.wav");
-        bigAchievementFile = new File("./resources/audio/fx/achievementBig.wav");
+        lobbyFileUrl = getClass().getResource("/audio/music/lobby.wav");
+        soundtrackFileUrl = getClass().getResource("/audio/music/soundtrack.wav");
+
+        bigAchievementFileUrl = getClass().getResource("/audio/fx/achievementBig.wav");
+        smallAchievementFileUrl = getClass().getResource("/audio/fx/achievementSmall.wav");
+        gameOverFileUrl = getClass().getResource("/audio/fx/gameover.wav");
+        jumpFileUrl = getClass().getResource("/audio/fx/jump.wav");
+
         try
         {
             bgMusic = AudioSystem.getClip();
@@ -50,60 +51,41 @@ public class Audio
 
     public void playGame()
     {
-        try
-        {
-            bgMusic.open(AudioSystem.getAudioInputStream(gameFile));
-        }
-        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
-        {
-            throw new RuntimeException(e);
-        }
-        bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        createClip(soundtrackFileUrl, false, true);
     }
 
     public void playLobby()
     {
-        try
-        {
-            bgMusic.open(AudioSystem.getAudioInputStream(lobbyFile));
-        }
-        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
-        {
-            throw new RuntimeException(e);
-        }
-        bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        createClip(lobbyFileUrl, false, true);
     }
 
     public void playSound(String effect)
     {
-        Clip clip = bgMusic;
-        try
+        switch (effect)
         {
-            switch (effect)
-            {
-                case "jump" ->
-                {
-                    clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(jumpFile));
-                }
-                case "achievementSmall" ->
-                {
-                    clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(smallAchievementFile));
-                }
-                case "achievementBig" ->
-                {
-                    clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(bigAchievementFile));
-                }
-                case "gameOver" -> bgMusic.open(AudioSystem.getAudioInputStream(gameOverFile));
-            }
+            case "jump" -> createClip(jumpFileUrl, true, false);
+            case "achievementSmall" -> createClip(smallAchievementFileUrl, true, false);
+            case "achievementBig" -> createClip(bigAchievementFileUrl, true, false);
+            case "gameOver" -> createClip(gameOverFileUrl, false, false);
         }
-        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
+    }
+
+    public void createClip(URL fileUrl, boolean useNewClip, boolean loop)
+    {
+        try (AudioInputStream inputStream = AudioSystem.getAudioInputStream(fileUrl))
+        {
+            Clip clip = useNewClip ? AudioSystem.getClip() : bgMusic;
+            clip.open(inputStream);
+            if (loop)
+            {
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            }
+            clip.start();
+        }
+        catch (LineUnavailableException | UnsupportedAudioFileException | IOException e)
         {
             throw new RuntimeException(e);
         }
-        clip.start();
     }
 
     public void stopMusic()

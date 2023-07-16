@@ -8,7 +8,6 @@ import list.DataElement;
 import list.List;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class PlatformManager
 {
@@ -46,9 +45,9 @@ public class PlatformManager
             if (platform.getPosition().getY() > Renderer.getInstance().getHeight() + 100)
             {
                 platforms.remove(platform);
-                platform.setPosition(new Position((int) (random.nextGaussian() * 5 + columns / 2),
-                        -ThreadLocalRandom.current().nextInt(0, 3) *
-                                (Renderer.getInstance().getScreenHeight() / Renderer.getInstance().getRows())));
+                platform.moveTo(
+                        (int) (random.nextGaussian() * 5 + columns / 2),
+                        (int) random.nextGaussian() * -random.nextInt(50));
                 platforms.insertSorted(platform);
 
                 ScoreManager.getInstance().addScore(1);
@@ -67,7 +66,7 @@ public class PlatformManager
             if (i == amount - 1)
             {
                 x = columns / 2;
-                y = (int) Math.round(rows * 0.75);
+                y = (int) Math.round(Renderer.getInstance().getScreenHeight() * 0.1);
             }
             platforms.insertSorted(new Platform(platformSkin, new Position(x, y)));
         }

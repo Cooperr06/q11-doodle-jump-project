@@ -13,6 +13,7 @@ public class ScoreManager
     private final Position position;
 
     private int score = 0;
+    private int lastAchievement = 0;
 
     public static ScoreManager getInstance()
     {
@@ -53,6 +54,7 @@ public class ScoreManager
     public void resetScore()
     {
         score = 0;
+        lastAchievement = 0;
     }
 
     public void addScore(int add)
@@ -71,13 +73,15 @@ public class ScoreManager
         {
             return;
         }
-        if (score % 1000 == 0)
+        if (score % 1000 == 0 && lastAchievement < score)
         {
             Audio.getInstance().playSound("achievementBig");
+            lastAchievement = score;
         }
-        else if (score % 100 == 0)
+        else if (score % 100 == 0 && lastAchievement < score)
         {
             Audio.getInstance().playSound("achievementSmall");
+            lastAchievement = score;
         }
     }
 }
