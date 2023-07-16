@@ -49,7 +49,7 @@ public class DinoJump
             {
                 loop();
             }
-        }, 0, 1000 / fps);
+        }, 0, Math.max(1000 / fps, 1));
     }
 
     private void loop()
