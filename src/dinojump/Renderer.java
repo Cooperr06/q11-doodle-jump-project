@@ -4,13 +4,11 @@ import dinojump.manager.InputManager;
 import dinojump.util.Position;
 import dinojump.util.Skin;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferStrategy;
-import java.io.IOException;
 
 import static java.lang.Math.round;
 import static java.lang.Math.sin;
@@ -145,16 +143,7 @@ public class Renderer extends Canvas
     public void renderAvatar(Skin skin, Position position)
     {
         Graphics graphics = getBufferStrategy().getDrawGraphics();
-        Image image;
-        try
-        {
-            image = ImageIO.read(skin.getImages()[0]);
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        graphics.drawImage(image, position.getX(), position.getY(), finTileSize, finTileSize, null);
+        graphics.drawImage(skin.getImage(), position.getX(), position.getY(), finTileSize, finTileSize, null);
     }
 
     /**
@@ -168,16 +157,8 @@ public class Renderer extends Canvas
 
         platforms.forEach(platform ->
         {
-            Image image;
-            try
-            {
-                image = ImageIO.read(platform.getSkin().getImages()[0]);
-            }
-            catch (IOException e)
-            {
-                throw new RuntimeException(e);
-            }
-            graphics.drawImage(image, platform.getPosition().getX() * window.getWidth() / columns, platform.getPosition().getY(), finTileSize * 3 / 4, finTileSize * 3 / 4, null);
+            graphics.drawImage(platform.getSkin().getImage(), platform.getPosition().getX() * window.getWidth() / columns,
+                    platform.getPosition().getY(), finTileSize * 3 / 4, finTileSize * 3 / 4, null);
         });
     }
 

@@ -1,22 +1,36 @@
 package dinojump.util;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public final class Skin
 {
     private final int id;
-    private final File[] images;
+    private final BufferedImage image;
 
-    public Skin(int id, File[] images)
+    public Skin(int id, BufferedImage image)
     {
         this.id = id;
-        this.images = images;
+        this.image = image;
     }
 
     public static Skin of(int id)
     {
-        File skinDirectory = new File("./resources/skins/" + id);
-        return new Skin(id, skinDirectory.listFiles());
+        File[] skinDirectoryFiles = new File("./resources/skins/" + id).listFiles();
+        if (skinDirectoryFiles == null || skinDirectoryFiles.length < 1)
+        {
+            throw new RuntimeException("There is no skin file in the directory with the id %d".formatted(id));
+        }
+        try
+        {
+            return new Skin(id, ImageIO.read(skinDirectoryFiles[0]));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getId()
@@ -24,8 +38,8 @@ public final class Skin
         return id;
     }
 
-    public File[] getImages()
+    public BufferedImage getImage()
     {
-        return images;
+        return image;
     }
 }
